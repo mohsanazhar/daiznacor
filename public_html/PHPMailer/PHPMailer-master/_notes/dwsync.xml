@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dwsync>
+<file name=".php_cs" server="62.100.204.132" local="132073786018575988" remote="131516172000000000" Dst="0" />
+<file name="UPGRADING.md" server="62.100.204.132" local="132073786027652074" remote="131516172000000000" Dst="0" />
+<file name="VERSION" server="62.100.204.132" local="132073786028092004" remote="131516172000000000" Dst="0" />
+<file name="LICENSE" server="62.100.204.132" local="132073786033669374" remote="131516172000000000" Dst="0" />
+<file name="composer.json" server="62.100.204.132" local="132073786035628259" remote="131516172000000000" Dst="0" />
+<file name="get_oauth_token.php" server="62.100.204.132" local="132073786043586173" remote="131516172000000000" Dst="0" />
+<file name="composer.phar" server="62.100.204.132" local="132073786068753751" remote="131517900000000000" Dst="0" />
+<file name="phpdoc.dist.xml" server="62.100.204.132" local="132073786194374006" remote="131516172000000000" Dst="0" />
+<file name=".php_cs" server="108.167.141.123" local="132073786018575988" remote="132073430400000000" Dst="0" />
+<file name="composer.json" server="108.167.141.123" local="132073786035628259" remote="132073430400000000" Dst="0" />
+<file name="get_oauth_token.php" server="108.167.141.123" local="132073786043586173" remote="132073430400000000" Dst="0" />
+<file name="composer.phar" server="108.167.141.123" local="132073786068753751" remote="132073431000000000" Dst="0" />
+<file name="phpdoc.dist.xml" server="108.167.141.123" local="132073786194374006" remote="132073431000000000" Dst="0" />
+<file name="LICENSE" server="108.167.141.123" local="132073786033669374" remote="132073431000000000" Dst="0" />
+<file name="UPGRADING.md" server="108.167.141.123" local="132073786027652074" remote="132073431000000000" Dst="0" />
+<file name="VERSION" server="108.167.141.123" local="132073786028092004" remote="132073431000000000" Dst="0" />
+<file name=".php_cs" server="192.254.146.132" local="132073786018575988" remote="132076464600000000" Dst="0" />
+<file name="composer.json" server="192.254.146.132" local="132073786035628259" remote="132076464600000000" Dst="0" />
+<file name="get_oauth_token.php" server="192.254.146.132" local="132073786043586173" remote="132076464600000000" Dst="0" />
+<file name="composer.phar" server="192.254.146.132" local="132073786068753751" remote="132076464600000000" Dst="0" />
+<file name="LICENSE" server="192.254.146.132" local="132073786033669374" remote="132076465200000000" Dst="0" />
+<file name="phpdoc.dist.xml" server="192.254.146.132" local="132073786194374006" remote="132076465200000000" Dst="0" />
+<file name="UPGRADING.md" server="192.254.146.132" local="132073786027652074" remote="132076465200000000" Dst="0" />
+<file name="VERSION" server="192.254.146.132" local="132073786028092004" remote="132076465200000000" Dst="0" />
+</dwsync>

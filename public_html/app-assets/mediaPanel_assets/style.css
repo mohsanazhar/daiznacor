@@ -1,0 +1,46 @@
+/*
+	======================================================
+		SELECT MEDIA
+	======================================================
+*/
+.m-clear{clear:both; float:none;}
+.m-upload, .m-url, .m-video, .m-folder{display:none;}
+.media-wrapper{display:none;width:100%; height:100%; position:fixed; background:rgba(0,0,0,0.5); top:0px; left:0px;z-index:999999;}
+.mediaPanel .inner{margin-left:0px !important;}
+.mediaPanel .inner ul{padding:0px !important;}
+.mediaPanel{background-color:#EFEFEF; position:relative; width:96%; left:2%; height:94%; top:3%;display:none;}
+.mediaPanel .m-left{height:100%; width:14%; float:left; background-color:#D9ECFF;border-right:1px solid #20B7FF;}
+.mediaPanel .m-left ul{margin:0px;padding:0px;margin-top:20px;}
+.mediaPanel .m-left ul li{padding:10px 15px; cursor:pointer;}
+.mediaPanel .m-left ul li a{color:#005984;font-size:font-size:14px;}
+.mediaPanel .m-left ul li.active a{color:#333; font-weight:bold;}
+.mediaPanel .m-left ul li:hover, .mediaPanel .m-left ul li.active{background:#006B9F;}
+.mediaPanel .m-left ul li:hover a, .mediaPanel .m-left ul li.active a{color:#fff;}
+.mediaPanel .m-right{width:86%; float:left;background-color:#FFF;height:100%;}
+.mediaPanel .m-box{margin:10px;}
+.mediaPanel .m-box .box-title{font-weight:bold;}
+.mediaPanel .m-box .ins-left{ width:79%;float:left;}
+.mediaPanel .m-box .ins-left .inner{overflow:hidden;max-height:500px; overflow-y:auto;padding-top:10px;}
+.mediaPanel .m-insert ul.file-list li{display:inline-block; margin-right:8px; margin-bottom:8px;cursor:pointer;border:3px solid #fff;width:18%;position:relative;}
+.mediaPanel .m-box .f-info button{margin-left:40px;margin-top:10px; background-color:#006B9F !important; color:#fff; padding:8px 12px; font-weight:bold; border-radius:6px !important;}
+.mediaPanel .m-insert ul.file-list li.active{border:3px solid #006B9F;}
+.mediaPanel .m-insert ul.file-list li.active:before{content:"+"; position:absolute; width:30px; height:30px; background-color:#006B9F; color:#fff; font-weight:bold;right:-10px;top:-10px;font-size:20px;text-align:center;}
+.mediaPanel .m-insert ul.file-list li img{width:100%; height:120px;}
+.mediaPanel .m-box .ins-right{width:20%; float:left;}
+.mediaPanel .m-insert .f-info{display:none;margin-left:20px;font-size:14px; padding-bottom:6px; margin-bottom:6px;}
+.mediaPanel .m-insert .f-info h4{font-size:16px; font-weight:bold;}
+.mediaPanel .m-insert .f-info .alt-form{margin-top:12px; border-top:1px solid #999; padding-top:8px;}
+.mediaPanel .m-insert .f-info .title{font-weight:bold;word-break: break-all}
+.mediaPanel .m-insert .f-info a{color:#C00;font-size:12px;}
+.mediaPanel .m-insert .f-info a:hover{color:#F00;}
+.close-m-panel{position:absolute; top:0px; right:0px; padding:5px 10px; background-color:#000; color:#FFF; font-weight:bold; border-radius:50%;margin-top:-10px; margin-right:-10px;cursor:pointer;}
+.upload-f{text-align:center; padding-top:200px;}
+.upload-f .label{color: #948f8f;  display: inline-block; background-color: rgba(204, 204, 204, 0.27);
+    padding: 20px 40px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc; cursor: pointer;}
+.upload-f .upf input[type="file"]{display:inline-block !important; padding: 20px 40px; width: 183px;border: 1px solid;
+    background: transparent; opacity: 0; margin-top: -60px; position: absolute; margin-left: -91px; cursor: pointer;}
+ul.folder-g{margin:0px; padding:0px; list-style:none;}
+ul.folder-g li{width:300px; margin-bottom:6px; border-bottom:1px solid #ccc;}
+ul.folder-g .del-folder{padding:3px 10px; border-radius:50%; background-color:#F00; color:#fff; font-weight:bold;}
+ul.folder-g .action a{display:inline-block; cursor:pointer;}
+ul.folder-g .action{float:right;}

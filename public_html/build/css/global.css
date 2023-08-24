@@ -1,0 +1,8 @@
+.navbar-menu{
+    background: #00599c!important;
+    border-right: 1px solid #00599c!important;
+}
+
+.navbar-menu .navbar-nav .nav-link{
+    color: white!important;
+}
