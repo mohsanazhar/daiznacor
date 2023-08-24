@@ -65,7 +65,7 @@ class MediaController extends Controller
                 $name = $media['name'];
                 $new_name = RequestHelper::slug_maker($new_name);
                 $linked_vehicles = RequestHelper::getLinkedVehicle($name,false);
-            
+
                 if(count($linked_vehicles)>0 && !is_null($linked_vehicles)){
                     foreach ($linked_vehicles as $lk=>$lv){
                         $columns = ['record','reviewed','policy','weight-dimension',

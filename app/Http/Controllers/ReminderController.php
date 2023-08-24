@@ -153,6 +153,68 @@ class ReminderController extends Controller
         }
     }
     /*
+     * plates cron job
+     */
+    function plateCronJob(){
+        $currrent_month  = date('m');
+        $query = DB::table('vehicles')
+            ->join('policies','vehicles.policy_id','=','policies.id')
+            ->join('companies','vehicles.company_id','=','companies.id')
+            ->join('company_emails','companies.id','=','company_emails.company_id')
+            ->join('users','companies.created_by_user_id','=','users.id')
+            ->select(
+                'vehicles.id as vehicle_id',
+                'vehicles.name as vehicle_name',
+                'vehicles.car_plate',
+                'vehicles.month_renewal',
+                'vehicles.brand',
+                'vehicles.model',
+                'vehicles.year',
+                'vehicles.engine',
+                'vehicles.color',
+                'companies.name',
+                'companies.dv',
+                'companies.district',
+                'companies.corregimiento',
+                'companies.street',
+                'companies.house_number',
+                'company_emails.email',
+                'users.name as user_name',
+                'users.email as user_email',
+                'users.enable_reminders',
+                'users.notify_before'
+            )
+            ->where('vehicles.month_renewal',$currrent_month)
+            ->get();
+        if(count($query)>0){
+            //dd($query);
+            foreach ($query as $l=>$v){
+                // check if user enabled reminders
+                if($v->enable_reminders==1){
+                    $view = view('emails.policy_mail',[
+                        'policy_number'=>$v->number,
+                        'policy_expire'=>$v->policy_expiration
+                    ])->render();
+                    $mailData = [
+                        'title' => 'Recordatorio de vencimiento de póliza',
+                        'body' => $view
+                    ];
+                    // To send HTML mail, the Content-type header must be set
+                    $headers[] ='MIME-Version: 1.0';
+                    $headers[] ='From: Your name <info@address.com>';
+                    $headers[] = 'Content-type: text/html; charset=iso-8859-1';
+
+                    /*$headers[] = 'To: Mary <mary@example.com>, Kelly <kelly@example.com>';
+                    $headers[] = 'From: Birthday Reminder <birthday@example.com>';
+                    $headers[] = 'Cc: birthdayarchive@example.com';
+                    $headers[] = 'Bcc: birthdaycheck@example.com';*/
+                    //\mail($v->email, $mailData['title'], $mailData['body'], implode("\r\n", $headers));
+                   // Mail::to($v->email)->send(new NotifyEmail($mailData));
+                }
+            }
+        }
+    }
+    /*
      * post events
      */
     function postCustomEvents(Request $request){

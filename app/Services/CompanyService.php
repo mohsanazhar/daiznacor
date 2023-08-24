@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Services;
+use App\Helper\RequestHelper;
 use App\Helper\StringHelper;
 use App\Models\Company;
 use App\Models\User;
@@ -167,7 +168,8 @@ class CompanyService
                 'phone_number' => $payload["phone"],
                 "company_id" => $company->id
             ]);
-
+            $view = view('emails.company_register_mail')->render();
+            RequestHelper::send_mail($payload['name'],$payload['email'],'Admin',env('MAIL_FROM_ADDRESS'),'BIENVENIDO A PANTRÁMITES',$view);
             return true;
             
         } catch (Exception $e) {
