@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dwsync>
+<file name="LICENSE" server="62.100.204.132" local="132073785968360163" remote="131405580000000000" Dst="0" />
+<file name="PHPMailerAutoload.php" server="62.100.204.132" local="132073786211439730" remote="131405580000000000" Dst="0" />
+<file name="class.phpmaileroauth.php" server="62.100.204.132" local="132073786219206244" remote="131405580000000000" Dst="0" />
+<file name="VERSION" server="62.100.204.132" local="132073786219525966" remote="131405580000000000" Dst="0" />
+<file name="class.phpmailer.php" server="62.100.204.132" local="132073786226353317" remote="131405580000000000" Dst="0" />
+<file name="class.phpmaileroauthgoogle.php" server="62.100.204.132" local="132073786227322681" remote="131405580000000000" Dst="0" />
+<file name="class.pop3.php" server="62.100.204.132" local="132073786231282703" remote="131405580000000000" Dst="0" />
+<file name="class.smtp.php" server="62.100.204.132" local="132073786238780418" remote="131405580000000000" Dst="0" />
+<file name="composer.json" server="62.100.204.132" local="132073786240005605" remote="131405580000000000" Dst="0" />
+<file name="composer.lock" server="62.100.204.132" local="132073786252090388" remote="131405580000000000" Dst="0" />
+<file name="get_oauth_token.php" server="62.100.204.132" local="132073786407784674" remote="131405580000000000" Dst="0" />
+<file name="class.phpmaileroauth.php" server="108.167.141.123" local="132073786219206244" remote="132073429800000000" Dst="0" />
+<file name="class.phpmaileroauthgoogle.php" server="108.167.141.123" local="132073786227322681" remote="132073429800000000" Dst="0" />
+<file name="class.phpmailer.php" server="108.167.141.123" local="132073786226353317" remote="132073429800000000" Dst="0" />
+<file name="class.pop3.php" server="108.167.141.123" local="132073786231282703" remote="132073429800000000" Dst="0" />
+<file name="class.smtp.php" server="108.167.141.123" local="132073786238780418" remote="132073429800000000" Dst="0" />
+<file name="composer.json" server="108.167.141.123" local="132073786240005605" remote="132073429800000000" Dst="0" />
+<file name="composer.lock" server="108.167.141.123" local="132073786252090388" remote="132073429800000000" Dst="0" />
+<file name="get_oauth_token.php" server="108.167.141.123" local="132073786407784674" remote="132073430400000000" Dst="0" />
+<file name="LICENSE" server="108.167.141.123" local="132073785968360163" remote="132073430400000000" Dst="0" />
+<file name="PHPMailerAutoload.php" server="108.167.141.123" local="132079259277286748" remote="132096797400000000" Dst="0" />
+<file name="VERSION" server="108.167.141.123" local="132073786219525966" remote="132073431000000000" Dst="0" />
+<file name="class.phpmaileroauth.php" server="192.254.146.132" local="132073786219206244" remote="132076463400000000" Dst="0" />
+<file name="class.phpmaileroauthgoogle.php" server="192.254.146.132" local="132073786227322681" remote="132076463400000000" Dst="0" />
+<file name="class.phpmailer.php" server="192.254.146.132" local="132073786226353317" remote="132076463400000000" Dst="0" />
+<file name="class.pop3.php" server="192.254.146.132" local="132073786231282703" remote="132076463400000000" Dst="0" />
+<file name="class.smtp.php" server="192.254.146.132" local="132073786238780418" remote="132076463400000000" Dst="0" />
+<file name="composer.json" server="192.254.146.132" local="132073786240005605" remote="132076463400000000" Dst="0" />
+<file name="composer.lock" server="192.254.146.132" local="132073786252090388" remote="132076463400000000" Dst="0" />
+<file name="get_oauth_token.php" server="192.254.146.132" local="132073786407784674" remote="132076464000000000" Dst="0" />
+<file name="LICENSE" server="192.254.146.132" local="132073785968360163" remote="132076464600000000" Dst="0" />
+<file name="PHPMailerAutoload.php" server="192.254.146.132" local="132073786211439730" remote="132076465200000000" Dst="0" />
+<file name="VERSION" server="192.254.146.132" local="132073786219525966" remote="132076465200000000" Dst="0" />
+<file name="PHPMailerAutoload.php" server="ftp.unifyp.com" local="132079259277286748" remote="132079078800000000" Dst="0" />
+</dwsync>
