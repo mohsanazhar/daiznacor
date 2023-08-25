@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 use App\Helper\RequestHelper;
 use App\Mail\NotifyEmail;
+use App\Models\Company;
 use App\Models\Policy;
 use App\Models\ReminderModel;
+use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
@@ -87,24 +89,12 @@ class ReminderController extends Controller
 
                     $today = strtotime(date('Y-m-d H:i:s'));
 
-                    if(($today>=$notify_date) /*&& ($today<strtotime($v->policy_expiration))*/ ){
+                    if(($today>=$notify_date) && ($today<strtotime($v->policy_expiration)) ){
                         $mailData = [
                             'title' => 'Recordatorio de vencimiento de póliza',
-                            'body' => 'La póliza número #('.$v->number.') vence el día "('.$v->policy_expiration.')'
+                            'body' => view('emails.policy_mail',['policy_number'=>$v->number,'policy_expire'=>$v->policy_expiration])->render()
                         ];
-                        // To send HTML mail, the Content-type header must be set
-                        $headers[] ='MIME-Version: 1.0';
-                        $headers[] = 'From: '.env('MAIL_FROM_NAME').' <'.env('MAIL_FROM_ADDRESS').'>';
-                        $headers[] = 'Content-type: text/html; charset=iso-8859-1';
-
-                        /*$headers[] = 'To: Mary <mary@example.com>, Kelly <kelly@example.com>';
-                        $headers[] = 'From: Birthday Reminder <birthday@example.com>';
-                        $headers[] = 'Cc: birthdayarchive@example.com';
-                        $headers[] = 'Bcc: birthdaycheck@example.com';*/
-                        //\mail($v->email, $mailData['title'], $mailData['body'], implode("\r\n", $headers));
-                        info("Policy Email:".$v->email.'<br>');
-                         $mail = RequestHelper::mail_set();
-                        RequestHelper::send_mail($mail,$v->user_name,$v->email,'Admin',env('MAIL_FROM_ADDRESS'),$mailData['title'],$mailData['body']);
+                        RequestHelper::send_mail($v->user_name,$v->email,'Admin',env('MAIL_FROM_ADDRESS'),$mailData['title'],$mailData['body']);
                     
                     }
                 }
@@ -128,25 +118,12 @@ class ReminderController extends Controller
                     $notify_date = strtotime($date->format("Y-m-d H:i:s"));
 
                     $today = strtotime(date('Y-m-d H:i:s'));
-                    if (($today >= $notify_date)/* && ($today<strtotime($v->start))*/) {
+                    if (($today >= $notify_date) && ($today<strtotime($v->start))) {
                         $mailData = [
                             'title' => $v->title,
-                            'body' => "Event Location:".$v->location.'<br>Event Description:'.$v->description
+                            'body' => view('emails.event_mail',['location'=>$v->location,'description'=>$v->description])->render()
                         ];
-                        // To send HTML mail, the Content-type header must be set
-                        $headers[] = 'MIME-Version: 1.0';
-                       $headers[] = 'From: '.env('MAIL_FROM_NAME').' <'.env('MAIL_FROM_ADDRESS').'>';
-                        $headers[] = 'Content-type: text/html; charset=iso-8859-1';
-
-                        /*$headers[] = 'To: Mary <mary@example.com>, Kelly <kelly@example.com>';
-                        $headers[] = 'From: Birthday Reminder <birthday@example.com>';
-                        $headers[] = 'Cc: birthdayarchive@example.com';
-                        $headers[] = 'Bcc: birthdaycheck@example.com';*/
-                        //\mail($user['email'], $mailData['title'], $mailData['body'], implode("\r\n", $headers));
-                        //Mail::to($user['email'])->send(new NotifyEmail($mailData));
-                        $mail = RequestHelper::mail_set();
-                        RequestHelper::send_mail($mail,$user['name'],$user['email'],'Admin',env('MAIL_FROM_ADDRESS'),$mailData['title'],$mailData['body']);
-                        info("Event Email:".$user['email'].'<br>');
+                        RequestHelper::send_mail($user['name'],$user['email'],'Admin',env('MAIL_FROM_ADDRESS'),$mailData['title'],$mailData['body']);
                     }
                 }
             }
@@ -156,60 +133,30 @@ class ReminderController extends Controller
      * plates cron job
      */
     function plateCronJob(){
-        $currrent_month  = date('m');
-        $query = DB::table('vehicles')
-            ->join('policies','vehicles.policy_id','=','policies.id')
-            ->join('companies','vehicles.company_id','=','companies.id')
-            ->join('company_emails','companies.id','=','company_emails.company_id')
-            ->join('users','companies.created_by_user_id','=','users.id')
-            ->select(
-                'vehicles.id as vehicle_id',
-                'vehicles.name as vehicle_name',
-                'vehicles.car_plate',
-                'vehicles.month_renewal',
-                'vehicles.brand',
-                'vehicles.model',
-                'vehicles.year',
-                'vehicles.engine',
-                'vehicles.color',
-                'companies.name',
-                'companies.dv',
-                'companies.district',
-                'companies.corregimiento',
-                'companies.street',
-                'companies.house_number',
-                'company_emails.email',
-                'users.name as user_name',
-                'users.email as user_email',
-                'users.enable_reminders',
-                'users.notify_before'
-            )
-            ->where('vehicles.month_renewal',$currrent_month)
-            ->get();
+        $currrent_month  = (int)date('m');
+        $query  =Company::with(['createdByUserId','emails'])->get();
+
         if(count($query)>0){
-            //dd($query);
             foreach ($query as $l=>$v){
+                $createBy = $v->createdByUserId;
+                $emails = $v->emails->first();
+                $vehicles = Vehicle::where(['month_renewal'=>$currrent_month,'company_id'=>$v['id']])->get()->toArray();
                 // check if user enabled reminders
-                if($v->enable_reminders==1){
-                    $view = view('emails.policy_mail',[
-                        'policy_number'=>$v->number,
-                        'policy_expire'=>$v->policy_expiration
+                if(($createBy['enable_reminders']==1) && count($vehicles)>0){
+                    $ht = "";
+                    foreach ($vehicles as $vehicle) {
+                        $ht .= "PLACA (".$vehicle['car_plate'].")";
+                        $ht .="<br>";
+                    }
+                    $view = view('emails.plate_mail',[
+                        'plate_month'=>date('F'),
+                        'plates'=>$ht
                     ])->render();
                     $mailData = [
-                        'title' => 'Recordatorio de vencimiento de póliza',
+                        'title' => 'RECORDATORIO DE RENOVACIÓN DE PLACA',
                         'body' => $view
                     ];
-                    // To send HTML mail, the Content-type header must be set
-                    $headers[] ='MIME-Version: 1.0';
-                    $headers[] ='From: Your name <info@address.com>';
-                    $headers[] = 'Content-type: text/html; charset=iso-8859-1';
-
-                    /*$headers[] = 'To: Mary <mary@example.com>, Kelly <kelly@example.com>';
-                    $headers[] = 'From: Birthday Reminder <birthday@example.com>';
-                    $headers[] = 'Cc: birthdayarchive@example.com';
-                    $headers[] = 'Bcc: birthdaycheck@example.com';*/
-                    //\mail($v->email, $mailData['title'], $mailData['body'], implode("\r\n", $headers));
-                   // Mail::to($v->email)->send(new NotifyEmail($mailData));
+                    RequestHelper::send_mail($v->name,$emails['email'],'Admin',env('MAIL_FROM_ADDRESS'),$mailData['title'],$mailData['body']);
                 }
             }
         }

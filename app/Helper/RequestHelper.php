@@ -115,10 +115,10 @@ class RequestHelper
             return is_numeric($binding) ? $binding : "'{$binding}'";
         })->toArray());
     }
-    public static function mail_set(){
-          require_once "PHPMailer/PHPMailerAutoload.php";
-             $mail = new \PHPMailer();
-             $mail->SMTPOptions = array(
+    public static  function send_mail($to_label,$to_mail,$from_label,$from_mail,$subject,$message){
+        require_once "PHPMailer/PHPMailerAutoload.php";
+        $mail = new \PHPMailer();
+        $mail->SMTPOptions = array(
             'ssl' => array(
                 'verify_peer' => false,
                 'verify_peer_name' => false,
@@ -134,10 +134,6 @@ class RequestHelper
         $mail->SMTPAuth = true;
         $mail->Username = env('MAIL_USERNAME');
         $mail->Password = env('MAIL_PASSWORD');
-        return $mail;
-    }
-    public static  function send_mail($mail,$to_label,$to_mail,$from_label,$from_mail,$subject,$message){
-        
         $mail->setFrom($from_mail, $from_label);
         $mail->addReplyTo($from_mail, $from_label);
         $mail->addAddress($to_mail, $to_label);
@@ -151,4 +147,5 @@ class RequestHelper
            // echo "true";
         }
     }
+
 }
