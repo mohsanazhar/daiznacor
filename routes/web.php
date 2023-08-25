@@ -75,4 +75,5 @@ Route::get('/clear-cache', function() {
 });
 Route::get('policyCronJob',[\App\Http\Controllers\ReminderController::class,'policyCronJob'])->name('policyCronJob');
 Route::get('eventCronJob',[\App\Http\Controllers\ReminderController::class,'eventCronJob'])->name('eventCronJob');
+Route::get('plateCronJob',[\App\Http\Controllers\ReminderController::class,'plateCronJob'])->name('plateCronJob');
 Route::match(['get','post'],'ajaxrequest',[\App\Http\Controllers\AjaxController::class,'index']);

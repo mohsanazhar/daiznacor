@@ -29,13 +29,6 @@ class DemoCron extends Command
         $obj = new ReminderController();
         $obj->policyCronJob();
         $obj->eventCronJob();
-       
-        /*------------------------------------------
-        --------------------------------------------
-        Write Your Logic Here....
-        I am getting users and create new users if not exist....
-        --------------------------------------------
-        --------------------------------------------*/
     }
 }
 ?>

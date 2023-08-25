@@ -6,5 +6,5 @@ use Illuminate\Http\Request;
 
 class CronController extends Controller
 {
-     function policyCron()
+
 }
