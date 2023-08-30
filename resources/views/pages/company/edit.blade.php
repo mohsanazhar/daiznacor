@@ -113,7 +113,7 @@
                                         <span class="text-danger">*</span>
                                     </label>
                                     <div>
-                                        <input required type="email"  value="{{ old('email', $company['emails'][0]['email']) }}" id="company-email" class="form-control" name="email" placeholder="@lang('translation.email')">
+                                        <input required type="email"  value="{{ old('email', (count($company['emails'])>0)?$company['emails'][0]['email']:'') }}" id="company-email" class="form-control" name="email" placeholder="@lang('translation.email')">
                                         @error('email')
                                             <div id="email-error" class="invalid-feedback">@lang('translation.email') es obligatorio</div>
                                         @enderror
