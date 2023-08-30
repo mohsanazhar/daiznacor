@@ -76,6 +76,7 @@
                                 </div>
                             </div>
                             {{dd($company['emails'])}}
+
                             <div class="col-lg-6 mb-3">
                                 <div>
                                     <label for="company-update-email-{{ $company['id'] }}" class="form-label">@lang('translation.email')</label>
