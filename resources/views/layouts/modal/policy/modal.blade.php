@@ -113,7 +113,7 @@
             flatpickr(document.getElementById(id), {
                 dateFormat: "Y-m-d",
                 ...(defaultDate && { defaultDate: [`today`, ""], }),
-                minDate: `${new Date().getFullYear()}`,
+                minDate: `${new Date().getFullYear() -2}`,
                 enableTime: false
             });
         }

@@ -563,9 +563,27 @@
 </script>
 
 <script>
-    const mortgagee = document.getElementById("mortgagee")
+    $(document).on('click','#mortgagee',function(){
+        let checked = $('#mortgagee').is(':checked');
+        let info = $('#mortgageeInfo').val();
+        if(checked){
+            $('#mortgageeInfo').css("display", "block");
+        }else{
+            $('#mortgageeInfo').css("display", "none");
+        }
+    });
+    $(document).on('click','#editmortgagee',function(){
+        let checked = $('#editmortgagee').is(':checked');
+        let info = $('#editmortgageeInfo').val();
+        if(checked){
+            $('#editmortgageeInfo').css("display", "block");
+        }else{
+            $('#editmortgageeInfo').css("display", "none");
+        }
+    });
+    //const mortgagee = document.getElementById("mortgagee")
 
-    mortgagee.addEventListener("click", () => {
+    /*mortgagee.addEventListener("click", () => {
         let checked = mortgagee.checked
         let info = document.getElementById("mortgageeInfo")
 
@@ -574,7 +592,7 @@
         if(!checked){
             info.value = ""
         }
-    });
+    });*/
 </script>
 
 <script>
@@ -621,7 +639,7 @@
             return control.addOption(data);
         }
         data.forEach((item) => {
-            const data = { value: item.id, text: item.identification_card };
+            const data = { value: item.id, text: item.number };
             control.addOption(data);
         });
     }
@@ -669,7 +687,7 @@
             inputIdentification.value = company.identification_card;
             form.appendChild(inputIdentification);
         }
-        console.log(company.user.name);
+        console.log(company.identification_card);
         $('.user-name').val(company.user.name);
     }
 
@@ -697,6 +715,7 @@
     }
 
     $('select[id^="company-update-identification-card-"]').each(function () {
+        //console.log(compnaiesData);
         selectizeConfigCompanies(`#${this.id}`, compnaiesData);
     });
 
