@@ -276,12 +276,18 @@
 
                         </div>
 
-                        <div class="col-lg-12 mb-3">
-                            <div style="display: flex; align-items: center;">
-                                <input type="checkbox" id="mortgagee" name="mortgagee" style="position: relative; top: -3px;margin-right: 6px;">
-                                <label for="revised_no" class="form-label">Acreedor hipotecario</label>
-                            </div>
+                    <div class="col-lg-12 mb-3">
+                        <div style="display: flex; align-items: center;">
+                            <input type="checkbox" id="editmortgagee" style="position: relative; top: -3px;margin-right: 6px;">
+                            <label for="editmortgagee" class="form-label">Acreedor hipotecario</label>
                         </div>
+                    </div>
+
+                    <div class="col-lg-12 mb-3">
+                        <div>
+                            <textarea type="text" id="editmortgageeInfo" class="form-control"  name="mortgagee" style="display: none;"></textarea>
+                        </div>
+                    </div>
                         
 
                         <div class="hstack gap-2 justify-content-end">

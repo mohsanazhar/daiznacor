@@ -75,11 +75,12 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col-lg-6 mb-3">
                                 <div>
                                     <label for="company-update-email-{{ $company['id'] }}" class="form-label">@lang('translation.email')</label>
                                     <div>
-                                        <input required value="{{ old('email', (!is_null($company['emails']))?$company['emails'][0]['email']:"") }}" type="email" id="company-update-email-{{ $company['id'] }}" class="form-control" name="email" placeholder="@lang('translation.email')">
+                                        <input required value="{{ old('email', (count($company['emails']))?$company['emails'][0]['email']:"") }}" type="email" id="company-update-email-{{ $company['id'] }}" class="form-control" name="email" placeholder="@lang('translation.email')">
                                         @error('email')
                                             <div id="email-update-error" class="invalid-feedback">@lang('translation.email') is required</div>
                                         @enderror

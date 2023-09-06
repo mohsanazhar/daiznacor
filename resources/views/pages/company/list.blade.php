@@ -257,7 +257,7 @@
                                     @endif
                                 </th>
                                 <th class="opacity-75" name='email'>
-                                    @if(isset($company['emails']))
+                                    @if(count($company['emails'])>0)
                                     {{ $company['emails'][0]['email'] }}
                                     @else
                                         N/A
