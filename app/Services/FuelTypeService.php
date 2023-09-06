@@ -27,7 +27,7 @@ class FuelTypeService
     }   
 
     public function get(){
-        return FuelType::orderByAsc("id")->get()->toArray();
+        return FuelType::orderBy("id")->get()->toArray();
     }
 
     public function create($name){
