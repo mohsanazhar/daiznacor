@@ -10,286 +10,7 @@
 @slot('title') Vehiculos @endslot
 @endcomponent
 
-<div class="modal fade" id="addCompanyModal" tabindex="-1" aria-hidden="true" data-bs-config="backdrop:true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content border-0">
-            <div class="modal-header p-4 pb-0">
-                <h5 class="modal-title" id="createMemberLabel">Registro de nuevo vehículo</h5>
-                <button type="button" class="btn-close" id="createMemberBtn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body p-4">
-                <form
-                    action="{{ route('createCar') }}"
-                    method="POST"
-                    enctype="multipart/form-data"
-                    autocomplete="off"
-                    id="form-new-car"
-                    class="needs-validation" 
-                    novalidate
-                >
-                @csrf
-                <div class="g-3 row">
-                    <h3>Vehiculo</h3>
-                        <div class="col-lg-6 mb-3">
-                            <div>
-                                <label for="user-name" class="form-label">
-                                    Nombre del propietario
-                                    <span class="text-danger">*</span>
-                                </label>
-                                <div>
-                                    <input required type="text" id="user-name" class="user-name form-control" name="name" placeholder="Nombre del propietario" autocomplete="off">
-                                    @error('name')
-                                        <div class="d-block invalid-feedback text-danger">El nombre del propietario es obligatorio</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 mb-3">
-                            <div>
-                                <label for="company-identification_card" class="form-label">
-                                    RUC/ Cédula
-                                    <span class="text-danger">*</span>
-                                </label>
-                                <div>
-                                    <select type="text" id="company-identification_card" placeholder="RUC" autocomplete="off"></select>
-                                    @error('identification_card')
-                                        <div class="d-block invalid-feedback text-danger">Identification es obligatorio</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 mb-3">
-                            <div>
-                                <label for="car_plate" class="form-label">
-                                    Placa
-                                    <span class="text-danger">*</span>
-                                </label>
-                                <div>
-                                    <input required type="text" id="car_plate" class="form-control" name="car_plate" placeholder="Placa" autocomplete="off">
-                                    @error('car_plate')
-                                        <div  class="d-block invalid-feedback text-danger">La placa es obligatorio</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 mb-3">
-                            <div>
-                                <label for="month_renewal" class="form-label">
-                                    Mes de renovacion
-                                    <span class="text-danger">*</span>
-                                </label>
-                                <div>
-                                    <select required type="email" id="month_renewal" class="form-control" name="month_renewal">
-                                        <option value="1">Enero</option>
-                                        <option value="2">Febrero</option>
-                                        <option value="3">Marzo</option>
-                                        <option value="4">Abril</option>
-                                        <option value="5">Mayo</option>
-                                        <option value="6">Junio</option>
-                                        <option value="7">Julio</option>
-                                        <option value="8">Agosto</option>
-                                        <option value="9">Septiembre</option>
-                                        <option value="10">Octubre</option>
-                                        <option value="11">Noviembre</option>
-                                        <option value="12">Diciembre</option>
-                                    </select>
-                                    @error('month_renewal')
-                                    <div class="invalid-feedback text-danger">El mes es obligatorio</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 mb-3">
-                            <div>
-                                <label for="brand" class="form-label">
-                                    Marca
-                                    <span class="text-danger">*</span>
-                                </label>
-                                <div>
-                                    <input id='brand' type="text" class="form-control" name="brand" placeholder="Marca" required autocomplete="off">
-                                    @error('brand')
-                                    <div class="invalid-feedback text-danger">La marca es obligatorio</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 mb-3">
-                            <div>
-                                <label for="model" class="form-label">
-                                    Modelo
-                                    <span class="text-danger">*</span>
-                                </label>
-                                <div>
-                                    <input type="text" id="model" class="form-control" name="model" placeholder="Modelo" required autocomplete="off">
-                                    @error('brand')
-                                    <div class="d-block invalid-feedback text-danger">El modelo es obligatorio</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 mb-3">
-                            <div>
-                                <label for="year-car" class="form-label">Año del vehiculo</label>
-                                <div>
-                                    <input type="text" id="year-car" placeholder="Seleccionar año" name="year" class="form-control flatpickr flatpickr-input" data-flatpickr='{"dateFormat": "Y"}' autocomplete="off">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-lg-4 mb-3">
-                            <div>
-                                <label for="chassis" class="form-label">
-                                    Chasis
-                                    <span class="text-danger">*</span>
-                                </label>
-                                <div>
-                                    <input type="text" id="chassis" class="form-control" name="chassis" placeholder="Chasis" required autocomplete="off">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 mb-3">
-
-                            <div>
-                                <label for="engine" class="form-label">
-                                    Motor
-                                    <span class="text-danger">*</span>
-                                </label>
-                                <div>
-                                    <input type="text" id="engine" class="form-control" name="engine" placeholder="Motor" required autocomplete="off">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 mb-3">
-                            <div>
-                                <label for="color" class="form-label">Color</label>
-                                <div>
-                                    <input type="text" id="color" class="form-control" name="color" placeholder="Color" autocomplete="off">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 mb-3">
-                            <div>
-                                <label for="municipality" class="form-label">
-                                    Municipio
-                                    <span class="text-danger">*</span>
-                                </label>
-                                <div>
-                                    <select name="municipality" id="municipality" aria-label="Selecciona el municipio">
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 mb-3">
-                            <div>
-                                <label for="type-vehicle" class="form-label">
-                                    Tipo de vehículo
-                                </label>
-                                <div>
-                                    <select name="type-vehicle" id="type-vehicle" aria-label="Tipo de vehiculo">
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 mb-3">
-                            <div>
-                                <label for="fuel-type" class="form-label">Tipo de combustible</label>
-                                <div>
-                                    <select name="fuel-type" id="fuel-type" aria-label="Tipo de combustible">
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 mb-3">
-                            <div>
-                                <label for="no-polize" class="form-label">Numero de poliza</label>
-                                <div>
-                                    <select type="text" id="no-polize" name="no-polize" placeholder="Numero de poliza">
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 mb-3">
-                            <div>
-                                <label for="insurance_companies" class="form-label">Compañia Aseguradora</label>
-                                <div>
-                                    <input disabled type="text" id="insurance_companies" class="form-control" name="insurance_companies" placeholder="Compañia Aseguradora" autocomplete="off">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 mb-3">
-                             <div>
-                                <label for="weights" class="form-label">Numero de pesas y dimensiones</label>
-                                <div>
-                                    <input type="text" id="weights" class="form-control" name="weights" placeholder="Numero de pesas" autocomplete="off">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 mb-3">
-                          
-                            <div>
-                                <label for="due_date" class="form-label">Fecha de vencimiento</label>
-                                <div>
-                                    <input type="text" id="due_date" placeholder="Select date" name="due_date" class="form-control flatpickr flatpickr-input" autocomplete="off">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-12 mb-3">
-                            {{--<div>
-                                <label for="dimensions" class="form-label">Numero Dimensiones</label>
-                                <div>
-                                    <input type="text" id="dimensions" class="form-control" name="dimensions" placeholder="Numero de dimensiones" autocomplete="off">
-                                </div>
-                            </div>--}}
-                            <div>
-                                <label for="revised_no" class="form-label">Numero de revisado</label>
-                                <div>
-                                    <textarea type="text" id="revised_no" class="form-control" name="revised_no" placeholder="Numero de revisado" autocomplete="off"></textarea>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-lg-12 mb-3">
-
-                        </div>
-
-                        <div class="col-lg-12 mb-3">
-                            <div style="display: flex; align-items: center;">
-                                <input type="checkbox" id="mortgagee" style="position: relative; top: -3px;margin-right: 6px;">
-                                <label for="mortgagee" class="form-label">Acreedor hipotecario</label>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-12 mb-3">
-                            <div>
-                                <textarea type="text" id="mortgageeInfo" class="form-control"  name="mortgagee" style="display: none;"></textarea>
-                            </div>
-                        </div>
-                        
-
-                        <div class="hstack gap-2 justify-content-end">
-                            <button id="close-modal-company" type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="submit" class="btn btn-success">Agregar</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
+@include('pages.cars.create_car_form')
 {{-- @show --}}
 
 <div class="row">
@@ -298,20 +19,7 @@
             <div class="card-header d-flex">
                 <h5 class="card-title mb-0">Lista de carros</h5>
                 <div style="flex: 1 1 auto" class="d-flex justify-content-end">
-                    @if(session("status"))
-                        <div class="alert alert-success d-flex align-items-center mx-auto" role="alert">
-                            <i class="bi bi-check-circle-fill mx-1"></i>
-                                {{ session("status") }}
-                            </div>
-                        </div>
-                    @endif
-                    @if(session("error"))
-                        <div class="alert alert-danger d-flex align-items-center mx-auto" role="alert">
-                            <i class="bi bi-x-circle-fill mx-1"></i>
-                                {{ session("error") }}
-                            </div>
-                        </div>
-                    @endif
+                     @include('layouts.common.display_error')
                     <div class='p-1'>
                         <a style="cursor: pointer;">
                             <a data-key="t-newCompany" data-bs-toggle="modal" data-bs-target="#addCompanyModal" style="cursor: pointer;" class="btn btn-success">@lang('translation.new')</a>
@@ -348,7 +56,7 @@
                     </thead>
                     <tbody>
                         @foreach ($cars as $car)
-                            <x-cars.edit-modal :item="$car"/>
+                            <x-cars.edit-modal :item="$car" :$provinces :$vehicleType :$fuelType/>
                             <tr>
                                 <th class="opacity-75">
                                     {{ $car['id'] }}
@@ -520,7 +228,17 @@
         </div>
     </div>
 </div>
-
+@php
+if(session()->has('status')){
+    session()->remove('status');
+}
+if(session()->has('error')){
+    session()->remove('error');
+}
+if(session()->has('validError')){
+    session()->remove('validError');
+}
+@endphp
 @endsection
 @section('script')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
@@ -530,6 +248,19 @@
 <script src="{{ URL::asset('build/js/app.js') }}"></script>
 
 <script>
+    $(document).ready(function(){
+        var form = document.getElementById('form-new-car');
+        form.addEventListener('submit', function (event) {
+
+            // add was-validated to display custom colors
+            form.classList.add('was-validated')
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+
+        }, false);
+    });
     $(document).ready(() => {
         $("#card-list").DataTable({
             buttons: [
@@ -549,13 +280,13 @@
 </script>
 
 <script>
-    $("#year-car").datepicker({
+    $(".year-car").datepicker({
         format: "yyyy",
         viewMode: "years", 
         minViewMode: "years"
     });
 
-    flatpickr(document.getElementById("due_date"), {
+    flatpickr(document.getElementsByClassName("due_date"), {
         dateFormat: "Y-m-d",
         minDate: `${new Date().getFullYear()}`,
         enableTime: false
@@ -581,18 +312,6 @@
             $('#editmortgageeInfo').css("display", "none");
         }
     });
-    //const mortgagee = document.getElementById("mortgagee")
-
-    /*mortgagee.addEventListener("click", () => {
-        let checked = mortgagee.checked
-        let info = document.getElementById("mortgageeInfo")
-
-        info.style.display = checked ? "block" : "none"
-
-        if(!checked){
-            info.value = ""
-        }
-    });*/
 </script>
 
 <script>
@@ -720,7 +439,9 @@
     });
 
     selectizeConfigCompanies("#company-identification_card", compnaiesData);
+    $('.selectize-select').selectize({
+        showAddOptionOnCreate: true,
+        create: true,
+    });
 </script>
-
-<script src="{{ URL::asset('build/js/pages/vehicle/index.js') }}"></script>
 @endsection
