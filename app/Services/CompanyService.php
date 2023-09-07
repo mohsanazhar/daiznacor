@@ -43,7 +43,7 @@ class CompanyService
         ])
         ->where('created_by_user_id', '=', $filter["userLoggedId"])
         ->whereNull('deleted_at')
-        ->orderByDesc("created_at")
+        ->orderByDesc("id")
         ->skip($offset * $take)
         ->take($take)
         ->get()->toArray();
@@ -65,6 +65,7 @@ class CompanyService
             "province"
         ])->where("id", $id)
         ->whereNull('deleted_at')
+    ->orderByDesc('id')
         ->first();
         if(!$companyFound) return null;
         return $companyFound;
@@ -141,7 +142,6 @@ class CompanyService
                     'created_at' => now(),
                 ]);
             }
-
             $response = $this->createRelationship($payload);
 
             $company = Company::create([ 
@@ -156,7 +156,7 @@ class CompanyService
                 "user_id" => $user->id,
                 "created_by_user_id"=> $userLoggedId,
                 'province_id' => $response['province']->id,
-                'district_id' => $response['district']->id,
+                'district_id' =>$response['district']->id,
                 'corregimiento_id' => $response['corregimiento']->id,
             ]);
             CompanyEmail::create([

@@ -24,8 +24,7 @@
                     enctype="multipart/form-data"
                     autocomplete="off"
                     id="form-new-company"
-                    class="needs-validation" 
-                    novalidate
+                    class="needs-validation"
                 >
                 @csrf
                 @method("PATCH")
@@ -124,27 +123,27 @@
                         <h3>@lang('translation.street-address')</h3>
                         <div class="col-lg-6 mb-3">
                             <div>
-                                <label for="company-province" class="form-label">@lang('translation.province')</label>
+                                <label for="company-province" class="form-label">@lang('translation.province')<span class="text-danger">*</span></label>
                                 <div>
-                                    <select name="province" id="company-province" aria-label="@lang('translation.province')">
+                                    <select name="province" id="company-province" aria-label="@lang('translation.province')" required>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6 mb-3">
                             <div>
-                                <label for="company-district" class="form-label">@lang('translation.district')</label>
+                                <label for="company-district" class="form-label">@lang('translation.district')<span class="text-danger">*</span></label>
                                 <div>
-                                    <select name="district" id='company-district' aria-label="@lang('translation.district')">
+                                    <select name="district" id='company-district' aria-label="@lang('translation.district')" required>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6 mb-3">
                             <div>
-                                <label for="company-corregimiento" class="form-label">@lang('translation.corregimiento')</label>
+                                <label for="company-corregimiento" class="form-label">@lang('translation.corregimiento')<span class="text-danger">*</span></label>
                                 <div>
-                                    <select name="corregimiento" id="company-corregimiento" aria-label="@lang('translation.corregimiento')">
+                                    <select name="corregimiento" id="company-corregimiento" aria-label="@lang('translation.corregimiento')" required>
                                     </select>
                                 </div>
                             </div>
