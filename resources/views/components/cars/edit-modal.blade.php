@@ -1,24 +1,9 @@
 @props([
-    "item"
+    "item",
+    "provinces",
+    "vehicleType",
+    "fuelType"
 ])
-
-@php
-    $months = [
-        1 => "Enero",
-        2 => "Febrero",
-        3 => "Marzo",
-        4 => "Abril",
-        5 => "Mayo",
-        6 => "Junio",
-        7 => "Julio",
-        8 => "Agosto",
-        9 => "Septiembre",
-        10 => "Octubre",
-        11 => "Noviembre",
-        12 => "Diciembre",
-    ];
-@endphp
-
 
 <div class="modal fade" id="updateCarModal{{ $item['id'] }}" tabindex="-1" aria-hidden="true" data-bs-config="backdrop:true">
     <div class="modal-dialog modal-xl">
@@ -34,7 +19,7 @@
                     enctype="multipart/form-data"
                     autocomplete="off"
                     id="card-form-update-{{ $item['id'] }}"
-                    class="needs-validation" 
+                    class="needs-validation edit-car-form"
                     novalidate
                 >
                 @csrf
@@ -84,22 +69,12 @@
                                 <label for="month_renewal" class="form-label">Mes de renovacion</label>
                                 <div>
                                     <select type="email" id="month_renewal" class="form-control" name="month_renewal">
-                                        @if($item['month_renewal'])
-                                            <option value="{{ $item['month_renewal'] }}" selected>{{ $months[$item['month_renewal']] }}</option>
-                                        @endif
-                                        <option value="1">Enero</option>
-                                        <option value="2">Febrero</option>
-                                        <option value="3">Marzo</option>
-                                        <option value="4">Abril</option>
-                                        <option value="5">Mayo</option>
-                                        <option value="6">Junio</option>
-                                        <option value="7">Julio</option>
-                                        <option value="8">Agosto</option>
-                                        <option value="9">Septiembre</option>
-                                        <option value="10">Octubre</option>
-                                        <option value="11">Noviembre</option>
-                                        <option value="12">Diciembre</option>
-                                        
+                                        @php
+                                        $months = \App\Helper\RequestHelper::months();
+                                        @endphp
+                                        @foreach($months as $k=>$v)
+                                            <option value="{{$k}}" {{($item['month_renewal']==$k)?'selected':''}}>{{$v}}</option>
+                                        @endforeach
                                     </select>
                                     @error('month_renewal')
                                         <div class="invalid-feedback text-danger">El mes es obligatorio</div>
@@ -134,7 +109,7 @@
                             <div>
                                 <label for="year-car" class="form-label">Año del vehiculo</label>
                                 <div>
-                                    <input value="{{ $item['year'] }}" type="text" id="year-car-{{ $item['id'] }}" placeholder="Seleccionar año" name="year" class="form-control flatpickr flatpickr-input" data-flatpickr='{"dateFormat": "Y"}' autocomplete="off">
+                                    <input value="{{ $item['year'] }}" type="text" id="year-car-{{ $item['id'] }}" placeholder="Seleccionar año" name="year" class="year-car form-control flatpickr flatpickr-input" data-flatpickr='{"dateFormat": "Y"}' autocomplete="off">
                                 </div>
                             </div>
                         </div>
@@ -170,8 +145,13 @@
                         <div>
                             <label for="municipality" class="form-label">Municipio</label>
                             <div>
-                                <select name="municipality" id="municipality-update-{{ $item['id'] }}" aria-label="Selecciona el municipio">
-                                    <option>{{ $item['municipaly'] }}</option>
+                                <select name="municipality" class="selectize-select" id="municipality-update-{{ $item['id'] }}" aria-label="Selecciona el municipio">
+                                    <option value=""></option>
+                                    @if(count($provinces)>0)
+                                        @foreach($provinces as $k=>$v)
+                                            <option value="{{$v['id']}}" {{($item['municipaly']==$v['name'])?'selected':''}}>{{$v['name']}}</option>
+                                        @endforeach
+                                    @endif
                                 </select>
                             </div>
                         </div>
@@ -181,8 +161,13 @@
                         <div>
                             <label for="type-vehicle" class="form-label">Tipo de vehiculo</label>
                             <div>
-                                <select name="type-vehicle" id="type-vehicle-update-{{ $item['id'] }}" aria-label="Tipo de vehiculo">
-                                    <option selected>{{ $item['vehicleType'] }}</option>
+                                <select name="type-vehicle" class="selectize-select"  id="type-vehicle-update-{{ $item['id'] }}" aria-label="Tipo de vehiculo">
+                                    <option value=""></option>
+                                    @if(count($vehicleType)>0)
+                                        @foreach($vehicleType as $k=>$v)
+                                            <option value="{{$v['id']}}" {{($item['vehicleType']==$v['name'])?'selected':''}}>{{$v['name']}}</option>
+                                        @endforeach
+                                    @endif
                                 </select>
                             </div>
                         </div>
@@ -192,8 +177,13 @@
                         <div>
                             <label for="fuel-type" class="form-label">Tipo de combustible</label>
                             <div>
-                                <select name="fuel-type" id="fuel-type-update-{{ $item['id'] }}" aria-label="Tipo de combustible">
-                                    <option selected>{{ $item['fuelType'] }}</option>
+                                <select name="fuel-type" class="selectize-select"  id="fuel-type-update-{{ $item['id'] }}" aria-label="Tipo de combustible">
+                                    <option value=""></option>
+                                    @if(count($fuelType)>0)
+                                        @foreach($fuelType as $k=>$v)
+                                            <option value="{{$v['id']}}" {{($item['fuelType']==$v['name'])?'selected':''}}>{{$v['name']}}</option>
+                                        @endforeach
+                                    @endif
                                 </select>
                             </div>
                         </div>
@@ -249,9 +239,9 @@
                                 <label for="due_date" class="form-label">Fecha de vencimiento</label>
                                 <div>
                                     @if(isset($item['policy']))
-                                        <input value="{{ $item['policy']['policy_expiration'] }}" type="text" id="due_date-{{ $item['id'] }}" placeholder="Select date" name="due_date" class="form-control flatpickr flatpickr-input" autocomplete="off">
+                                        <input value="{{ $item['policy']['policy_expiration'] }}" type="text" id="due_date" placeholder="Select date" name="due_date" class="form-control flatpickr flatpickr-input" autocomplete="off">
                                     @else
-                                        <input type="text" id="due_date-{{ $item['id'] }}" placeholder="Select date" name="due_date" class="form-control flatpickr flatpickr-input" autocomplete="off">
+                                        <input type="text" id="due_date" placeholder="Select date" name="due_date" class="due_date form-control flatpickr flatpickr-input" autocomplete="off">
                                     @endif
                                 </div>
                             </div>

@@ -53,10 +53,10 @@ class CompanyController extends Controller
             'identification_card' => "required",
             'phone' => "required",
         ], [
-            'name.required'=>'Name is required',
-            'email.required'=>'Email is required',
-            'identification_card.required'=>'RUC is required',
-            'phone.required'=>'Phone is required'
+            'name.required'=>__('translation.name').' es obligatorio',
+            'email.required'=>__('translation.email') .' es obligatorio',
+            'identification_card.required'=>'Identification es obligatorio',
+            'phone.required'=>__('translation.phone').' es obligatorio'
         ]);
         if($valid->fails()){
             $ht = '';
