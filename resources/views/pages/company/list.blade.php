@@ -25,8 +25,7 @@
                     enctype="multipart/form-data"
                     autocomplete="off"
                     id="form-new-company"
-                    class="needs-validation" 
-                    novalidate
+                    class="needs-validation"
                 >
                 @csrf
                 <div class="g-3 row">
@@ -121,27 +120,27 @@
                         <h3>@lang('translation.street-address')</h3>
                         <div class="col-lg-6 mb-3">
                             <div>
-                                <label for="company-province" class="form-label">@lang('translation.province')</label>
+                                <label for="company-province" class="form-label">@lang('translation.province')<span class="text-danger">*</span></label>
                                 <div>
-                                    <select name="province" id="company-province" aria-label="@lang('translation.province')">
+                                    <select name="province" id="company-province" aria-label="@lang('translation.province')" required>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6 mb-3">
                             <div>
-                                <label for="company-district" class="form-label">@lang('translation.district')</label>
+                                <label for="company-district" class="form-label">@lang('translation.district')<span class="text-danger">*</span></label>
                                 <div>
-                                    <select name="district" id='company-district' aria-label="@lang('translation.district')">
+                                    <select name="district" id='company-district' aria-label="@lang('translation.district')" required>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6 mb-3">
                             <div>
-                                <label for="company-corregimiento" class="form-label">@lang('translation.corregimiento')</label>
+                                <label for="company-corregimiento" class="form-label">@lang('translation.corregimiento')<span class="text-danger">*</span></label>
                                 <div>
-                                    <select name="corregimiento" id="company-corregimiento" aria-label="@lang('translation.corregimiento')">
+                                    <select name="corregimiento" id="company-corregimiento" aria-label="@lang('translation.corregimiento')" required>
                                     </select>
                                 </div>
                             </div>
@@ -178,21 +177,23 @@
         <div class="card">
             <div class="card-header d-flex" style="align-items: center;">
                 <h5 class="card-title mb-0">@lang('translation.companies-list')</h5>
+
                 <div style="flex: 1 1 auto" class="d-flex justify-content-end">
                     @if(session("status"))
                         <div class="alert alert-success d-flex align-items-center mx-auto" role="alert">
                             <i class="bi bi-check-circle-fill mx-1"></i>
-                                {{ session("status") }}
+                                {!!  session("status") !!}
                             </div>
                         </div>
                     @endif
                     @if(session("error"))
                         <div class="alert alert-danger d-flex align-items-center mx-auto" role="alert">
                             <i class="bi bi-x-circle-fill mx-1"></i>
-                                {{ session("error") }}
+                                {!!  session("error") !!}
                             </div>
                         </div>
                     @endif
+
                     <a style="cursor: pointer;">
                         <a data-key="t-newCompany" data-bs-toggle="modal" data-bs-target="#addCompanyModal" style="cursor: pointer;" class="btn btn-success">@lang('translation.new')</a>
                     </a>

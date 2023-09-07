@@ -47,40 +47,53 @@ class CompanyController extends Controller
     public function create(Request $request)
     {
         $user = Auth::user();
-        $request->validate([
-            'name' => ["required"],
-            'email' => ["required"],
-            'identification_card' => ["required"],
-            'phone' => ["required"],
+        $valid = validator()->make($request->input(),[
+            'name' => "required",
+            'email' => "required",
+            'identification_card' => "required",
+            'phone' => "required",
+        ], [
+            'name.required'=>'Name is required',
+            'email.required'=>'Email is required',
+            'identification_card.required'=>'RUC is required',
+            'phone.required'=>'Phone is required'
         ]);
+        if($valid->fails()){
+            $ht = '';
+            foreach ($valid->errors()->all() as $k=>$v){
+                $ht .=$v."<br>";
+            }
+            session()->flash("error", $ht);
+            return redirect()->back()->withErrors($valid->errors())->withInput($request->input());
+        }else{
+            $imagePath = null;
+            $host = $request->getSchemeAndHttpHost();
+            $image = RequestHelper::uploadImage($request, 'image');
 
-        $imagePath = null;
-        $host = $request->getSchemeAndHttpHost();
-        $image = RequestHelper::uploadImage($request, 'image');
+            if($image) $imagePath = $image->getPathname();
 
-        if($image) $imagePath = $image->getPathname();
-    
-        try {
-            CompanyService::getInstance()->create([ 
-                'name' => $request->input("name"),
-                'phone' => $request->input("phone"),
-                'dv'=> $request->input('dv'),
-                'email' => strtolower($request->input("email")),
-                'identification_card' => $request->input("identification_card"),
-                'street' => $request->input("street"),
-                'corregimiento' => $request->input("corregimiento"),
-                'house_number' => $request->input("house_number"),
-                'province' => $request->input("province"),
-                'district' => $request->input("district"),
-                'image' => $imagePath ? "$host/$imagePath" : null
-            ], $user->id);
+            try {
+                CompanyService::getInstance()->create([
+                    'name' => $request->input("name"),
+                    'phone' => $request->input("phone"),
+                    'dv'=> $request->input('dv'),
+                    'email' => strtolower($request->input("email")),
+                    'identification_card' => $request->input("identification_card"),
+                    'street' => $request->input("street"),
+                    'corregimiento' => $request->input("corregimiento"),
+                    'house_number' => $request->input("house_number"),
+                    'province' => $request->input("province"),
+                    'district' => $request->input("district"),
+                    'image' => $imagePath ? "$host/$imagePath" : null
+                ], $user->id);
 
-            session()->flash("status", "La empresa se ha insertado satisfactoriamente.");
+                session()->flash("status", "La empresa se ha insertado satisfactoriamente.");
 
-            return redirect()->route('lisCompany');
-        } catch (Exception $e) {
-            session()->flash("error", $e->getMessage() ? $e->getMessage() : "No se pudo crear la empresa");
-            return redirect()->route('lisCompany');
+                return redirect()->route('lisCompany');
+            } catch (Exception $e) {
+                session()->flash("error", $e->getMessage() ? $e->getMessage() : "No se pudo crear la empresa");
+                return redirect()->route('lisCompany');
+            }
         }
         
     }
