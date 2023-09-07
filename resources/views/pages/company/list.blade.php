@@ -350,7 +350,18 @@
 <script src="{{ URL::asset('build/js/pages/datatables.init.js') }}"></script>
 
 <script src="{{ URL::asset('build/js/app.js') }}"></script>
-
+<script>
+    $(document).ready(function(){
+        searchInput("#company-province", "/api/provinces");
+        searchInput("#company-district", "/api/districts");
+        searchInput("#company-corregimiento", "/api/corregimientos");
+    });
+    /*document.addEventListener('DOMContentLoaded',() => {
+        searchInput("#company-province", "/api/provinces")
+    searchInput("#company-district", "/api/districts")
+    searchInput("#company-corregimiento", "/api/corregimientos")
+    });*/
+</script>
 <script>
     $(document).ready(() => {
         $("#company-list").DataTable({
@@ -476,13 +487,7 @@
 
 </script>
 
-<script>
-    document.addEventListener('DOMContentLoaded',() => {
-        searchInput("#company-province", "/api/provinces")
-        searchInput("#company-district", "/api/districts")
-        searchInput("#company-corregimiento", "/api/corregimientos")
-    });
-</script>
+
 
 
 @endsection
