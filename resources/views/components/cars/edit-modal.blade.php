@@ -149,7 +149,7 @@
                                 <select name="municipality_id" class="form-control" id="municipality-update-{{ $item['id'] }}" aria-label="Selecciona el municipio">
                                     @if(count($provinces)>0)
                                         @foreach($provinces as $k=>$v)
-                                            <option value="{{$v['id']}}" {{($item['municipaly']==$v['id'])?'selected':''}}>{{$v['name']}}</option>
+                                            <option value="{{$v['id']}}" {{($item['municipaly']==$v['name'])?'selected':''}}>{{$v['name']}}</option>
                                         @endforeach
                                     @endif
                                 </select>
@@ -165,7 +165,7 @@
 
                                     @if(count($vehicleType)>0)
                                         @foreach($vehicleType as $k=>$v)
-                                            <option value="{{$v['id']}}" {{($item['vehicleType']==$v['id'])?'selected':''}}>{{$v['name']}}</option>
+                                            <option value="{{$v['id']}}" {{($item['vehicleType']==$v['name'])?'selected':''}}>{{$v['name']}}</option>
                                         @endforeach
                                     @endif
                                 </select>
@@ -180,7 +180,7 @@
                                 <select name="fuel_type_id" class="form-control"  id="fuel-type-update-{{ $item['id'] }}" aria-label="Tipo de combustible">
                                     @if(count($fuelType)>0)
                                         @foreach($fuelType as $k=>$v)
-                                            <option value="{{$v['id']}}" {{($item['fuelType']==$v['id'])?'selected':''}}>{{$v['name']}}</option>
+                                            <option value="{{$v['id']}}" {{($item['fuelType']==$v['name'])?'selected':''}}>{{$v['name']}}</option>
                                         @endforeach
                                     @endif
                                 </select>

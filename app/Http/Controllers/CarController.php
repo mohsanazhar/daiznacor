@@ -44,9 +44,9 @@ class CarController extends Controller
 
             $data = [];
             foreach ($vehicles as $vehicle) {
-                $vehicle['fuelType'] = $vehicle['fuel_type'] ? $vehicle['fuel_type']['id'] : "";
-                $vehicle['vehicleType'] =  $vehicle['type'] ? $vehicle['type']['id'] : "";
-                $vehicle['municipaly'] = $vehicle['municipaly'] ? $vehicle['municipaly']['id'] : "";
+                $vehicle['fuelType'] = $vehicle['fuel_type'] ? $vehicle['fuel_type']['name'] : "";
+                $vehicle['vehicleType'] =  $vehicle['type'] ? $vehicle['type']['name'] : "";
+                $vehicle['municipaly'] = $vehicle['municipaly'] ? $vehicle['municipaly']['name'] : "";
                 array_push($data, $vehicle);
             }
 
