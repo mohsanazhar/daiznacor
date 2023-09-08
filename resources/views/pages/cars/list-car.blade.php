@@ -56,7 +56,8 @@
                     </thead>
                     <tbody>
                         @foreach ($cars as $car)
-                            <x-cars.edit-modal :item="$car" :$provinces :$vehicleType :$fuelType/>
+                            <x-cars.edit-modal :item="$car" :$provinces :$vehicleType :$fuelType :$policies/>
+
                             <tr>
                                 <th class="opacity-75">
                                     {{ $car['id'] }}
@@ -246,9 +247,15 @@ if(session()->has('validError')){
 <script src="{{ URL::asset('build/js/pages/datatables.init.js') }}"></script>
 
 <script src="{{ URL::asset('build/js/app.js') }}"></script>
-
 <script>
+    const compnaiesData = @json($companies);
+    const policiesData = @json($policies);
+    const form = document.getElementById("form-new-car");
     $(document).ready(function(){
+        $(document).on('change','.policy_id_select',function(){
+            console.log($(this).find(':selected').data('name'));
+            $(this).closest('div.row').find('#insurance_companies').val($(this).find(':selected').data('name'));
+        });
         var form = document.getElementById('form-new-car');
         form.addEventListener('submit', function (event) {
 
@@ -314,11 +321,6 @@ if(session()->has('validError')){
     });
 </script>
 
-<script>
-    const compnaiesData = @json($companies);
-    const policiesData = @json($policies);
-    const form = document.getElementById("form-new-car")
-</script>
 
 <script>
     const handleInsertPolicies = (id) => {
@@ -365,6 +367,7 @@ if(session()->has('validError')){
 
     selectizeConfigPolicies("#no-polize", policiesData);
     $('select[id^="no-polize-update-"]').each(function () {
+
         selectizeConfigPolicies(`#${this.id}`, policiesData);
     });
 </script>

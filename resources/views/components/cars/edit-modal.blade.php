@@ -2,7 +2,8 @@
     "item",
     "provinces",
     "vehicleType",
-    "fuelType"
+    "fuelType",
+    "policies"
 ])
 
 <div class="modal fade" id="updateCarModal{{ $item['id'] }}" tabindex="-1" aria-hidden="true" data-bs-config="backdrop:true">
@@ -148,7 +149,7 @@
                                 <select name="municipality_id" class="form-control" id="municipality-update-{{ $item['id'] }}" aria-label="Selecciona el municipio">
                                     @if(count($provinces)>0)
                                         @foreach($provinces as $k=>$v)
-                                            <option value="{{$v['name']}}" {{($item['municipaly']==$v['name'])?'selected':''}}>{{$v['name']}}</option>
+                                            <option value="{{$v['id']}}" {{($item['municipaly']==$v['id'])?'selected':''}}>{{$v['name']}}</option>
                                         @endforeach
                                     @endif
                                 </select>
@@ -164,7 +165,7 @@
 
                                     @if(count($vehicleType)>0)
                                         @foreach($vehicleType as $k=>$v)
-                                            <option value="{{$v['name']}}" {{($item['vehicleType']==$v['name'])?'selected':''}}>{{$v['name']}}</option>
+                                            <option value="{{$v['id']}}" {{($item['vehicleType']==$v['id'])?'selected':''}}>{{$v['name']}}</option>
                                         @endforeach
                                     @endif
                                 </select>
@@ -179,7 +180,7 @@
                                 <select name="fuel_type_id" class="form-control"  id="fuel-type-update-{{ $item['id'] }}" aria-label="Tipo de combustible">
                                     @if(count($fuelType)>0)
                                         @foreach($fuelType as $k=>$v)
-                                            <option value="{{$v['name']}}" {{($item['fuelType']==$v['name'])?'selected':''}}>{{$v['name']}}</option>
+                                            <option value="{{$v['id']}}" {{($item['fuelType']==$v['id'])?'selected':''}}>{{$v['name']}}</option>
                                         @endforeach
                                     @endif
                                 </select>
@@ -190,19 +191,12 @@
                             <div>
                                 <label for="no-polize-update-{{ $item['id'] }}" class="form-label">Numero de poliza</label>
                                 <div>
-                                    <select id="no-polize-update-{{ $item['id'] }}" name="policy_id" placeholder="Numero de poliza" >
-
-                                        @if(isset($item['policy']))
-                                            @php
-                                                $policy = "";
-                                                if(is_array($item['policy'])){
-                                                    if(array_key_exists('number',$item['policy'])){
-                                                        $policy = $item['policy'];
-                                                        $policy = $policy['number'];
-                                                    }
-                                                }
-                                            @endphp
-                                            <option selected>{{$policy}}</option>
+                                    <select  class="form-control policy_id_select" name="policy_id" placeholder="Numero de poliza" >
+                                        <option value=""></option>
+                                        @if(count($policies)>0)
+                                            @foreach($policies as $k=>$v)
+                                                <option value="{{$v['id']}}" {{(!is_null($item['policy']) && $item['policy']['id']==$v['id'])?'selected':''}} data-name="{{$v['insurance_company']['name']}}">{{$v['number']}}</option>
+                                            @endforeach
                                         @endif
                                     </select>
                                 </div>

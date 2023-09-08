@@ -9,169 +9,8 @@
 @slot('li_1') Inicio @endslot
 @slot('title') @lang('translation.companies') @endslot
 @endcomponent
-
 <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/intlTelInput.min.js"></script>
-<div class="modal fade" id="addCompanyModal" tabindex="-1" aria-hidden="true" data-bs-config="backdrop:true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content border-0">
-            <div class="modal-header p-4 pb-0">
-                <h5 class="modal-title" id="createMemberLabel">@lang('translation.companies-add')</h5>
-                <button type="button" class="btn-close" id="createMemberBtn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body p-4">
-                <form
-                    action="{{ route("createCompany") }}"
-                    method="POST"
-                    enctype="multipart/form-data"
-                    autocomplete="off"
-                    id="form-new-company"
-                    class="needs-validation"
-                >
-                @csrf
-                <div class="g-3 row">
-                    <h3>@lang('translation.company')</h3>
-                        <div class="col-lg-3 mb-4 text-center">
-                            <div class="position-relative d-inline-block">
-                                <div class="position-absolute top-100 start-100 translate-middle">
-                                    <label for="company-image-input" class="mb-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Select Company Image">
-                                        <div class="avatar-xs">
-                                            <div class="avatar-title bg-light border rounded-circle text-muted cursor-pointer">
-                                                <i class="ri-image-fill"></i>
-                                            </div>
-                                        </div>
-                                    </label>
-                                    <input class="form-control d-none" id="company-image-input" name="image" type="file" accept="image/png, image/gif, image/jpeg">
-                                </div>
-                                <div class="avatar-xl">
-                                    <div class="avatar-title bg-light rounded-3">
-                                        <img src="/build/images/users/user-dummy-img.jpg" id="company-img-preview" class="avatar-lg rounded-3 h-auto" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-9 row">
-                            <div class="col-lg-4 mb-3">
-                                <div>
-                                    <label for="company-name" class="form-label">
-                                        @lang('translation.name')
-                                        <span class="text-danger">*</span>
-                                    </label>
-                                    <div>
-                                        <input required type="text" id="company-name" class="form-control" name="name" placeholder="@lang('translation.name')">
-                                        @error('name')
-                                            <div id="name-error" class="invalid-feedback">@lang('translation.name') es obligatorio</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 mb-3">
-                                <div>
-                                    <label for="company-identification_card" class="form-label">
-                                        RUC/ Cédula
-                                        <span class="text-danger">*</span>
-                                    </label>
-                                    <div>
-                                        <input required type="text" id="company-identification_card" class="form-control" name="identification_card" placeholder="RUC">
-                                        @error('identification_card')
-                                            <div id="ruc-error" class="invalid-feedback">Identification es obligatorio</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 mb-3">
-                                <div>
-                                    <label for="dv" class="form-label">
-                                        DV
-                                    </label>
-                                    <div>
-                                        <input  type="text" id="dv" class="form-control" name="dv" placeholder="DV">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-3">
-                                <div>
-                                    <label for="company-phone" class="form-label">
-                                        @lang('translation.phone')
-                                        <span class="text-danger">*</span>
-                                    </label>
-                                    <div>
-                                        <input required type="tel" id="company-phone" class="form-control" name="phone" placeholder="@lang('translation.phone')">
-                                        @error('phone')
-                                            <div id="phone-number-error" class="invalid-feedback">@lang('translation.phone') es obligatorio</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-3"> 
-                                <div>
-                                    <label for="company-email" class="form-label">
-                                        @lang('translation.email')
-                                        <span class="text-danger">*</span>
-                                    </label>
-                                    <div>
-                                        <input required type="email" id="company-email" class="form-control" name="email" placeholder="@lang('translation.email')">
-                                        @error('email')
-                                            <div id="email-error" class="invalid-feedback">@lang('translation.email') es obligatorio</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <h3>@lang('translation.street-address')</h3>
-                        <div class="col-lg-6 mb-3">
-                            <div>
-                                <label for="company-province" class="form-label">@lang('translation.province')<span class="text-danger">*</span></label>
-                                <div>
-                                    <select name="province" id="company-province" aria-label="@lang('translation.province')" required>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 mb-3">
-                            <div>
-                                <label for="company-district" class="form-label">@lang('translation.district')<span class="text-danger">*</span></label>
-                                <div>
-                                    <select name="district" id='company-district' aria-label="@lang('translation.district')" required>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 mb-3">
-                            <div>
-                                <label for="company-corregimiento" class="form-label">@lang('translation.corregimiento')<span class="text-danger">*</span></label>
-                                <div>
-                                    <select name="corregimiento" id="company-corregimiento" aria-label="@lang('translation.corregimiento')" required>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 mb-3">
-                            <div>
-                                <label for="company-street" class="form-label">@lang('translation.street')</label>
-                                <div>
-                                    <input type="text" id="company-street" class="form-control" name="street" placeholder="@lang('translation.street')">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12 mb-3">
-                            <div>
-                                <label for="company-no-local" class="form-label">@lang('translation.no-local')</label>
-                                <div>
-                                    <input id='company-no-local' type="text" class="form-control" name="house_number" placeholder="@lang('translation.no-local')">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="hstack gap-2 justify-content-end">
-                            <button id="close-modal-company" type="button" class="btn btn-light" data-bs-dismiss="modal">@lang('translation.close')</button>
-                            <button type="submit" class="btn btn-success" id="addNewMember">@lang('translation.companies-add')</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
+@include('pages.company.create_company_form')
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
@@ -179,21 +18,7 @@
                 <h5 class="card-title mb-0">@lang('translation.companies-list')</h5>
 
                 <div style="flex: 1 1 auto" class="d-flex justify-content-end">
-                    @if(session("status"))
-                        <div class="alert alert-success d-flex align-items-center mx-auto" role="alert">
-                            <i class="bi bi-check-circle-fill mx-1"></i>
-                                {!!  session("status") !!}
-                            </div>
-                        </div>
-                    @endif
-                    @if(session("error"))
-                        <div class="alert alert-danger d-flex align-items-center mx-auto" role="alert">
-                            <i class="bi bi-x-circle-fill mx-1"></i>
-                                {!!  session("error") !!}
-                            </div>
-                        </div>
-                    @endif
-
+                    @include('layouts.common.display_error')
                     <a style="cursor: pointer;">
                         <a data-key="t-newCompany" data-bs-toggle="modal" data-bs-target="#addCompanyModal" style="cursor: pointer;" class="btn btn-success">@lang('translation.new')</a>
                     </a>
@@ -220,6 +45,7 @@
                     </thead>
                     <tbody>
                         @foreach ($companies as $company)
+
                             <x-company.edit-modal :company="$company"/>
                             <tr>
                                 <th class="opacity-75">
@@ -278,14 +104,14 @@
                                 </th>
                                 <th class="opacity-75" name='district'>
                                     @if(isset($company['district']))
-                                        {{ $company['district'] }}
+                                        {{ $company['distric']['name'] }}
                                     @else
                                         N/A
                                     @endif
                                 </th>
                                 <th class="opacity-75" name='corregimiento'>
                                     @if(isset($company['corregimiento']))
-                                        {{ $company['corregimiento'] }}
+                                        {{ $company['corregimiento']['name'] }}
                                     @else
                                         N/A
                                     @endif
@@ -352,15 +178,19 @@
 <script src="{{ URL::asset('build/js/app.js') }}"></script>
 <script>
     $(document).ready(function(){
-        searchInput("#company-province", "/api/provinces");
-        searchInput("#company-district", "/api/districts");
-        searchInput("#company-corregimiento", "/api/corregimientos");
+        var form = document.getElementById('form-new-company');
+        form.addEventListener('submit', function (event) {
+
+            // add was-validated to display custom colors
+            form.classList.add('was-validated')
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+
+        }, false);
+
     });
-    /*document.addEventListener('DOMContentLoaded',() => {
-        searchInput("#company-province", "/api/provinces")
-    searchInput("#company-district", "/api/districts")
-    searchInput("#company-corregimiento", "/api/corregimientos")
-    });*/
 </script>
 <script>
     $(document).ready(() => {
