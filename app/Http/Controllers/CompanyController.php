@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Helper\RequestHelper;
 use App\Services\CompanyService;
+use App\Services\CorregimientoService;
+use App\Services\DistrictService;
+use App\Services\ProvinceService;
 use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -30,13 +33,18 @@ class CompanyController extends Controller
             $companies = CompanyService::getInstance()->get($take, $offset, [
                 'userLoggedId' => $user->id
             ]);
-
+            $province = ProvinceService::getInstance()->get();
+            $district = DistrictService::getInstance()->get();
+            $corregimento = CorregimientoService::getInstance()->get();
             $company = CompanyService::getInstance()->findOneById($id);
             // if(!$company) 
 
             return view("pages.company.list", [
                 "companies" => compact($companies),
-                'user' => $user
+                'user' => $user,
+                'province'=>$province,
+                'district'=>$district,
+                'corregimento'=>$corregimento
             ]);
         } catch (Exception $e) {
             return redirect()->route('lisCompany');
@@ -63,7 +71,7 @@ class CompanyController extends Controller
             foreach ($valid->errors()->all() as $k=>$v){
                 $ht .=$v."<br>";
             }
-            session()->flash("error", $ht);
+            session()->flash("validError", $ht);
             return redirect()->back()->withErrors($valid->errors())->withInput($request->input());
         }else{
             $imagePath = null;
@@ -71,21 +79,21 @@ class CompanyController extends Controller
             $image = RequestHelper::uploadImage($request, 'image');
 
             if($image) $imagePath = $image->getPathname();
-
+            $formated_data = [
+                'name' => $request->input("name"),
+                'phone' => $request->input("phone"),
+                'dv'=> $request->input('dv'),
+                'email' => strtolower($request->input("email")),
+                'identification_card' => $request->input("identification_card"),
+                'street' => $request->input("street"),
+                'corregimiento' => $request->input("corregimiento"),
+                'house_number' => $request->input("house_number"),
+                'province' => $request->input("province"),
+                'district' => $request->input("district"),
+                'image' => $imagePath ? "$host/$imagePath" : null
+            ];
             try {
-                CompanyService::getInstance()->create([
-                    'name' => $request->input("name"),
-                    'phone' => $request->input("phone"),
-                    'dv'=> $request->input('dv'),
-                    'email' => strtolower($request->input("email")),
-                    'identification_card' => $request->input("identification_card"),
-                    'street' => $request->input("street"),
-                    'corregimiento' => $request->input("corregimiento"),
-                    'house_number' => $request->input("house_number"),
-                    'province' => $request->input("province"),
-                    'district' => $request->input("district"),
-                    'image' => $imagePath ? "$host/$imagePath" : null
-                ], $user->id);
+                CompanyService::getInstance()->create($formated_data, $user->id);
 
                 session()->flash("status", "La empresa se ha insertado satisfactoriamente.");
 
@@ -108,18 +116,18 @@ class CompanyController extends Controller
             $host = $request->getSchemeAndHttpHost();
             $image = RequestHelper::uploadImage($request, 'image');
             if($image) $imagePath = $image->getPathname();
-
-            CompanyService::getInstance()->update($id, [
+            $formated_data = [
                 'name' => $request->input("name"),
                 'dv'=> $request->input('dv'),
                 'identification_card' => $request->input('identification_card'),
                 'street' => $request->input("street"),
-                'corregimiento' => $request->input("corregimiento"), 
+                'corregimiento' => $request->input("corregimiento"),
                 'house_number' => $request->input("house_number"),
                 'province' => $request->input("province"),
                 'district' => $request->input("district"),
                 'image' => $imagePath ? "$host/$imagePath" : null
-            ]);
+            ];
+            CompanyService::getInstance()->update($id,$formated_data);
 
             session()->flash("status", "La empresa ha sido editada correctamente.");
             return redirect()->route('lisCompany');

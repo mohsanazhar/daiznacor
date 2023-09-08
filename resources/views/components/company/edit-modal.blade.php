@@ -16,6 +16,11 @@
                 >
                     @csrf
                     @method("PATCH")
+                    @php
+                        $province = \App\Services\ProvinceService::getInstance()->get();
+                        $district = \App\Services\DistrictService::getInstance()->get();
+                        $corregimento = \App\Services\CorregimientoService::getInstance()->get();
+                    @endphp
                     <div class="g-3 row">
                         <h3>@lang('translation.company')</h3>
                         <div class="col-lg-3 mb-4 text-center">
@@ -91,27 +96,45 @@
                         <h3>@lang('translation.street-address')</h3>
                         <div class="col-lg-6 mb-3">
                             <div>
-                                <label for="company-update-province-{{ $company['id'] }}" class="form-label">@lang('translation.province')</label>
+                                <label for="company-update" class="form-label">@lang('translation.province')</label>
                                 <div>
-                                    <select name="province" id="company-update-province-{{ $company['id'] }}" aria-label="Selecciona la provincia">
+                                    <select name="province" id="company-update" class="form-control" aria-label="Selecciona la provincia">
+                                        <option value=""></option>
+                                        @if(count($province)>0)
+                                            @foreach($province as $k=>$v)
+                                                <option value="{{$v['id']}}" {{(!is_null($company['province']) && ($v['id']==$company['province']['id']))?'selected':''}}>{{$v['name']}}</option>
+                                            @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6 mb-3">
                             <div>
-                                <label for="company-update-district-{{ $company['id'] }}" class="form-label">@lang('translation.district')</label>
+                                <label for="company-update-distri" class="form-label">@lang('translation.district')</label>
                                 <div>
-                                    <select name="district" id="company-update-district-{{ $company['id'] }}" aria-label="@lang('translation.district')">
-                                    </select> 
+                                    <select name="district" id="company-update-distri" class="form-control" aria-label="@lang('translation.district')">
+                                        <option value=""></option>
+                                        @if(count($district)>0)
+                                            @foreach($district as $k=>$v)
+                                                <option value="{{$v['id']}}" {{(!is_null($company['district']) && ($v['id']==$company['district']))?'selected':''}}>{{$v['name']}}</option>
+                                            @endforeach
+                                        @endif
+                                    </select>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6 mb-3">
                             <div>
-                                <label for="company-update-corregimiento-{{ $company['id'] }}" class="form-label">@lang('translation.corregimiento')</label>
+                                <label for="company-update" class="form-label">@lang('translation.corregimiento')</label>
                                 <div>
-                                    <select name="corregimiento" id="company-update-corregimiento-{{ $company['id'] }}" aria-label="@lang('translation.corregimiento')" >
+                                    <select name="corregimiento" id="company-update" class="form-control" aria-label="@lang('translation.corregimiento')" >
+                                        <option value=""></option>
+                                        @if(count($corregimento)>0)
+                                            @foreach($corregimento as $k=>$v)
+                                                <option value="{{$v['id']}}" {{(!is_null($company['corregimiento_id']) && ($v['id']==$company['corregimiento_id']))?'selected':''}}>{{$v['name']}}</option>
+                                            @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>
@@ -143,20 +166,4 @@
             </div>
         </div>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded',() => {
-            searchInput("#company-update-province-{{ $company['id'] }}", "/api/provinces", {
-                defaultValue: "{{ old('name', $company['province']['name']) }}"
-            })
-
-            searchInput("#company-update-district-{{ $company['id'] }}", "/api/districts", {
-                defaultValue: "{{ old('name', $company['district']) }}"
-            })
-
-            searchInput("#company-update-corregimiento-{{ $company['id'] }}", "/api/corregimientos", {
-                defaultValue: "{{ old('name', $company['corregimiento']) }}"
-            })
-        });
-    </script>
 </div>

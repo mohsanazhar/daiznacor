@@ -39,7 +39,9 @@ class CompanyService
             "phoneNumbers",
             "province",
             "user",
-            "vehicles"
+            "vehicles",
+            'distric',
+            'corregimiento'
         ])
         ->where('created_by_user_id', '=', $filter["userLoggedId"])
         ->whereNull('deleted_at')
@@ -142,7 +144,7 @@ class CompanyService
                     'created_at' => now(),
                 ]);
             }
-            $response = $this->createRelationship($payload);
+            //$response = $this->createRelationship($payload);
 
             $company = Company::create([ 
                 'name' => $payload["name"],
@@ -155,9 +157,9 @@ class CompanyService
                 "house_number" => $payload["house_number"],
                 "user_id" => $user->id,
                 "created_by_user_id"=> $userLoggedId,
-                'province_id' => $response['province']->id,
-                'district_id' =>$response['district']->id,
-                'corregimiento_id' => $response['corregimiento']->id,
+                'province_id' => $payload['province'],
+                'district_id' =>$payload['district'],
+                'corregimiento_id' => $payload['corregimiento'],
             ]);
             CompanyEmail::create([
                 'email' => $payload["email"],
@@ -193,8 +195,11 @@ class CompanyService
             if(!is_null($payload["corregimiento"])) $companyFound->corregimiento = $payload["corregimiento"];
             if(!is_null($payload["district"])) $companyFound->district = $payload["district"];
             if(!is_null($payload["house_number"])) $companyFound->house_number = $payload["house_number"];
+            if(!is_null($payload["province"])) $companyFound->province_id = $payload["province"];
+            if(!is_null($payload["corregimiento"])) $companyFound->corregimiento_id = $payload["corregimiento"];
+            if(!is_null($payload["district"])) $companyFound->district_id = $payload["district"];
 
-            $resp = $this->createRelationship($payload);
+            /*$resp = $this->createRelationship($payload);
 
             if($resp['province']){
                 $companyFound->province_id = $resp['province']->id;
@@ -206,7 +211,7 @@ class CompanyService
 
             if($resp['district']){
                 $companyFound->district_id = $resp['district']->id;
-            }
+            }*/
 
             $companyFound->updated_at = now();
 

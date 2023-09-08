@@ -43,11 +43,10 @@ class CarController extends Controller
             ]);
 
             $data = [];
-
             foreach ($vehicles as $vehicle) {
-                $vehicle['fuelType'] = $vehicle['fuel_type'] ? $vehicle['fuel_type']['name'] : "";
-                $vehicle['vehicleType'] =  $vehicle['type'] ? $vehicle['type']['name'] : "";
-                $vehicle['municipaly'] = $vehicle['municipaly'] ? $vehicle['municipaly']['name'] : "";
+                $vehicle['fuelType'] = $vehicle['fuel_type'] ? $vehicle['fuel_type']['id'] : "";
+                $vehicle['vehicleType'] =  $vehicle['type'] ? $vehicle['type']['id'] : "";
+                $vehicle['municipaly'] = $vehicle['municipaly'] ? $vehicle['municipaly']['id'] : "";
                 array_push($data, $vehicle);
             }
 
@@ -120,9 +119,9 @@ class CarController extends Controller
             session()->flash("validError", $ht);
             return redirect()->back();
         }else{
-            $municipalityId = null;
+            $municipalityId = $req->input('municipality');
             $validatedData = $req->input();
-            $municipality = MunicipalityService::getInstance()->findOneByName($validatedData['municipality']);
+            /*$municipality = MunicipalityService::getInstance()->findOneByName($validatedData['municipality']);
             if($municipality){
                 $municipalityId = $municipality->id;
             }else{
@@ -135,10 +134,10 @@ class CarController extends Controller
                     return redirect()->route("listCar");
                 }
                 $municipalityId = $municipality->id;
-            }
+            }*/
 
-            $fuelTypeId = null;
-            $fuelType = FuelTypeService::getInstance()->findOneByName($validatedData['type-vehicle']);
+            $fuelTypeId = $req->input('fuel-type');
+            /*$fuelType = FuelTypeService::getInstance()->findOneByName($validatedData['type-vehicle']);
             if($fuelType){
                 $fuelTypeId = $fuelType->id;
             }else{
@@ -150,10 +149,10 @@ class CarController extends Controller
                     return redirect()->route("listCar");
                 }
                 $fuelTypeId = $fuelType->id;
-            }
+            }*/
 
-            $typeVehicleId = null;
-            $typeVehicle = TypeVehicleService::getInstance()->findOneByName($validatedData['type-vehicle']);
+            $typeVehicleId = $req->input('type-vehicle');
+           /* $typeVehicle = TypeVehicleService::getInstance()->findOneByName($validatedData['type-vehicle']);
             if($typeVehicle){
                 $typeVehicleId = $typeVehicle->id;
             }else{
@@ -165,7 +164,7 @@ class CarController extends Controller
                     return redirect()->route("listCar");
                 }
                 $typeVehicleId = $typeVehicle->id;
-            }
+            }*/
             $formated_data = [
                 'name' => $validatedData['name'],
                 'identification_card' => $validatedData['identification_card'],
@@ -210,7 +209,7 @@ class CarController extends Controller
         if(!is_string($id) || $id == ":id") return redirect()->route("listCar");
 
         try {
-            VehicleService::getInstance()->update($id, [
+            $formated_data = [
                 "name" => $request->input("name"),
                 "identification_card" => $request->input("identification_card"),
                 "car_plate" => $request->input("car_plate"),
@@ -230,8 +229,8 @@ class CarController extends Controller
                 "vehicle_type_id" => $request->input("vehicle_type_id"),
                 "policy_id" => $request->input("policy_id"),
                 "year" => $request->input("year"),
-            ]);
-
+            ];
+            VehicleService::getInstance()->update($id, $formated_data);
             session()->flash("status", "El Vehículo ha sido actualizado");
 
             return redirect()->route("listCar");
