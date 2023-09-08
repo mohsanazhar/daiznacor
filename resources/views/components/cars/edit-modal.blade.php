@@ -149,7 +149,7 @@
                                     <option value=""></option>
                                     @if(count($provinces)>0)
                                         @foreach($provinces as $k=>$v)
-                                            <option value="{{$v['id']}}" {{($item['municipaly']==$v['name'])?'selected':''}}>{{$v['name']}}</option>
+                                            <option value="{{$v['name']}}" {{($item['municipaly']==$v['name'])?'selected':''}}>{{$v['name']}}</option>
                                         @endforeach
                                     @endif
                                 </select>
@@ -165,7 +165,7 @@
                                     <option value=""></option>
                                     @if(count($vehicleType)>0)
                                         @foreach($vehicleType as $k=>$v)
-                                            <option value="{{$v['id']}}" {{($item['vehicleType']==$v['name'])?'selected':''}}>{{$v['name']}}</option>
+                                            <option value="{{$v['name']}}" {{($item['vehicleType']==$v['name'])?'selected':''}}>{{$v['name']}}</option>
                                         @endforeach
                                     @endif
                                 </select>
@@ -181,7 +181,7 @@
                                     <option value=""></option>
                                     @if(count($fuelType)>0)
                                         @foreach($fuelType as $k=>$v)
-                                            <option value="{{$v['id']}}" {{($item['fuelType']==$v['name'])?'selected':''}}>{{$v['name']}}</option>
+                                            <option value="{{$v['name']}}" {{($item['fuelType']==$v['name'])?'selected':''}}>{{$v['name']}}</option>
                                         @endforeach
                                     @endif
                                 </select>
