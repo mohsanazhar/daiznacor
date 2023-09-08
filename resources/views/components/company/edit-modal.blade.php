@@ -117,7 +117,7 @@
                                         <option value=""></option>
                                         @if(count($district)>0)
                                             @foreach($district as $k=>$v)
-                                                <option value="{{$v['id']}}" {{(!is_null($company['district']) && ($v['id']==$company['district']))?'selected':''}}>{{$v['name']}}</option>
+                                                <option value="{{$v['id']}}" {{(!is_null($company['district']) && ($v['name']==$company['district']))?'selected':''}}>{{$v['name']}}</option>
                                             @endforeach
                                         @endif
                                     </select>
@@ -132,7 +132,7 @@
                                         <option value=""></option>
                                         @if(count($corregimento)>0)
                                             @foreach($corregimento as $k=>$v)
-                                                <option value="{{$v['id']}}" {{(!is_null($company['corregimiento_id']) && ($v['id']==$company['corregimiento_id']))?'selected':''}}>{{$v['name']}}</option>
+                                                <option value="{{$v['id']}}" {{(!is_null($company['corregimiento']) && ($v['name']==$company['corregimiento']))?'selected':''}}>{{$v['name']}}</option>
                                             @endforeach
                                         @endif
                                     </select>
@@ -166,4 +166,5 @@
             </div>
         </div>
     </div>
+
 </div>
