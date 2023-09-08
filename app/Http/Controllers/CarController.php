@@ -166,30 +166,31 @@ class CarController extends Controller
                 }
                 $typeVehicleId = $typeVehicle->id;
             }
+            $formated_data = [
+                'name' => $validatedData['name'],
+                'identification_card' => $validatedData['identification_card'],
+                'car_plate' => $validatedData['car_plate'],
+                'model' => $validatedData['model'],
+                'owner_id' => $req->input('owner_id'),
+                'company_id' => $req->input('company_id'),
+                "policy_id" => $req->input("policy_id"),
+                'month_renewal' => $validatedData['month_renewal'],
+                'brand' => $validatedData['brand'],
+                'year' => isset($validatedData['year']) ? $validatedData['year'] : '',
+                'engine' => $validatedData['engine'],
+                'chassis' => $validatedData['chassis'],
+                'color' => isset($validatedData['color']) ? $validatedData['color'] : '',
+                'due_date' => $validatedData['due_date'],
+                'weights' => isset($validatedData['weights']) ? $validatedData['weights'] : "",
+                'dimensions' =>  isset($validatedData['dimensions']) ? $validatedData['dimensions'] : '',
+                'revised_no' => isset($validatedData['revised_no']) ? $validatedData['revised_no'] : '',
+                'mortgagee' => isset($validatedData['mortgagee']) ? $validatedData['mortgagee'] : "",
+                'municipality_id' => $municipalityId,
+                'fuel_type_id' => $fuelTypeId,
+                'vehicle_type_id' => $typeVehicleId
+            ];
             try {
-                VehicleService::getInstance()->create([
-                    'name' => $validatedData['name'],
-                    'identification_card' => $validatedData['identification_card'],
-                    'car_plate' => $validatedData['car_plate'],
-                    'model' => $validatedData['model'],
-                    'owner_id' => $req->input('owner_id'),
-                    'company_id' => $req->input('company_id'),
-                    "policy_id" => $req->input("policy_id"),
-                    'month_renewal' => $validatedData['month_renewal'],
-                    'brand' => $validatedData['brand'],
-                    'year' => isset($validatedData['year']) ? $validatedData['year'] : '',
-                    'engine' => $validatedData['engine'],
-                    'chassis' => $validatedData['chassis'],
-                    'color' => isset($validatedData['color']) ? $validatedData['color'] : '',
-                    'due_date' => $validatedData['due_date'],
-                    'weights' => isset($validatedData['weights']) ? $validatedData['weights'] : "",
-                    'dimensions' =>  isset($validatedData['dimensions']) ? $validatedData['dimensions'] : '',
-                    'revised_no' => isset($validatedData['revised_no']) ? $validatedData['revised_no'] : '',
-                    'mortgagee' => isset($validatedData['mortgagee']) ? $validatedData['mortgagee'] : "",
-                    'municipality_id' => $municipalityId,
-                    'fuel_type_id' => $fuelTypeId,
-                    'vehicle_type_id' => $typeVehicleId
-                ], $user->id);
+                VehicleService::getInstance()->create($formated_data, $user->id);
 
                 session()->flash("status", "El vehículo ya ha sido creado");
 

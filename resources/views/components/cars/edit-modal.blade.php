@@ -145,11 +145,10 @@
                         <div>
                             <label for="municipality" class="form-label">Municipio</label>
                             <div>
-                                <select name="municipality" class="selectize-select" id="municipality-update-{{ $item['id'] }}" aria-label="Selecciona el municipio">
-                                    <option value=""></option>
+                                <select name="municipality_id" class="form-control" id="municipality-update-{{ $item['id'] }}" aria-label="Selecciona el municipio">
                                     @if(count($provinces)>0)
                                         @foreach($provinces as $k=>$v)
-                                            <option value="{{$v['id']}}" {{($item['municipaly']==$v['name'])?'selected':''}}>{{$v['name']}}</option>
+                                            <option value="{{$v['name']}}" {{($item['municipaly']==$v['name'])?'selected':''}}>{{$v['name']}}</option>
                                         @endforeach
                                     @endif
                                 </select>
@@ -161,11 +160,11 @@
                         <div>
                             <label for="type-vehicle" class="form-label">Tipo de vehiculo</label>
                             <div>
-                                <select name="type-vehicle" class="selectize-select"  id="type-vehicle-update-{{ $item['id'] }}" aria-label="Tipo de vehiculo">
-                                    <option value=""></option>
+                                <select name="vehicle_type_id" class="form-control"  id="type-vehicle-update-{{ $item['id'] }}" aria-label="Tipo de vehiculo">
+
                                     @if(count($vehicleType)>0)
                                         @foreach($vehicleType as $k=>$v)
-                                            <option value="{{$v['id']}}" {{($item['vehicleType']==$v['name'])?'selected':''}}>{{$v['name']}}</option>
+                                            <option value="{{$v['name']}}" {{($item['vehicleType']==$v['name'])?'selected':''}}>{{$v['name']}}</option>
                                         @endforeach
                                     @endif
                                 </select>
@@ -177,11 +176,10 @@
                         <div>
                             <label for="fuel-type" class="form-label">Tipo de combustible</label>
                             <div>
-                                <select name="fuel-type" class="selectize-select"  id="fuel-type-update-{{ $item['id'] }}" aria-label="Tipo de combustible">
-                                    <option value=""></option>
+                                <select name="fuel_type_id" class="form-control"  id="fuel-type-update-{{ $item['id'] }}" aria-label="Tipo de combustible">
                                     @if(count($fuelType)>0)
                                         @foreach($fuelType as $k=>$v)
-                                            <option value="{{$v['id']}}" {{($item['fuelType']==$v['name'])?'selected':''}}>{{$v['name']}}</option>
+                                            <option value="{{$v['name']}}" {{($item['fuelType']==$v['name'])?'selected':''}}>{{$v['name']}}</option>
                                         @endforeach
                                     @endif
                                 </select>
@@ -192,7 +190,7 @@
                             <div>
                                 <label for="no-polize-update-{{ $item['id'] }}" class="form-label">Numero de poliza</label>
                                 <div>
-                                    <select id="no-polize-update-{{ $item['id'] }}" name="no-polize" placeholder="Numero de poliza" >
+                                    <select id="no-polize-update-{{ $item['id'] }}" name="policy_id" placeholder="Numero de poliza" >
 
                                         @if(isset($item['policy']))
                                             @php
