@@ -290,7 +290,8 @@ if(session()->has('validError')){
     $(".year-car").datepicker({
         format: "yyyy",
         viewMode: "years", 
-        minViewMode: "years"
+        minViewMode: "years",
+        autoclose:true
     });
 
     flatpickr(document.getElementsByClassName("due_date"), {
