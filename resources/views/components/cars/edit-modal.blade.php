@@ -260,14 +260,20 @@
 
                     <div class="col-lg-12 mb-3">
                         <div style="display: flex; align-items: center;">
-                            <input type="checkbox" id="editmortgagee" style="position: relative; top: -3px;margin-right: 6px;">
+                            <input type="checkbox" id="editmortgagee" style="position: relative; top: -3px;margin-right: 6px;" {{($item['mortgagee']!='')?'checked':''}}>
                             <label for="editmortgagee" class="form-label">Acreedor hipotecario</label>
                         </div>
                     </div>
 
                     <div class="col-lg-12 mb-3">
                         <div>
-                            <textarea type="text" id="editmortgageeInfo" class="form-control"  name="mortgagee" style="display: none;"></textarea>
+                            @php
+                            $display = "none";
+                            if($item['mortgagee']!=''){
+                                $display = 'block';
+                            }
+                            @endphp
+                            <textarea type="text" id="editmortgageeInfo" class="form-control"  name="mortgagee" style="display: {{$display}};">{{$item['mortgagee']}}</textarea>
                         </div>
                     </div>
                         

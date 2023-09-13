@@ -115,7 +115,7 @@
                             <div>
                                 <label for="year-car" class="form-label">Año del vehiculo</label>
                                 <div>
-                                    <input type="text" id="year-car" placeholder="Seleccionar año" name="year" class="year-car form-control flatpickr flatpickr-input" data-flatpickr='{"dateFormat": "Y"}' autocomplete="off">
+                                    <input type="text" id="year-car" placeholder="Seleccionar año" name="year" class="year-car form-control"  autocomplete="off">
                                 </div>
                             </div>
                         </div>

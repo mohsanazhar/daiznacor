@@ -98,7 +98,7 @@
                                       <td class="file_name">{{$name}}</td>
                                       <td class="file_type">{{ucwords($type)}}</td>
                                       <td >
-                                          <input type="hidden" name="{{$v}}" value="{{$vehiclePaper[$v]}}"/>
+                                          <input type="hidden" name="{{$v}}" class="image_value" value="{{$vehiclePaper[$v]}}"/>
                                           <div id = "m-{{$v}}" class="image_display">
                                               <img src='{{url('/').'/'.$vehiclePaper[$v]}}' alt="Image" />
                                           </div>
@@ -130,7 +130,6 @@
                             <input class="form-control" type="file" name="others" multiple>
                         </div>--}}
                         <div class="hstack gap-2 justify-content-end">
-                            <button id="close-modal-company" type="button" class="btn btn-light" data-bs-dismiss="modal">@lang('translation.close')</button>
                             <button type="submit" class="btn btn-success" id="addNewMember">Añadir</button>
                         </div>
                     </div>
@@ -201,6 +200,7 @@
         if (c){
             var tr = $(this).data('row');
             $('.'+tr).find(".image_display img").attr("src","");
+            $('.'+tr).find(".image_value").val("");
         }else{
             return false;
         }
