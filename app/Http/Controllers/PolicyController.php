@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Services\PolicyService;
@@ -23,6 +24,8 @@ class PolicyController extends Controller
         $data = [];
         
         foreach ($list as $item) {
+            $company = Company::find($item['identification_card']);
+            $item['identification_card'] = (!is_null($company))?$company['identification_card']:"N/A";
             $item['insurance_company'] = $item['insurance_company'] ? $item['insurance_company']['name'] : "";
             $item['vehicleCount'] = $item['vehicles'] ? count($item['vehicles']) : 0;
             $company = $item['vehicles'] ? $item['vehicles'][0]['company'] : null;
@@ -69,10 +72,9 @@ class PolicyController extends Controller
 
         try {
 
-            // dd($request->all());
+             dd($request->all());
             $insureFound = InsuranceService::getInstance()->findOneById($request->input("insurance_company_id"));
             if(!$insureFound) {
-                dd($insureFound);
                 session()->flash("error", "Compaña aseguradora no existe");
                 return redirect()->route('listPolicy');
             }

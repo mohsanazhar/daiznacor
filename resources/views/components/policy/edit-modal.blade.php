@@ -46,12 +46,26 @@
                                 </div>
                             </div>
                         </div>
+                        @php
+                        $filter['userLoggedId'] = auth()->id();
+
+                        $companies= \App\Services\CompanyService::getInstance()->get(100, 0, [
+            "userLoggedId" => auth()->id()
+        ]);
+
+
+                        @endphp
                         <div class="col-lg-6 mb-3">
                             <div>
                                 <label for="identification-card-policy-{{ $item['id'] }}" class="form-label">RUC / Cédula</label>
-                                <div>
-                                    <input value="{{ $item['identification_card'] }}" type="text" id="identification-card-policy-{{ $item['id'] }}" class="form-control" name="identification_card" placeholder="RUC">
-                                </div>
+                                <select class="form-control identification_card" name="identification_card" placeholder="RUC">
+                                @if(count($companies)>0)
+                                    @foreach($companies as $l=>$v)
+                                        <option value="{{$v['id']}}" {{($item['identification_card']==$v['id'])?'selected':''}} data-name="{{$v['name']}}" data-id="{{$item['id']}}">{{$v['identification_card']}}</option>
+                                    @endforeach
+                                @endif
+                                </select>
+
                             </div>
                         </div>
                         <div class="col-lg-6 mb-3">

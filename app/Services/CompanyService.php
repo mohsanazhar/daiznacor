@@ -34,6 +34,7 @@ class CompanyService
     }   
 
     public function get($take = 10, $offset = 0, $filter = null){
+
         $companies = Company::with([
             "emails",
             "phoneNumbers",
@@ -44,7 +45,6 @@ class CompanyService
             'corregimiento'
         ])
         ->where('created_by_user_id', '=', $filter["userLoggedId"])
-        ->whereNull('deleted_at')
         ->orderByDesc("id")
         ->skip($offset * $take)
         ->take($take)

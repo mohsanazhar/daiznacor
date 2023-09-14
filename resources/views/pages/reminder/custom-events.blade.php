@@ -226,7 +226,7 @@
             $ht .="title: '".$v->number."',";
             $ht .="start: '".$v->policy_issuance."',";
             $ht .="end: '".$v->policy_expiration."',";
-            $ht .="className: 'bg-info-subtle',";
+            $ht .="className: 'bg-success-subtle',";
             $ht .="location: 'N/A',";
             $ht .="allDay: false,";
             $ht .="description: '".htmlspecialchars($v->insured_name)."'";
@@ -241,12 +241,13 @@
         $i = 1;
         $ht .=",";
         foreach ($vehicles as $k=>$v){
+        $month = ($v->month_renewal<10)?"0".$v->month_renewal:$v->month_renewal;
             $ht .="{";
             $ht .="id: '0',";
             $ht .="title: '".$v->name."',";
-            $ht .="start: '".date('Y')."-".$v->month_renewal."-01 00:00:00',";
-            $ht .="end: '".date('Y')."-".$v->month_renewal."-01 00:00:00',";
-            $ht .="className: 'bg-info-subtle',";
+            $ht .="start: '".date('Y')."-".$month."-01 00:00:00',";
+            $ht .="end: '".date('Y')."-".$month."-01 00:00:00',";
+            $ht .="className: 'bg-dark-subtle',";
             $ht .="location: 'N/A',";
             $ht .="allDay: false,";
             $ht .="description: '".htmlspecialchars($v->car_plate)."'";

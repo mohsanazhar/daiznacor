@@ -54,6 +54,7 @@
                     </thead>
                     <tbody>
                         @foreach($policies as $item)
+
                             <x-policy.edit-modal :item="$item"/>
                             <tr>
                                 <td>{{ $item['id'] }}</td>
@@ -118,6 +119,11 @@
 
 <script>
     $(document).ready(() => {
+        $(document).on('change','.identification_card',function () {
+        var id = $(this).find(':selected').data('id');
+        var name = $(this).find(':selected').data('name');
+        $('#name-insure-'+id).val(name);
+    });
         $('#policy-list').DataTable({
             order: [[0, 'desc']],
             language: {
