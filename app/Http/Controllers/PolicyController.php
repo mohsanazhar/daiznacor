@@ -71,8 +71,6 @@ class PolicyController extends Controller
         ]);
 
         try {
-
-             dd($request->all());
             $insureFound = InsuranceService::getInstance()->findOneById($request->input("insurance_company_id"));
             if(!$insureFound) {
                 session()->flash("error", "Compaña aseguradora no existe");
