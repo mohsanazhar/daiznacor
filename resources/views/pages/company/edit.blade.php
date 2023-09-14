@@ -189,7 +189,6 @@
                             </div>
                         </div>
                         <div class="hstack gap-2 justify-content-end">
-                            <button id="close-modal-company" type="button" class="btn btn-light" data-bs-dismiss="modal">@lang('translation.close')</button>
                             <button type="submit" class="btn btn-success" id="addNewMember">@lang('translation.update')</button>
                         </div>
                     </div>
