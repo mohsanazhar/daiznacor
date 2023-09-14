@@ -161,7 +161,7 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div>
-                                    <select name="municipality" class="selectize-select" id="municipality" ar ia-label="Selecciona el municipio" required>
+                                    <select name="municipality" class="form-control" id="municipality" ar ia-label="Selecciona el municipio" required>
                                         <option value=""></option>
                                         @if(count($provinces)>0)
                                             @foreach($provinces as $k=>$v)
@@ -179,7 +179,7 @@
                                     Tipo de vehículo
                                 </label>
                                 <div>
-                                    <select name="type-vehicle" id="type-vehicle" class="selectize-select" aria-label="Tipo de vehiculo">
+                                    <select name="type-vehicle" id="type-vehicle" class="form-control" aria-label="Tipo de vehiculo">
                                         <option value=""></option>
                                         @if(count($vehicleType)>0)
                                             @foreach($vehicleType as $k=>$v)
@@ -195,7 +195,7 @@
                             <div>
                                 <label for="fuel-type" class="form-label">Tipo de combustible</label>
                                 <div>
-                                    <select name="fuel-type" id="fuel-type" class="selectize-select" aria-label="Tipo de combustible">
+                                    <select name="fuel-type" id="fuel-type" class="form-control" aria-label="Tipo de combustible">
                                         <option value=""></option>
                                         @if(count($fuelType)>0)
                                             @foreach($fuelType as $k=>$v)
