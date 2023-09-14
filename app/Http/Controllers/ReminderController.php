@@ -36,9 +36,13 @@ class ReminderController extends Controller
     {
         $user = Auth::user();
         $events = ReminderModel::where(['user_id'=>$user['id']])->orderBy('id','DESC')->get();
+        $policies = Policy::orderBy('id','DESC')->get();
+        $vehicles = Vehicle::orderBy('id','DESC')->get();
         return view('pages.reminder.custom-events', [
             'user' => $user,
-            'events'=>$events
+            'events'=>$events,
+            'policies'=>$policies,
+            'vehicles'=>$vehicles
         ]);
     }
 
@@ -194,10 +198,12 @@ class ReminderController extends Controller
             if(array_key_exists('id',$d)){
                 $model = ReminderModel::find($d['id']);
                 unset($d['id']);
-                foreach ($d as $l=>$h){
-                    $model->$l = $h;
+                if(!is_null($model)){
+                    foreach ($d as $l=>$h){
+                        $model->$l = $h;
+                    }
+                    $model->save();
                 }
-                $model->save();
                 return response()->json(['status'=>true,'msg'=>'Reminder event is update']);
             }else {
                 ReminderModel::create($d);

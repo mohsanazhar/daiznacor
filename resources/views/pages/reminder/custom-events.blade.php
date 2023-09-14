@@ -217,6 +217,46 @@
         }
     }
 
+    if(count($policies)>0){
+        $i = 1;
+        $ht .=",";
+        foreach ($policies as $k=>$v){
+            $ht .="{";
+            $ht .="id: '0',";
+            $ht .="title: '".$v->number."',";
+            $ht .="start: '".$v->policy_issuance."',";
+            $ht .="end: '".$v->policy_expiration."',";
+            $ht .="className: 'bg-info-subtle',";
+            $ht .="location: 'N/A',";
+            $ht .="allDay: false,";
+            $ht .="description: '".htmlspecialchars($v->insured_name)."'";
+            $ht .="}";
+            if($i<count($policies)){
+            $ht .=",";
+        }
+            $i++;
+        }
+    }
+ if(count($vehicles)>0){
+        $i = 1;
+        $ht .=",";
+        foreach ($vehicles as $k=>$v){
+            $ht .="{";
+            $ht .="id: '0',";
+            $ht .="title: '".$v->name."',";
+            $ht .="start: '".date('Y')."-".$v->month_renewal."-01 00:00:00',";
+            $ht .="end: '".date('Y')."-".$v->month_renewal."-01 00:00:00',";
+            $ht .="className: 'bg-info-subtle',";
+            $ht .="location: 'N/A',";
+            $ht .="allDay: false,";
+            $ht .="description: '".htmlspecialchars($v->car_plate)."'";
+            $ht .="}";
+            if($i<count($vehicles)){
+            $ht .=",";
+        }
+            $i++;
+        }
+    }
  @endphp
 @endsection
 
