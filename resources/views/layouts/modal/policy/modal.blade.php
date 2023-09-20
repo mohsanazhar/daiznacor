@@ -239,7 +239,8 @@ const form = document.getElementById("form-new-policy");
 const handleInsertCompnay = (id) => {
         const company = compnaiesData.find(item => item.id == id);
         if(!company) return;
-        document.getElementById("name-insure").value = company.user.name
+        $('#name-insure').val(company.user.name.toString().toUpperCase());
+        //document.getElementById("name-insure").value = company.user.name
     }
 
     const selectizeConfigCompanies = (id, data) => {

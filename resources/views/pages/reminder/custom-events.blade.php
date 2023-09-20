@@ -216,10 +216,11 @@
             $i++;
         }
     }
-
+    if(trim($ht)!=""){
+        $ht .=",";
+    }
     if(count($policies)>0){
         $i = 1;
-        $ht .=",";
         foreach ($policies as $k=>$v){
             $ht .="{";
             $ht .="id: '0',";
@@ -237,9 +238,11 @@
             $i++;
         }
     }
+    if(trim($ht)!=""){
+        $ht .=",";
+    }
  if(count($vehicles)>0){
         $i = 1;
-        $ht .=",";
         foreach ($vehicles as $k=>$v){
         $month = ($v->month_renewal<10)?"0".$v->month_renewal:$v->month_renewal;
             $ht .="{";

@@ -57,7 +57,8 @@ class RequestHelper
             if (!is_null($media)) {
 
                 if (file_exists(base_path('/public_html/storage/').$media['folder'] . "/" . $name . ".pdf")) {
-                    $output = ['is' => true, 'name' => url('/') . '/storage/'.$media['folder'].'/' . $name . '.pdf'];
+                    //$output = ['is' => true, 'name' => url('/') . '/storage/'.$media['folder'].'/' . $name . '.pdf'];
+                    $output = ['is' => true, 'name' => 'storage/'.$media['folder'].'/' . $name . '.pdf'];
                 }
             }
         }
@@ -120,7 +121,7 @@ class RequestHelper
                 }
                 return $ht;
             }else{
-               return "";
+                return "";
             }
         }else{
             return "";
@@ -159,9 +160,9 @@ class RequestHelper
         $mail->msgHTML($message);
         //dd($mail->send());
         if (!$mail->send()) {
-          //return true;
+            //return true;
         } else {
-           // echo "true";
+            // echo "true";
         }
     }
 
