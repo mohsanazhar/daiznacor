@@ -2,6 +2,9 @@
 @section('title') Vehiculos @endsection
 
 @section('css')
+    <style>
+        tbody td{font-size: 14px;}
+    </style>
 @endsection
 
 @section('content')
@@ -72,13 +75,13 @@
                             <x-cars.edit-modal :item="$car" :$provinces :$vehicleType :$fuelType :$policies/>
 
                             <tr>
-                                <th class="opacity-75">
+                                <td class="opacity-75">
                                     {{ $car['id'] }}
-                                </th>
-                                <th>
+                                </td>
+                                <td>
                                     <span class="{{$rand_arr[array_rand($rand_arr)]}}">{{ $car['name'] }}</span>
-                                </th>
-                                <th class="opacity-75">
+                                </td>
+                                <td class="opacity-75">
                                     @if(isset($car['identification_card']))
                                        <a style="cursor: pointer" class="text-decoration-underline text-info" data-bs-toggle="modal" data-bs-target="#updateCarModal{{ $car['id'] }}">
                                            {{ $car['identification_card'] }}
@@ -86,127 +89,127 @@
                                     @else
                                         N/A
                                     @endif
-                                </th>
-                                <th class="opacity-75">
+                                </td>
+                                <td class="opacity-75">
                                     @if(isset($car['car_plate']))
                                         {{ $car['car_plate'] }}
                                     @else
                                         N/A
                                     @endif
-                                </th>
-                                <th class="opacity-75">
+                                </td>
+                                <td class="opacity-75">
                                     @if(isset($car['month_renewal']))
                                         <span class="badge text-dark-emphasis  bg-dark-subtle">{{ $car['month_renewal'] }}</span>
                                     @else
                                         <span class="badge text-light-emphasis bg-light-subtle">N/A</span>
                                     @endif
-                                </th>
-                                <th class="opacity-75">
+                                </td>
+                                <td class="opacity-75">
                                     @if(isset($car['brand']))
                                         <span class="badge badge-outline-info">{{ $car['brand'] }}</span>
                                     @else
                                         N/A
                                     @endif
-                                </th>
-                                <th class="opacity-75">
+                                </td>
+                                <td class="opacity-75">
                                     @if(isset($car['model']))
                                         {{ $car['model'] }}
                                     @else
                                         N/A
                                     @endif
-                                </th>
-                                <th class="opacity-75">
+                                </td>
+                                <td class="opacity-75">
                                     @if(isset($car['year']))
                                         <span class="{{$year_arr[array_rand($year_arr)]}}">{{ $car['year'] }}</span>
                                     @else
                                         N/A
                                     @endif
-                                </th>
-                                <th class="opacity-75">
+                                </td>
+                                <td class="opacity-75">
                                     @if(isset($car['engine']))
                                         {{ $car['engine'] }}
                                     @else
                                         N/A
                                     @endif
-                                </th>
-                                <th class="opacity-75">
+                                </td>
+                                <td class="opacity-75">
                                     @if(isset($car['chassis']))
                                         {{ $car['chassis'] }}
                                     @else
                                         N/A
                                     @endif
-                                </th>
-                                <th class="opacity-75">
+                                </td>
+                                <td class="opacity-75">
                                     @if(isset($car['color']))
                                         <span class="{{$colors_arr[array_rand($colors_arr)]}}">{{ ucwords($car['color']) }}</span>
                                     @else
                                         N/A
                                     @endif
-                                </th>
-                                <th class="opacity-75">
+                                </td>
+                                <td class="opacity-75">
                                     @if(isset($car['municipaly']))
                                         {{ $car['municipaly'] }}
                                     @else
                                         N/A
                                     @endif
-                                </th>
-                                <th class="opacity-75">
+                                </td>
+                                <td class="opacity-75">
                                     @if(isset($car['vehicleType']))
                                         {{ $car['vehicleType'] }}
                                     @else
                                         N/A
                                     @endif
-                                </th>
-                                <th class="opacity-75">
+                                </td>
+                                <td class="opacity-75">
                                     @if(isset($car['fuelType']))
                                         {{ $car['fuelType'] }}
                                     @else
                                         N/A
                                     @endif
-                                </th>
-                                <th class="opacity-75">
+                                </td>
+                                <td class="opacity-75">
                                     @if(isset($car['mortgagee']))
                                         {{ $car['mortgagee'] }}
                                     @else
                                         N/A
                                     @endif
-                                </th>
-                                <th class="opacity-75">
+                                </td>
+                                <td class="opacity-75">
                                     @if(isset($car['policy']))
                                         {{ $car['policy']['number'] }}
                                     @else
                                         N/A
                                     @endif
-                                </th>
-                                <th class="opacity-75">
+                                </td>
+                                <td class="opacity-75">
                                     @if(isset($car['policy']))
                                         {{ $car['policy']['insurance_company']['name'] }}
                                     @else
                                         N/A
                                     @endif
-                                </th>
-                                <th class="opacity-75">
+                                </td>
+                                <td class="opacity-75">
                                     @if(isset($car['revised_no']))
                                         {{ $car['revised_no'] }}
                                     @else
                                         N/A
                                     @endif
-                                </th>
-                                <th class="opacity-75">
+                                </td>
+                                <td class="opacity-75">
                                     @if(isset($car['weights']))
                                         {{ $car['weights'] }}
                                     @else
                                         N/A
                                     @endif
-                                </th>
-                                <th class="opacity-75">
+                                </td>
+                                <td class="opacity-75">
                                     @if(isset($car['due_date']))
                                         {{ $car['due_date'] }}
                                     @else
                                         N/A
                                     @endif
-                                </th>
-                                <th>
+                                </td>
+                                <td>
                                     <div class="dropdown d-inline-block">
                                         <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             <i class="ri-more-fill align-middle"></i>
@@ -235,7 +238,7 @@
                                             </li>
                                         </ul>
                                     </div>
-                                </th>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
