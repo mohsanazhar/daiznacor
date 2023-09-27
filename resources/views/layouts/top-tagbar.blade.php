@@ -1,7 +1,11 @@
 <div class="top-tagbar">
     <div class="w-100">
         <div class="row justify-content-between align-items-center">
-            <div class="col-md-auto col-9"></div>
+            <div class="col-md-auto col-9">
+                <div class="text-white-50 fs-13">
+                    <i class="bi bi-clock align-middle me-2"></i> <span id="current-time">{{date("D M j, Y |  g:i A  T")}}</span>
+                </div>
+            </div>
             <div class="col-md-auto col-3">
                 <div class="dropdown topbar-head-dropdown topbar-tag-dropdown justify-content-end">
                     <button type="button" class="btn btn-icon btn-topbar rounded-circle text-white-50 fs-13" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

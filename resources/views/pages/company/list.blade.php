@@ -1,4 +1,4 @@
-@extends('layouts.master')
+`@extends('layouts.master')
 @section('title') @lang('translation.companies') @endsection
 
 @section('css')
@@ -45,7 +45,19 @@
                     </thead>
                     <tbody>
                         @foreach ($companies as $company)
-
+                            @php
+                                $rand_arr = ['badge badge-outline-primary','badge badge-outline-secondary','badge badge-outline-success','badge badge-outline-info','badge badge-outline-dark'];
+                                $year_arr = ["badge rounded-pill text-primary  bg-primary-subtle","badge rounded-pill text-secondary  bg-secondary-subtle",
+                                            "badge rounded-pill text-success  bg-success-subtle",
+                                            "badge rounded-pill text-info  bg-info-subtle",
+                                            "badge rounded-pill text-dark  bg-dark-subtle"];
+                                $colors_arr = ["badge text-primary bg-primary-subtle badge-border",
+                                                "badge text-info bg-info-subtle badge-border",
+                                                "badge text-warning bg-warning-subtle badge-border",
+                                                "badge text-success bg-success-subtle badge-border",
+                                                "badge text-secondary bg-secondary-subtle badge-border",
+                                                "badge text-dark bg-dark-subtle badge-border"];
+                            @endphp
                             <x-company.edit-modal :company="$company"/>
                             <tr>
                                 <th class="opacity-75">
@@ -53,7 +65,7 @@
                                 </th>
                                 <th>
                                     <div class="d-flex align-items-center justify-content-start" name='image-preview'>
-                                        <div class="bg-light rounded-circle mx-1">
+                                        <div class="bg-light badge-outline-success rounded-circle mx-1">
                                             @if(isset($company['avatar']))
                                                 <img name='avatar' src="{{ $company['avatar'] }}" class="avatar-xs rounded-circle" />
                                             @else
@@ -62,7 +74,9 @@
                                         </div>
                                         <span name='name'class="align-items-center d-flex opacity-75">
                                             @if(isset($company['name']))
+                                                <a href="{{ route('editViewCompany', $company['id']) }}" style="cursor: pointer" class="text-sm">
                                                 {{ $company['name'] }}
+                                                </a>
                                             @else
                                                 N/A
                                             @endif
@@ -71,7 +85,7 @@
                                 </th>
                                 <th class="opacity-75" name='ruc'>
                                     @if(isset($company['identification_card']))
-                                        {{ $company['identification_card'] }}
+                                        <span class="{{$colors_arr[array_rand($colors_arr)]}}">{{ $company['identification_card'] }}</span>
                                     @else
                                         N/A
                                     @endif
@@ -83,7 +97,7 @@
                                         N/A
                                     @endif
                                 </th>
-                                <th class="opacity-75" name='email'>
+                                <th class="opacity-75 text-decoration-underline text-warning" name='email'>
                                     @if(count($company['emails'])>0)
                                     {{ $company['emails'][0]['email'] }}
                                     @else
@@ -92,12 +106,12 @@
                                 </th>
                                 <th class="opacity-75">
                                     <a href="/cars?company={{ $company['id'] }}">
-                                        {{ $company['vehicleCount'] }}
+                                        <span class="badge text-dark-emphasis  bg-dark-subtle">{{ $company['vehicleCount'] }}</span>
                                     </a>
                                 </th>
                                 <th class="opacity-75" name='province'>
                                     @if(isset($company['province']))
-                                        {{ $company['province']['name'] }}
+                                        <span class="{{$colors_arr[array_rand($colors_arr)]}}"> {{ $company['province']['name'] }}</span>
                                     @else
                                         N/A
                                     @endif
@@ -132,7 +146,8 @@
                                 </th>
                                 <th class="opacity-75" name='created_at'>
                                     @if(isset($company['created_at']))
-                                        {{ date('F j, Y, g:i a', strtotime($company['created_at'])) }}
+                                        <span class="{{$year_arr[array_rand($year_arr)]}}">{{ date('F j, Y, g:i a', strtotime($company['created_at'])) }}
+                                        </span>
                                     @else
                                         N/A
                                     @endif

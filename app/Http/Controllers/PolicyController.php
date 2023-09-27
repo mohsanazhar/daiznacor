@@ -16,7 +16,20 @@ class PolicyController extends Controller
     {
         $this->middleware('auth');
     }
+    function createPolicy(){
+        $user = Auth::user();
+        $list = $this->getFormatList();
 
+        $companies = CompanyService::getInstance()->get(100, 0, [
+            "userLoggedId" => $user->id
+        ]);
+
+        return view('pages.policy.create_policy', [
+            'user' => $user,
+            'policies' => $list,
+            'companies' => $companies,
+        ]);
+    }
     private function getFormatList() {
 
         $list = PolicyService::getInstance()->get(300, 0);
@@ -93,7 +106,6 @@ class PolicyController extends Controller
 
         } catch (Exception $e) {
 
-            dd($e);
             session()->flash("error", "Error con guardar la póliza");
 
             return redirect()->route('listPolicy');

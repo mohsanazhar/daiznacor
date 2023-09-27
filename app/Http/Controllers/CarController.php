@@ -26,7 +26,26 @@ class CarController extends Controller
         session()->remove("vehicle-error");
         session()->remove("vehicle-created");
     }
-
+    function create(){
+        $user = Auth::user();
+        $take = \request()->query("take", 100);
+        $offset = \request()->query("offset", 0);
+        $policies = PolicyService::getInstance()->get($take, $offset);
+        $provinces = MunicipalityService::getInstance()->get();
+        $vehicleType = TypeVehicleService::getInstance()->get();
+        $fuelType = FuelTypeService::getInstance()->get();
+        $companies = CompanyService::getInstance()->get($take, $offset, [
+            'userLoggedId' => $user->id
+        ]);
+        return view('pages.cars.create',[
+            'user' => $user,
+            "companies" => $companies,
+            'policies' => $policies,
+            'provinces'=>$provinces,
+            'vehicleType'=>$vehicleType,
+            'fuelType'=>$fuelType
+        ]);
+    }
     public function viewListCars(Request $req)
     {
         $this->clearSession();
@@ -77,7 +96,6 @@ class CarController extends Controller
     {
         $this->clearSession();
         $user = Auth::user();
-        
         $validatedData = validator()->make($req->input(),[
             'name' => 'required',
             'identification_card' => 'required',
