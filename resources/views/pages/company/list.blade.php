@@ -3,7 +3,7 @@
 
 @section('css')
     <style>
-        tbody td{font-size: 14px;}
+        tbody td{font-size: 12px;}
     </style>
 @endsection
 
