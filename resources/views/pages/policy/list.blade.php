@@ -53,27 +53,57 @@
                         </tr>
                     </thead>
                     <tbody>
+                    @php
+                        $rand_arr = ['badge badge-outline-primary','badge badge-outline-secondary','badge badge-outline-success','badge badge-outline-info','badge badge-outline-dark'];
+                        $year_arr = ["badge rounded-pill text-primary  bg-primary-subtle","badge rounded-pill text-secondary  bg-secondary-subtle",
+                                    "badge rounded-pill text-success  bg-success-subtle",
+                                    "badge rounded-pill text-info  bg-info-subtle",
+                                    "badge rounded-pill text-dark  bg-dark-subtle"];
+                        $colors_arr = ["badge text-primary bg-primary-subtle badge-border",
+                                        "badge text-info bg-info-subtle badge-border",
+                                        "badge text-warning bg-warning-subtle badge-border",
+                                        "badge text-success bg-success-subtle badge-border",
+                                        "badge text-secondary bg-secondary-subtle badge-border",
+                                        "badge text-dark bg-dark-subtle badge-border"];
+                    @endphp
                         @foreach($policies as $item)
 
                             <x-policy.edit-modal :item="$item"/>
                             <tr>
                                 <td>{{ $item['id'] }}</td>
-                                <td>{{ $item['number'] }}</td>
-                                <td>{{ $item['insured_name'] }}</td>
+                                <td>
+                                    <span class="{{$colors_arr[array_rand($colors_arr)]}}">{{ $item['number'] }}</span>
+                                </td>
+                                <td>
+                                    <a data-bs-toggle="modal" data-bs-target="#updatePoliciesModal{{ $item['id'] }}" style="cursor:pointer;" class="text-decoration-underline">
+                                        {{ $item['insured_name'] }}
+                                    </a>
+                                </td>
                                 <td>
                                     @if(isset($item['insurance_company']))
+                                        <span class="{{$year_arr[array_rand($year_arr)]}}">
                                         {{ $item['insurance_company'] }}
+                                        </span>
                                     @else
                                         N/A
                                     @endif
                                 </td>
-                                <td>{{ $item['identification_card'] }}</td>
                                 <td>
-                                    <a href="/cars?company={{ $item['companyId'] }}">{{ $item['vehicleCount'] }}</a>
+                                    <span class="{{$colors_arr[array_rand($colors_arr)]}}">
+                                        {{ $item['identification_card'] }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <a href="/cars?company={{ $item['companyId'] }}">
+                                        <span class="badge text-dark-emphasis  bg-dark-subtle">{{ $item['vehicleCount'] }}
+                                        </span>
+                                    </a>
                                 </td>
                                 <td>
                                     @if(isset($item['policy_issuance']))
-                                        {{ date('F j, Y, g:i a', strtotime($item['policy_issuance'])) }}
+                                        <span class="{{$rand_arr[array_rand($rand_arr)]}}">
+                                           {{ date('F j, Y, g:i a', strtotime($item['policy_issuance'])) }}
+                                        </span>
                                     @else
                                         N/A
                                     @endif

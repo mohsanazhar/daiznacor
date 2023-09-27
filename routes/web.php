@@ -39,7 +39,8 @@ Route::prefix('reminder')->group(function () {
 });
 
 Route::prefix('cars')->group(function () {
-    Route::get('/', [App\Http\Controllers\CarController::class, 'viewListCars'])->name('listCar');
+    Route::get('/list-cars', [App\Http\Controllers\CarController::class, 'viewListCars'])->name('listCar');
+    Route::get('/create-car', [App\Http\Controllers\CarController::class, 'create'])->name('listCar.create');
     Route::post('/', [App\Http\Controllers\CarController::class, 'createCar'])->name('createCar');
     Route::get('/{id}/glove-box', [App\Http\Controllers\CarController::class, 'gloveBoxView'])->name('listGloveBox');
     Route::post('/{id}/glove-box', [App\Http\Controllers\CarController::class, 'gloveBoxCreate'])->name('createGloveBox');
@@ -48,7 +49,8 @@ Route::prefix('cars')->group(function () {
 });
 
 Route::prefix('companies')->group(function () {
-    Route::get('/', [App\Http\Controllers\CompanyController::class, 'viewList'])->name('lisCompany');
+    Route::get('/list-company', [App\Http\Controllers\CompanyController::class, 'viewList'])->name('lisCompany');
+    Route::get('/create-company', [App\Http\Controllers\CompanyController::class, 'createNew'])->name('lisCompany.create');
     Route::get('/{id}/edit', [App\Http\Controllers\CompanyController::class, 'viewEdit'])->name('editViewCompany');
     Route::post('/', [App\Http\Controllers\CompanyController::class, 'create'])->name('createCompany');
     Route::patch('/{id}', [App\Http\Controllers\CompanyController::class, 'update'])->name('editCompany');
@@ -56,7 +58,8 @@ Route::prefix('companies')->group(function () {
 });
 
 Route::prefix('policies')->group(function () {
-    Route::get('/', [App\Http\Controllers\PolicyController::class, 'viewList'])->name('listPolicy');
+    Route::get('/list-policies', [App\Http\Controllers\PolicyController::class, 'viewList'])->name('listPolicy');
+    Route::get('/create-policy', [App\Http\Controllers\PolicyController::class, 'createPolicy'])->name('policy.create');
     Route::post('/', [App\Http\Controllers\PolicyController::class, 'create'])->name('createPolicy');
     Route::patch('/{id}', [App\Http\Controllers\PolicyController::class, 'update'])->name('editPolicy');
     Route::delete('/{id}', [App\Http\Controllers\PolicyController::class, 'delete'])->name('deletePolicy');

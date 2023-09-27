@@ -1,24 +1,22 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}"  data-layout="vertical" data-topbar="light"  data-sidebar="light" data-sidebar-size="lg" data-sidebar-image="none" data-preloader="disable">
+@extends('layouts.master')
+@section('title')@lang('translation.new') @endsection
 
-<head>
-    <meta charset="utf-8" />
-    <title> @yield('title') | Admin & Dashboard Template </title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
-    <meta content="Themesbrand" name="author" />
-    <link rel="shortcut icon" href="{{ URL::asset('build/images/favicon.ico') }}">
-    @include('layouts.head-css')
-</head>
-<body>
-<div class="modal fade" id="addPoliciesModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content border-0">
-            <div class="modal-header p-4 pb-0">
-                <h5 class="modal-title" id="createMemberLabel">@lang('translation.policy-add')</h5>
-                <button type="button" class="btn-close" id="createMemberBtn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+@section('content')
+@component('components.breadcrumb')
+@slot('li_1') Home @endslot
+@slot('title') Insurance Policies @endslot
+@endcomponent
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header d-flex">
+                <h5 class="card-title mb-0">@lang('translation.policy-list')</h5>
+                <div style="flex: 1 1 auto" class="d-flex justify-content-end">
+                   @include('layouts.common.display_error')
+                </div>
             </div>
-            <div class="modal-body p-4">
+            <div class="card-body">
                 <form
                         action="{{ route('createPolicy') }}"
                         method="POST"
@@ -89,22 +87,10 @@
         </div>
     </div>
 </div>
-<div id="layout-wrapper">
-    @include('layouts.topbar')
-    @include('layouts.top-tagbar')
-    @include('layouts.sidebar')
-    <div class="main-content">
-        <div class="page-content">
-            <div class="container-fluid">
-                @yield('content')
-            </div>
-        </div>
-        @include('layouts.footer')
-    </div>
-</div>
+@endsection
+@section('script')
 
-@include('layouts.customizer')
-@include('layouts.vendor-scripts')
+<script src="{{ URL::asset('build/js/app.js') }}"></script>
 
 <script>
     const flatpickrHelper = (id, options) => {
@@ -270,5 +256,5 @@
     selectizeConfigCompanies("#company-ruc", compnaiesData);
 
 </script>
-</body>
-</html>
+
+@endsection

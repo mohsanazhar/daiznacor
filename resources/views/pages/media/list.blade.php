@@ -46,6 +46,19 @@
                 </thead>
                 <tbody>
                 @if(count($media)>0)
+                    @php
+                        $rand_arr = ['badge badge-outline-primary','badge badge-outline-secondary','badge badge-outline-success','badge badge-outline-info','badge badge-outline-dark'];
+                        $year_arr = ["badge rounded-pill text-primary  bg-primary-subtle","badge rounded-pill text-secondary  bg-secondary-subtle",
+                                    "badge rounded-pill text-success  bg-success-subtle",
+                                    "badge rounded-pill text-info  bg-info-subtle",
+                                    "badge rounded-pill text-dark  bg-dark-subtle"];
+                        $colors_arr = ["badge text-primary bg-primary-subtle badge-border",
+                                        "badge text-info bg-info-subtle badge-border",
+                                        "badge text-warning bg-warning-subtle badge-border",
+                                        "badge text-success bg-success-subtle badge-border",
+                                        "badge text-secondary bg-secondary-subtle badge-border",
+                                        "badge text-dark bg-dark-subtle badge-border"];
+                    @endphp
                     @foreach($media as $k=>$v)
                         @php
                         $vehicle_id = $vehicle_paper = 0;
@@ -58,8 +71,14 @@
                         @endphp
                         <tr>
                             <td>{{$v['id']}}</td>
-                            <td>{{$v['name']}}</td>
-                            <td>{{ucwords($ext)}}</td>
+                            <td>
+                                <span class="{{$rand_arr[array_rand($rand_arr)]}}">{{$v['name']}}</span>
+                            </td>
+                            <td>
+                                <span class="{{$colors_arr[array_rand($colors_arr)]}}">
+                                    {{ucwords($ext)}}
+                                </span>
+                            </td>
                             <td>{!! (!is_null($linked))?$linked:'' !!}</td>
                             <td>
                                 <a data-media="{{$v['id']}}" data-vehcile="{{$vehicle_id}}" data-vpaper ="{{$vehicle_paper}}"  data-bs-toggle="modal" data-bs-target="#addCompanyModal" style="cursor: pointer;" class="btn_edit_file">

@@ -56,6 +56,19 @@
                     </thead>
                     <tbody>
                         @foreach ($cars as $car)
+                            @php
+                            $rand_arr = ['badge badge-outline-primary','badge badge-outline-secondary','badge badge-outline-success','badge badge-outline-info','badge badge-outline-dark'];
+                            $year_arr = ["badge rounded-pill text-primary  bg-primary-subtle","badge rounded-pill text-secondary  bg-secondary-subtle",
+                                        "badge rounded-pill text-success  bg-success-subtle",
+                                        "badge rounded-pill text-info  bg-info-subtle",
+                                        "badge rounded-pill text-dark  bg-dark-subtle"];
+                            $colors_arr = ["badge text-primary bg-primary-subtle badge-border",
+                                            "badge text-info bg-info-subtle badge-border",
+                                            "badge text-warning bg-warning-subtle badge-border",
+                                            "badge text-success bg-success-subtle badge-border",
+                                            "badge text-secondary bg-secondary-subtle badge-border",
+                                            "badge text-dark bg-dark-subtle badge-border"];
+                            @endphp
                             <x-cars.edit-modal :item="$car" :$provinces :$vehicleType :$fuelType :$policies/>
 
                             <tr>
@@ -63,11 +76,13 @@
                                     {{ $car['id'] }}
                                 </th>
                                 <th>
-                                    {{ $car['name'] }}
+                                    <span class="{{$rand_arr[array_rand($rand_arr)]}}">{{ $car['name'] }}</span>
                                 </th>
                                 <th class="opacity-75">
                                     @if(isset($car['identification_card']))
-                                        {{ $car['identification_card'] }}
+                                       <a style="cursor: pointer" class="text-decoration-underline text-info" data-bs-toggle="modal" data-bs-target="#updateCarModal{{ $car['id'] }}">
+                                           {{ $car['identification_card'] }}
+                                       </a>
                                     @else
                                         N/A
                                     @endif
@@ -81,14 +96,14 @@
                                 </th>
                                 <th class="opacity-75">
                                     @if(isset($car['month_renewal']))
-                                    {{ $car['month_renewal'] }}
+                                        <span class="badge text-dark-emphasis  bg-dark-subtle">{{ $car['month_renewal'] }}</span>
                                     @else
-                                        N/A
+                                        <span class="badge text-light-emphasis bg-light-subtle">N/A</span>
                                     @endif
                                 </th>
                                 <th class="opacity-75">
                                     @if(isset($car['brand']))
-                                        {{ $car['brand'] }}
+                                        <span class="badge badge-outline-info">{{ $car['brand'] }}</span>
                                     @else
                                         N/A
                                     @endif
@@ -102,7 +117,7 @@
                                 </th>
                                 <th class="opacity-75">
                                     @if(isset($car['year']))
-                                        {{ $car['year'] }}
+                                        <span class="{{$year_arr[array_rand($year_arr)]}}">{{ $car['year'] }}</span>
                                     @else
                                         N/A
                                     @endif
@@ -123,7 +138,7 @@
                                 </th>
                                 <th class="opacity-75">
                                     @if(isset($car['color']))
-                                        {{ $car['color'] }}
+                                        <span class="{{$colors_arr[array_rand($colors_arr)]}}">{{ ucwords($car['color']) }}</span>
                                     @else
                                         N/A
                                     @endif

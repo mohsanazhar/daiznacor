@@ -1,4 +1,15 @@
 <!-- ========== App Menu ========== -->
+@php
+$seg = request()->segment(1);
+$seg2 = request()->segment(2);
+@endphp
+<style>
+    .navbar-menu .navbar-nav .nav-sm .nav-link.active {
+        color: white !important;
+        background: #171e1c29;
+        border-radius: 4%;
+    }
+</style>
 <div class="app-menu navbar-menu">
     <!-- LOGO -->
     <div class="navbar-brand-box">
@@ -53,20 +64,48 @@
                 </li> -->
 
                 <li class="nav-item">
-                    <a href="{{ route('listCar') }}" class="nav-link menu-link"> <i class="bi bi-car-front"></i> <span data-key="t-cars">@lang('translation.cars')</span> </a>
+                    <a class="nav-link menu-link {{($seg=="cars")?"active":""}}" href="#cars" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarInsuranceCar">
+                        <i class="bi bi-car-front"></i> <span data-key="t-insuranceCar">@lang('translation.cars')</span>
+                    </a>
+                    <div class="collapse menu-dropdown {{($seg=="cars")?"show":""}}" id="cars">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item {{($seg2=="list-cars" || $seg2=="create-car")?"active":""}}">
+                                <a href="{{route('listCar.create')}}" class="nav-link {{($seg2=="create-car")?"active":""}}" data-key="t-newPolicy" >@lang('translation.new')</a>
+                                <a href="{{ route('listCar') }}" class="nav-link {{($seg2=="list-cars")?"active":""}}" data-key="t-listPolicy">@lang('translation.list')</a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
-
                 <li class="nav-item">
-                    <a href="{{ route('lisCompany')}}" class="nav-link menu-link"> <i class="bi bi-window-dock"></i> <span data-key="t-companies">@lang('translation.companies')</span> </a>
+                    <a class="nav-link menu-link {{($seg=="companies")?"active":""}}" href="#companies" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarInsuranceCar">
+                        <i class="bi bi-window-dock"></i> <span data-key="t-insuranceCar">@lang('translation.companies')</span>
+                    </a>
+                    <div class="collapse menu-dropdown {{($seg=="companies")?"show":""}}" id="companies">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item {{($seg2=="")?"active":""}}">
+                                <a href="{{route('lisCompany.create')}}" class="nav-link {{($seg2=="create-company")?"active":""}}" data-key="t-newPolicy" >@lang('translation.new')</a>
+                                <a href="{{ route('lisCompany') }}" class="nav-link {{($seg2=="list-company")?"active":""}}" data-key="t-listPolicy">@lang('translation.list')</a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
-
                 <li class="nav-item">
-                    <a href="{{ route('listPolicy')}}" class="nav-link menu-link"> <i class="bi bi-folder"></i> <span data-key="t-policies">@lang('translation.policies')</span> </a>
+                    <a class="nav-link menu-link {{($seg=="policies")?"active":""}}" href="#policies" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarInsuranceCar">
+                        <i class="bi bi-folder"></i> <span data-key="t-insuranceCar">@lang('translation.policies')</span>
+                    </a>
+                    <div class="collapse menu-dropdown {{($seg=="policies")?"show":""}}" id="policies">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item {{($seg=="policies")?"active":""}}">
+                                <a href="{{route('policy.create')}}" class="nav-link{{($seg2=="create-policy")?"active":""}}" data-key="t-newPolicy" >@lang('translation.new')</a>
+                                <a href="{{ route('listPolicy') }}" class="nav-link {{($seg2=="list-policies")?"active":""}}" data-key="t-listPolicy">@lang('translation.list')</a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{($seg=="media")?"active":""}}">
                     <a href="{{ route('listMedia')}}" class="nav-link menu-link"> <i class="bi bi-image"></i> <span data-key="t-policies">@lang('translation.media')</span> </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{($seg=="customEvents")?"active":""}}">
                     <a href="{{ route('customEvents')}}" class="nav-link menu-link"> <i class="bi bi-bell"></i> <span data-key="t-policies">@lang('translation.reminders')</span> </a>
                 </li>
 

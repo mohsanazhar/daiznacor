@@ -17,6 +17,25 @@ class CompanyController extends Controller
     {
         $this->middleware('auth');
     }
+    function createNew(Request $request){
+        $user = Auth::user();
+        $take = $request->query("take", 10);
+        $offset = $request->query("offset", 0);
+
+        $companies = CompanyService::getInstance()->get($take, $offset, [
+            'userLoggedId' => $user->id
+        ]);
+        $province = ProvinceService::getInstance()->get();
+        $district = DistrictService::getInstance()->get();
+        $corregimento = CorregimientoService::getInstance()->get();
+        return view("pages.company.create", [
+            "companies" => $companies,
+            'user' => $user,
+            'province'=>$province,
+            'district'=>$district,
+            'corregimento'=>$corregimento
+        ]);
+    }
 
     public function getOne(Request $request){
 
