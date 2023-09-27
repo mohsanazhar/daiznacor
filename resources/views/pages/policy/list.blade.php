@@ -2,6 +2,9 @@
 @section('title') @lang('translation.users') @endsection
 
 @section('css')
+    <style>
+        tbody td{font-size: 14px;}
+    </style>
 @endsection
 
 @section('content')

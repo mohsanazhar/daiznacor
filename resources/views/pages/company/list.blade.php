@@ -2,6 +2,9 @@
 @section('title') @lang('translation.companies') @endsection
 
 @section('css')
+    <style>
+        tbody td{font-size: 14px;}
+    </style>
 @endsection
 
 @section('content')
@@ -60,10 +63,10 @@
                             @endphp
                             <x-company.edit-modal :company="$company"/>
                             <tr>
-                                <th class="opacity-75">
+                                <td class="opacity-75">
                                     {{ $company['id'] }}
-                                </th>
-                                <th>
+                                </td>
+                                <td>
                                     <div class="d-flex align-items-center justify-content-start" name='image-preview'>
                                         <div class="bg-light badge-outline-success rounded-circle mx-1">
                                             @if(isset($company['avatar']))
@@ -82,76 +85,76 @@
                                             @endif
                                         </span>
                                     </div>
-                                </th>
-                                <th class="opacity-75" name='ruc'>
+                                </td>
+                                <td class="opacity-75" name='ruc'>
                                     @if(isset($company['identification_card']))
                                         <span class="{{$colors_arr[array_rand($colors_arr)]}}">{{ $company['identification_card'] }}</span>
                                     @else
                                         N/A
                                     @endif
-                                </th>
-                                <th class="opacity-75" name='phone_number'>
+                                </td>
+                                <td class="opacity-75" name='phone_number'>
                                     @if(isset($company['phone_numbers']))
                                         {{ $company['phone_numbers'][0]['phone_number'] }}
                                     @else
                                         N/A
                                     @endif
-                                </th>
-                                <th class="opacity-75 text-decoration-underline text-warning" name='email'>
+                                </td>
+                                <td class="opacity-75 text-decoration-underline text-warning" name='email'>
                                     @if(count($company['emails'])>0)
                                     {{ $company['emails'][0]['email'] }}
                                     @else
                                         N/A
                                     @endif
-                                </th>
-                                <th class="opacity-75">
+                                </td>
+                                <td class="opacity-75">
                                     <a href="/cars?company={{ $company['id'] }}">
                                         <span class="badge text-dark-emphasis  bg-dark-subtle">{{ $company['vehicleCount'] }}</span>
                                     </a>
-                                </th>
-                                <th class="opacity-75" name='province'>
+                                </td>
+                                <td class="opacity-75" name='province'>
                                     @if(isset($company['province']))
                                         <span class="{{$colors_arr[array_rand($colors_arr)]}}"> {{ $company['province']['name'] }}</span>
                                     @else
                                         N/A
                                     @endif
-                                </th>
-                                <th class="opacity-75" name='district'>
+                                </td>
+                                <td class="opacity-75" name='district'>
                                     @if(isset($company['district']))
                                         {{ $company['distric']['name'] }}
                                     @else
                                         N/A
                                     @endif
-                                </th>
-                                <th class="opacity-75" name='corregimiento'>
+                                </td>
+                                <td class="opacity-75" name='corregimiento'>
                                     @if(isset($company['corregimiento']))
                                         {{ $company['corregimiento']['name'] }}
                                     @else
                                         N/A
                                     @endif
-                                </th>
-                                <th class="opacity-75" name='house_number'>
+                                </td>
+                                <td class="opacity-75" name='house_number'>
                                     @if(isset($company['house_number']))
                                         {{ $company['house_number'] }}
                                     @else
                                         N/A
                                     @endif
-                                </th>
-                                <th class="opacity-75" name='street'>
+                                </td>
+                                <td class="opacity-75" name='street'>
                                     @if(isset($company['street']))
                                         {{ $company['street'] }}
                                     @else
                                         N/A
                                     @endif
-                                </th>
-                                <th class="opacity-75" name='created_at'>
+                                </td>
+                                <td class="opacity-75" name='created_at'>
                                     @if(isset($company['created_at']))
                                         <span class="{{$year_arr[array_rand($year_arr)]}}">{{ date('F j, Y, g:i a', strtotime($company['created_at'])) }}
                                         </span>
                                     @else
                                         N/A
                                     @endif
-                                </th>
+                                </td>
                                 <td>
                                     <div class="dropdown d-inline-block">
                                         <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
