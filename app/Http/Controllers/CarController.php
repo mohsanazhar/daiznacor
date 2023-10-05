@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helper\RequestHelper;
+use App\Models\Vehicle;
 use App\Services\CompanyService;
 use App\Services\PolicyService;
 use Illuminate\Http\Request;
@@ -45,6 +46,20 @@ class CarController extends Controller
             'vehicleType'=>$vehicleType,
             'fuelType'=>$fuelType
         ]);
+    }
+    /*
+     * view car details
+     */
+    function get_car_details(Request $req){
+        $car = Vehicle::with([
+            'company',
+            'type',
+            'municipaly',
+            'policy',
+            'fuelType',
+            'createdByUser'
+        ])->find($req->input('id'));
+        return view('pages.cars.view_card_detail_modal',compact('car'))->render();
     }
     public function viewListCars(Request $req)
     {

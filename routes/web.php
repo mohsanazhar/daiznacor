@@ -46,6 +46,7 @@ Route::prefix('cars')->group(function () {
     Route::post('/{id}/glove-box', [App\Http\Controllers\CarController::class, 'gloveBoxCreate'])->name('createGloveBox');
     Route::patch('/{id}', [App\Http\Controllers\CarController::class, 'update'])->name('editCar');
     Route::delete('/{id}', [App\Http\Controllers\CarController::class, 'delete'])->name('deleteCar');
+    Route::post('/get-card-detail', [App\Http\Controllers\CarController::class, 'get_car_details'])->name('get_car_details');
 });
 
 Route::prefix('companies')->group(function () {
