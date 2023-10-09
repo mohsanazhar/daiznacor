@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Services\PolicyService;
 use App\Services\InsuranceService;
 use App\Services\CompanyService;
+use App\Exports\ExportPolicy;
+use Maatwebsite\Excel\Facades\Excel;
 use Exception;
 
 class PolicyController extends Controller
@@ -74,17 +76,19 @@ class PolicyController extends Controller
     }
 
     public function create(Request $request){
-
         $this->clearSession();
         $request->validate([
-            'number' => ["required"],
+            'policy-number' => ["required"],
+            'insurance-company' => ["required"],
             'insured_name' => ["required"],
             'identification_card' => ["required"],
             'policy_expiration' => ["required"],
+            'policy_issuance' => ["required"],
         ]);
 
         try {
-            $insureFound = InsuranceService::getInstance()->findOneById($request->input("insurance_company_id"));
+            $insureFound = InsuranceService::getInstance()->findOneById($request->input("insurance-company"));
+
             if(!$insureFound) {
                 session()->flash("error", "Compaña aseguradora no existe");
                 return redirect()->route('listPolicy');
@@ -105,7 +109,7 @@ class PolicyController extends Controller
             return redirect()->route('listPolicy');
 
         } catch (Exception $e) {
-
+				
             session()->flash("error", "Error con guardar la póliza");
 
             return redirect()->route('listPolicy');
@@ -182,4 +186,21 @@ class PolicyController extends Controller
         $list = $this->getFormatList();
         return redirect()->route('listPolicy');
     }
+
+    public function export()
+    {
+        return Excel::download(new ExportPolicy, 'policy.csv', \Maatwebsite\Excel\Excel::CSV);
+    }
+
+    public function import(Request $request)
+    {
+        //dd($request);
+        //dd(request->file('file')->getPathName());
+        Excel::import(new ExportPolicy, $request->file('file'));
+        //Excel::import(new ExportPolicy, request()->file('file'), 'policy.csv', \Maatwebsite\Excel\Excel::CSV);
+        //Excel->(new UsersImport)->import('policy.csv', null, \Maatwebsite\Excel\Excel::CSV);
+        return redirect('/')->with('success', 'All good!');
+        return back();
+    }
+
 }

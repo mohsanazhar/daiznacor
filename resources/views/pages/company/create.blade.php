@@ -148,11 +148,11 @@
                                 <div>
                                     <select name="district" id='company-district' class="form-control" aria-label="@lang('translation.district')" required>
                                         <option value=""></option>
-                                        @if(count($district)>0)
+                                        <!--@if(count($district)>0)
                                             @foreach($district as $k=>$v)
                                                 <option value="{{$v['id']}}">{{$v['name']}}</option>
                                             @endforeach
-                                        @endif
+                                        @endif -->
                                     </select>
                                 </div>
                             </div>
@@ -163,11 +163,11 @@
                                 <div>
                                     <select name="corregimiento" id="company-corregimiento" class="form-control" aria-label="@lang('translation.corregimiento')" required>
                                         <option value=""></option>
-                                        @if(count($corregimento)>0)
+                                        <!--@if(count($corregimento)>0)
                                             @foreach($corregimento as $k=>$v)
                                                 <option value="{{$v['id']}}">{{$v['name']}}</option>
                                             @endforeach
-                                        @endif
+                                        @endif -->
                                     </select>
                                 </div>
                             </div>
@@ -344,7 +344,58 @@
     }
 
 </script>
+<script>
+    $("#company-province").change(function(){
+        var selectedValue = $(this).val();
+        var selectbox=$("#company-district");
+        $('#company-district option').each(function() {
+            if ( $(this).val() !== '' ) {
+                $(this).remove();
+            }
+        });
+        $('#company-corregimiento option').each(function() {
+            if ( $(this).val() !== '' ) {
+                $(this).remove();
+            }
+        });
+        getProvinces(selectedValue).then(({ data }) => {
+            //$('#company-district').each(function(){
+                    if(!data.length) return;
+                    data.forEach((item, id) => {
+                        selectbox.append($('<option>').text(item.name).val(item.id));
+                });
+            //});
+        });
+    });
 
+    $("#company-district").change(function(){
+        var selectedValue = $(this).val();
+        var selectbox=$("#company-corregimiento");
+        $('#company-corregimiento option').each(function() {
+            if ( $(this).val() !== '' ) {
+                $(this).remove();
+            }
+        });
+        getCorregimientos(selectedValue).then(({ data }) => {
+            //$('#company-district').each(function(){
+            if(!data.length) return;
+        data.forEach((item, id) => {
+            selectbox.append($('<option>').text(item.name).val(item.id));
+    });
+        //});
+    });
+    });
+    const getProvinces = async (id) => {
+        return await axios.get("/api/districts/district/getDistrictByProvice/"+id).catch(error => {
+            console.error("districts ERROR", error);
+        })
+    }
+    const getCorregimientos = async (id) => {
+        return await axios.get("/api/corregimientos/corregimiento/getCorregimientosByDistric/"+id).catch(error => {
+            console.error("districts ERROR", error);
+    })
+    }
+</script>
 
 
 

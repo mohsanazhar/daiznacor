@@ -23,8 +23,20 @@
                 <div style="flex: 1 1 auto" class="d-flex justify-content-end">
                     @include('layouts.common.display_error')
                     <a style="cursor: pointer;">
-                        <a data-key="t-newCompany" data-bs-toggle="modal" data-bs-target="#addCompanyModal" style="cursor: pointer;" class="btn btn-success">@lang('translation.new')</a>
+                        <a data-key="t-newCompany" data-bs-toggle="modal" data-bs-target="#addCompanyModal" style="cursor: pointer;display:none" class="btn btn-success">@lang('translation.new')</a>
                     </a>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-success">@lang('translation.action')</button>
+                        <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="visually-hidden">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a data-key="t-newCompany" data-bs-toggle="modal" data-bs-target="#addCompanyModal" style="cursor: pointer;" class="dropdown-item">@lang('translation.new')</a></li>
+                            <li><a href="{{ url('car/export') }}" class="dropdown-item" href="#">@lang('translation.export')</a></li>
+                            <li><a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="dropdown-item" href="#">@lang('translation.import') </a></li>
+                            <li><a href="{{ asset('DemoCSVFiles/cars.csv') }}" class="dropdown-item" download> @lang('translation.demo_import') </a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div class="card-body">

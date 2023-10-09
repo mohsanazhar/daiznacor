@@ -355,6 +355,14 @@ return [
     'enable_reminder'=>'Enable Reminders',
     'if_enable'=>'If Enable:Allow application to send reminders',
     'notify_days'=>'Notify before days',
-    'submit'=>'Save'
+    'submit'=>'Save',
+    'import'=>'Importar',
+    'export'=>'Exportar',
+    'action'=>'Acción',
+    'upload_csv_file'=>'Subir CSV Archivo',
+    'demo_import'=>'Manifestación',
+
+
+
 ];
 ?>

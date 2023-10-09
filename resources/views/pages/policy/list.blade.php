@@ -34,9 +34,21 @@
                         </div>
                     @endif
                     <div class='p-1'>
-                        <a style="cursor: pointer;">
-                            <a data-key="t-newPolicies" data-bs-toggle="modal" data-bs-target="#addPoliciesModal" style="cursor: pointer;" class="btn btn-success">@lang('translation.new')</a>
+                        <a style="cursor: pointer; display:none">
+                            <a data-key="t-newPolicies" data-bs-toggle="modal" data-bs-target="#addPoliciesModal" style="cursor: pointer;display:none" class="btn btn-success">@lang('translation.new')</a>
                         </a>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-success">@lang('translation.action')</button>
+                            <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="visually-hidden">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ url('policies/create-policy') }}" class="dropdown-item" href="#">@lang('translation.new')</a></li>
+                                <li><a href="{{ url('policy/export') }}" class="dropdown-item" href="#">@lang('translation.export')</a></li>
+                                <li><a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="dropdown-item" href="#">@lang('translation.import') </a></li>
+                                <li><a href="{{ asset('DemoCSVFiles/policy.csv') }}" class="dropdown-item" download> @lang('translation.demo_import') </a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -46,8 +58,8 @@
                         <tr>
                             <th>ID</th>
                             <th>No. Póliza</th>
+                            <th>Empresa</th>
                             <th>Compañía Aseguradora</th>
-                            <th>Nombre de Aseguradora</th>
                             <th>RUC / Cédula</th>
                             <th>Autos</th>
                             <th>Emisión de Póliza</th>
@@ -145,6 +157,31 @@
     </div>
 </div>
 
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">@lang('translation.policy-list') @lang('translation.import')</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ route('policy/import') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+            <div class="modal-body">
+                <div>
+                    <label for="formFileLg" class="form-label">@lang('translation.upload_csv_file')</label>
+                    <input class="form-control form-control-lg" name="file" id="formFileLg" type="file">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@lang('translation.close')</button>
+                <button type="submit" class="btn btn-primary">@lang('translation.import')</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection
 @section('script')
 
