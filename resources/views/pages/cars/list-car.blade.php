@@ -24,9 +24,21 @@
                 <div style="flex: 1 1 auto" class="d-flex justify-content-end">
                      @include('layouts.common.display_error')
                     <div class='p-1'>
-                        <a style="cursor: pointer;">
-                            <a data-key="t-newCompany" data-bs-toggle="modal" data-bs-target="#addCompanyModal" style="cursor: pointer;" class="btn btn-success">@lang('translation.new')</a>
+                        <a style="cursor: pointer;display:none">
+                            <a data-key="t-newCompany" data-bs-toggle="modal" data-bs-target="#addCompanyModal" style="cursor: pointer;display:none" class="btn btn-success">@lang('translation.new')</a>
                         </a>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-success">@lang('translation.action')</button>
+                            <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="visually-hidden">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ url('cars/create-car') }}" class="dropdown-item" href="#">@lang('translation.new')</a></li>
+                                <li><a href="{{ url('car/export') }}" class="dropdown-item" href="#">@lang('translation.export')</a></li>
+                                <li><a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="dropdown-item" href="#">@lang('translation.import') </a></li>
+                                <li><a href="{{ asset('DemoCSVFiles/cars.csv') }}" class="dropdown-item" download> @lang('translation.demo_import') </a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -79,13 +91,13 @@
                                 </td>
                                 <td class="opacity-75">
                                     @if(isset($car['month_renewal']))
-                                        <span class="badge text-dark-emphasis  bg-dark-subtle">{{ $car['month_renewal'] }}</span>
+                                        <span class="badge text-dark-emphasis  bg-dark-subtle">{{ ($car['month_renewal'] > 0 && $car['month_renewal'] < 13 )? date("F", mktime(0, 0, 0, $car['month_renewal'], 10)):"" }}</span>
                                     @else
                                         <span class="badge text-light-emphasis bg-light-subtle">N/A</span>
                                     @endif
                                 </td>
                                 <td class="opacity-75">
-                                    @if(isset($car['municipaly']))
+                                @if(isset($car['municipaly']))
                                         {{ $car['municipaly'] }}
                                     @else
                                         N/A
@@ -149,6 +161,29 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">@lang('translation.policy-list') @lang('translation.import')</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ route('car/import') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body">
+                    <div>
+                        <label for="formFileLg" class="form-label">@lang('translation.upload_csv_file')</label>
+                        <input class="form-control form-control-lg" name="file" id="formFileLg" type="file">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@lang('translation.close')</button>
+                    <button type="submit" class="btn btn-primary">@lang('translation.import')</button>
+                </div>
+            </form>
+        </div>
+    </div>
 <div class="modal fade" id="viewCarDetailModel" tabindex="-1" aria-hidden="true" data-bs-config="backdrop:true">
 </div>
 @php

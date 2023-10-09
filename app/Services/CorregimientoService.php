@@ -40,4 +40,9 @@ class CorregimientoService
         if(!isset($name)) return null;
         return Corregimiento::where("name", $name)->first();
     }
+
+    public static function getCorregimientosByDistric($id){
+        if(!isset($id)) return null;
+        return Corregimiento::where("district_id", $id)->get();
+    }
 }

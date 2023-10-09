@@ -81,3 +81,9 @@ Route::get('policyCronJob',[\App\Http\Controllers\ReminderController::class,'pol
 Route::get('eventCronJob',[\App\Http\Controllers\ReminderController::class,'eventCronJob'])->name('eventCronJob');
 Route::get('plateCronJob',[\App\Http\Controllers\ReminderController::class,'plateCronJob'])->name('plateCronJob');
 Route::match(['get','post'],'ajaxrequest',[\App\Http\Controllers\AjaxController::class,'index']);
+
+Route::get('policy/export/', [App\Http\Controllers\PolicyController::class, 'export']);
+Route::post('policy/import/', [App\Http\Controllers\PolicyController::class, 'import'])->name('policy/import');
+
+Route::get('car/export/', [App\Http\Controllers\CarController::class, 'export']);
+Route::post('car/import/', [App\Http\Controllers\CarController::class, 'import'])->name('car/import');
