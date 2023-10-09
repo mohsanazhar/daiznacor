@@ -13,6 +13,8 @@ use App\Services\FuelTypeService;
 use App\Services\TypeVehicleService;
 use App\Services\VehiclePaperService;
 use Illuminate\Support\Facades\Auth;
+use App\Exports\VehicleExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Exception;
 
 class CarController extends Controller
@@ -405,5 +407,21 @@ class CarController extends Controller
             return redirect()->route("listCar");
         }
 
+    }
+
+    public function export()
+    {
+        return Excel::download(new VehicleExport, 'Cars.csv', \Maatwebsite\Excel\Excel::CSV);
+    }
+
+    public function import(Request $request)
+    {
+        //dd($request);
+        //dd(request->file('file')->getPathName());
+        Excel::import(new VehicleExport, $request->file('file'));
+        //Excel::import(new ExportPolicy, request()->file('file'), 'policy.csv', \Maatwebsite\Excel\Excel::CSV);
+        //Excel->(new UsersImport)->import('policy.csv', null, \Maatwebsite\Excel\Excel::CSV);
+        return redirect('/')->with('success', 'All good!');
+        return back();
     }
 }

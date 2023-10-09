@@ -17,6 +17,7 @@
                 </div>
             </div>
             <div class="card-body">
+
                 <form
                         action="{{ route('createPolicy') }}"
                         method="POST"
@@ -31,15 +32,17 @@
                             <div>
                                 <label for="company-name" class="form-label">@lang('translation.policy-num')</label>
                                 <div>
-                                    <input type="text" id="policy-number" class="form-control" name="number" placeholder="@lang('translation.policy-num')">
+                                    <input type="text" id="policy-number" class="form-control @error('policy-number') is-invalid @enderror" name="policy-number" placeholder="@lang('translation.policy-num')" required>
+                                    <div class="invalid-feedback"> Please choose a username. </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6 mb-3">
                             <div>
-                                <label for="insurance-company" class="form-label">@lang('translation.insurance-company')</label>
+                                <label for="insurance-company-id" class="form-label">@lang('translation.insurance-company')</label>
                                 <div>
-                                    <select name="insurance_company_id" id="insurance-company-id">
+									 <select class="form-control @error('insurance-company') is-invalid @enderror" name="insurance-company" id="insurance-company-options" required>
+									 <option></option>
                                     </select>
                                 </div>
                             </div>
@@ -48,7 +51,7 @@
                             <div>
                                 <label for="name-insure" class="form-label">@lang('translation.name-insure')</label>
                                 <div>
-                                    <input type="text" id="name-insure" class="form-control" name="insured_name" placeholder="@lang('translation.name-insure')">
+                                    <input type="text" id="name-insure" class="form-control @error('insured_name') is-invalid @enderror" name="insured_name" placeholder="@lang('translation.name-insure')">
                                 </div>
                             </div>
                         </div>
@@ -56,16 +59,8 @@
                             <div>
                                 <label for="company-ruc" class="form-label">RUC / Cédula</label>
                                 <div>
-                                    <select type="text" id="company-ruc" name="identification_card" placeholder="RUC">
+                                    <select class="@error('identification_card') is-invalid @enderror" type="text" id="company-ruc" name="identification_card" placeholder="RUC">
                                     </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 mb-3">
-                            <div>
-                                <label for="policy-expiration" class="form-label">@lang('translation.policy-expiration')</label>
-                                <div>
-                                    <input type="text" id="policy-expiration" class="form-control" name="policy_expiration" placeholder="@lang('translation.policy-expiration')">
                                 </div>
                             </div>
                         </div>
@@ -73,12 +68,19 @@
                             <div>
                                 <label for="policy-issuance" class="form-label">@lang('translation.policy-issuance')</label>
                                 <div>
-                                    <input type="text" id="policy-issuance" class="form-control" name="policy_issuance" placeholder="@lang('translation.policy-issuance')">
+                                    <input type="text" id="policy-issuance" class="form-control @error('policy_issuance') is-invalid @enderror" name="policy_issuance" placeholder="@lang('translation.policy-issuance')">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 mb-3">
+                            <div>
+                                <label for="policy-expiration" class="form-label">@lang('translation.policy-expiration')</label>
+                                <div>
+                                    <input type="text" id="policy-expiration" class="form-control @error('policy_expiration') is-invalid @enderror" name="policy_expiration" placeholder="@lang('translation.policy-expiration')" required> <!-- today-update-start -->
                                 </div>
                             </div>
                         </div>
                         <div class="hstack gap-2 justify-content-end">
-                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">@lang('translation.close')</button>
                             <button type="submit" class="btn btn-success" id="addNewMember">@lang('translation.new')</button>
                         </div>
                     </div>
@@ -104,7 +106,29 @@
     });
     }
 </script>
+<!-- today-update-start -->
+<script>
+/*(function () {
+  'use strict'
 
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()*/
+</script>
+<!-- today-update-end -->
 <script>
     const flatpickrElementDateIds = [
         "policy-issuance",
@@ -208,12 +232,22 @@
             defaultDate: false
         })
     });
+
     getInsuranceCompanies().then(({ data }) => {
-        selectConfig("#insurance-company-id", data)
-    $('select[id^="insurance-company-id-"]').each(function() {
-        selectConfig(`#${this.id}`, data);
+		var selectbox=$("#insurance-company-options");
+		$('#insurance-company-options').each(function(){
+			if(!data.length) return;
+            data.forEach((item, id) => {
+				selectbox.append($('<option>').text(item.name).val(item.id));
+			});
+			
+		})
+        //selectConfig("#insurance-company-id", data)
+    //$('select[id^="insurance-company-id-"]').each(function() {
+        //selectConfig(`#${this.id}`, data);
+    //});
     });
-    });
+
     });
 
 </script>

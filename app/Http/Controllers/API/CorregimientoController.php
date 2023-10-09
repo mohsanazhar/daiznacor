@@ -20,13 +20,18 @@ class CorregimientoController extends Controller
             'name' => ["required", 'string'],
         ]);
 
-        CorregimientoService::getInstance()->create($request->input("name"),);
+        CorregimientoService::getInstance()->create($request->input("name"));
 
         return response()->json([
             "info" => [ "Successfully" ]
         ], 201);
     }
 
+    public function getCorregimientosByDistric($id){
+
+        $corregimientos = CorregimientoService::getCorregimientosByDistric($id);
+        return response()->json($corregimientos);
+    }
     public function show(){
         
     }

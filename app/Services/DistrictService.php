@@ -40,4 +40,9 @@ class DistrictService
         if(!isset($name)) return null;
         return District::where("name", $name)->first();
     }
+
+    public static function getDistrictByProvice($id){
+        if(!isset($id)) return null;
+        return District::where("province_id", $id)->get();
+    }
 }

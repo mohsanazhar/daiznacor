@@ -24,10 +24,12 @@ Route::prefix('provinces')->group(function () {
 
 Route::prefix('districts')->group(function () {
     Route::apiResource('/', App\Http\Controllers\API\DistrictController::class);
+    Route::get('/district/getDistrictByProvice/{id}', 'App\Http\Controllers\API\DistrictController@getDistrictByProvice');
 });
 
 Route::prefix('corregimientos')->group(function () {
     Route::apiResource('/', App\Http\Controllers\API\CorregimientoController::class);
+    Route::get('/corregimiento/getCorregimientosByDistric/{id}', 'App\Http\Controllers\API\CorregimientoController@getCorregimientosByDistric');
 });
 
 Route::prefix('municipality')->group(function () {

@@ -10,9 +10,9 @@ class InsuranceController extends Controller
 {
     public function index(Request $request)
     {
-        $provinces = InsuranceService::getInstance()->get();
+        $insurances = InsuranceService::getInstance()->get();
 
-        return response()->json($provinces);
+        return response()->json($insurances);
     }
 
     public function store(Request $request) {

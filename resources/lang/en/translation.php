@@ -360,7 +360,13 @@ return [
     'enable_reminder'=>'Enable Reminders',
     'if_enable'=>'If Enable:Allow application to send reminders',
     'notify_days'=>'Notify before days',
-    'submit'=>'Save'
+    'submit'=>'Save',
+    'import'=>'Import',
+    'export'=>'Export',
+    'action'=>'Action',
+    'upload_csv_file'=>'Upload CSV File ',
+    'demo_import'=>'Demo Import',
+
 ];
 ?>
 
