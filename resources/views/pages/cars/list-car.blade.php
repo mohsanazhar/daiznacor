@@ -49,23 +49,9 @@
                             <th>ID</th>
                             <th>Nombre del propietario</th>
                             <th>Identificatión</th>
-                            <th>Placa</th>
                             <th>Mes</th>
-                            <th>Estado</th>
-                            <th>Marca</th>
-                            <th>Modelo</th>
-                            <th>Año</th>
-                            <th>Motor</th>
-                            <th>Chasis</th>
-                            <th>Color</th>
                             <th>Municipio</th>
-                            <th>Tipo de vehículo</th>
-                            <th>Tipo de Combustible</th>
-                            <th>Acreedor Hipotecario</th>
                             <th>No. Póliza</th>
-                            <th>Compañia de Aseguradora</th>
-                            <th>No. de Revisado</th>
-                            <th>No. Pesas / Dimensiones</th>
                             <th>Fecha de Vencimiento</th>
                             <th>Acciones</th>
                         </tr>
@@ -104,13 +90,6 @@
                                     @endif
                                 </td>
                                 <td class="opacity-75">
-                                    @if(isset($car['car_plate']))
-                                        {{ $car['car_plate'] }}
-                                    @else
-                                        N/A
-                                    @endif
-                                </td>
-                                <td class="opacity-75">
                                     @if(isset($car['month_renewal']))
                                         <span class="badge text-dark-emphasis  bg-dark-subtle">{{ ($car['month_renewal'] > 0 && $car['month_renewal'] < 13 )? date("F", mktime(0, 0, 0, $car['month_renewal'], 10)):"" }}</span>
                                     @else
@@ -118,78 +97,8 @@
                                     @endif
                                 </td>
                                 <td class="opacity-75">
-                                    <select>
-                                        <option class="text-success">VIGENTE</option>
-                                        <option class="text-warning">POR VENCER</option>
-                                        <option class="text-danger">VENCIDO</option>
-                                    </select>
-                                </td>
-                                <td class="opacity-75">
-                                    @if(isset($car['brand']))
-                                        <span class="badge badge-outline-info">{{ $car['brand'] }}</span>
-                                    @else
-                                        N/A
-                                    @endif
-                                </td>
-                                <td class="opacity-75">
-                                    @if(isset($car['model']))
-                                        {{ $car['model'] }}
-                                    @else
-                                        N/A
-                                    @endif
-                                </td>
-                                <td class="opacity-75">
-                                    @if(isset($car['year']))
-                                        <span class="{{$year_arr[array_rand($year_arr)]}}">{{ $car['year'] }}</span>
-                                    @else
-                                        N/A
-                                    @endif
-                                </td>
-                                <td class="opacity-75">
-                                    @if(isset($car['engine']))
-                                        {{ $car['engine'] }}
-                                    @else
-                                        N/A
-                                    @endif
-                                </td>
-                                <td class="opacity-75">
-                                    @if(isset($car['chassis']))
-                                        {{ $car['chassis'] }}
-                                    @else
-                                        N/A
-                                    @endif
-                                </td>
-                                <td class="opacity-75">
-                                    @if(isset($car['color']))
-                                        <span class="{{$colors_arr[array_rand($colors_arr)]}}">{{ ucwords($car['color']) }}</span>
-                                    @else
-                                        N/A
-                                    @endif
-                                </td>
-                                <td class="opacity-75">
-                                    @if(isset($car['municipaly']))
+                                @if(isset($car['municipaly']))
                                         {{ $car['municipaly'] }}
-                                    @else
-                                        N/A
-                                    @endif
-                                </td>
-                                <td class="opacity-75">
-                                    @if(isset($car['vehicleType']))
-                                        {{ $car['vehicleType'] }}
-                                    @else
-                                        N/A
-                                    @endif
-                                </td>
-                                <td class="opacity-75">
-                                    @if(isset($car['fuelType']))
-                                        {{ $car['fuelType'] }}
-                                    @else
-                                        N/A
-                                    @endif
-                                </td>
-                                <td class="opacity-75">
-                                    @if(isset($car['mortgagee']))
-                                        {{ $car['mortgagee'] }}
                                     @else
                                         N/A
                                     @endif
@@ -197,27 +106,6 @@
                                 <td class="opacity-75">
                                     @if(isset($car['policy']))
                                         {{ $car['policy']['number'] }}
-                                    @else
-                                        N/A
-                                    @endif
-                                </td>
-                                <td class="opacity-75">
-                                    @if(isset($car['policy']))
-                                        {{ $car['policy']['insurance_company']['name'] }}
-                                    @else
-                                        N/A
-                                    @endif
-                                </td>
-                                <td class="opacity-75">
-                                    @if(isset($car['revised_no']))
-                                        {{ $car['revised_no'] }}
-                                    @else
-                                        N/A
-                                    @endif
-                                </td>
-                                <td class="opacity-75">
-                                    @if(isset($car['weights']))
-                                        {{ $car['weights'] }}
                                     @else
                                         N/A
                                     @endif
@@ -235,6 +123,12 @@
                                             <i class="ri-more-fill align-middle"></i>
                                         </button>
                                         <ul class="dropdown-menu dropdown-menu-end">
+                                            <li onclick="get_car_details({{$car['id']}})" data-id="">
+                                                <a  data-id="{{$car['id']}}" class="dropdown-item cursor-pointer">
+                                                    <i class="bi-eye align-bottom me-2 text-muted"></i>
+                                                    View Detail
+                                                </a>
+                                            </li>
                                             <li>
                                                 <a href="{{ route('listGloveBox', $car['id']) }}" class="dropdown-item edit-item-btn cursor-pointer">
                                                     <i class="bi-folder-fill align-bottom me-2 text-muted"></i>
@@ -267,7 +161,7 @@
         </div>
     </div>
 </div>
-<!-- Modal -->
+
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -290,6 +184,7 @@
             </form>
         </div>
     </div>
+<div class="modal fade" id="viewCarDetailModel" tabindex="-1" aria-hidden="true" data-bs-config="backdrop:true">
 </div>
 @php
 if(session()->has('status')){
@@ -313,7 +208,20 @@ if(session()->has('validError')){
     const compnaiesData = @json($companies);
     const policiesData = @json($policies);
     const form = document.getElementById("form-new-car");
+    function get_car_details(id){
+        $.ajax({
+            url:'{{route('get_car_details')}}',
+            type:'post',
+            data:{'_token':'{{csrf_token()}}','id':id},
+            dataType:'html',
+            success:function (res) {
+                $('#viewCarDetailModel').html(res);
+                $('#viewCarDetailModel').modal('show');
+            }
+        });
+    }
     $(document).ready(function(){
+
         $(document).on('change','.policy_id_select',function(){
             console.log($(this).find(':selected').data('name'));
             $(this).closest('div.row').find('#insurance_companies').val($(this).find(':selected').data('name'));
