@@ -1,6 +1,5 @@
 @extends('layouts.master')
 @section('title') Vehiculos @endsection
-
 @section('content')
 @component('components.breadcrumb')
 @slot('li_1') Inicio @endslot
@@ -271,8 +270,6 @@
                                 </div>
                             </div>
                         </div>
-
-
                         <div class="col-lg-12 mb-3">
 
                         </div>
