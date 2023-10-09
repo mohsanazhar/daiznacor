@@ -270,8 +270,6 @@
                                 </div>
                             </div>
                         </div>
-
-
                         <div class="col-lg-12 mb-3">
 
                         </div>
