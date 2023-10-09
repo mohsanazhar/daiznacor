@@ -1,6 +1,5 @@
 @extends('layouts.master')
 @section('title') Vehiculos @endsection
-
 @section('content')
 @component('components.breadcrumb')
 @slot('li_1') Inicio @endslot
