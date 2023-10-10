@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\Policy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Services\PolicyService;
@@ -31,6 +32,24 @@ class PolicyController extends Controller
             'policies' => $list,
             'companies' => $companies,
         ]);
+    }
+    function get_policy_details(Request $request){
+        $list = Policy::with('insuranceCompany')->find($request->input('id'));
+        $data = [];
+
+        $company = Company::find($list['identification_card']);
+        $list['identification_card'] = (!is_null($company))?$company['identification_card']:"N/A";
+        $list['insurance_company'] = $list['insurance_company'] ? $list['insurance_company']['name'] : "";
+        $list['vehicleCount'] = $list['vehicles'] ? count($list['vehicles']) : 0;
+        $company = $list['vehicles'] ? $list['vehicles'][0]['company'] : null;
+        $list['companyId'] = $company ? $company['id'] : null;
+
+        $companies = CompanyService::getInstance()->get(100, 0, [
+            "userLoggedId" => \auth()->id(),
+            'id'=>$request->input('id')
+        ]);
+        return  view('pages.policy.view_detail_modal',['item'=>$list]);
+
     }
     private function getFormatList() {
 
