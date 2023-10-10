@@ -59,9 +59,6 @@
                             <th>ID</th>
                             <th>No. Póliza</th>
                             <th>Empresa</th>
-                            <th>Compañía Aseguradora</th>
-                            <th>RUC / Cédula</th>
-                            <th>Autos</th>
                             <th>Emisión de Póliza</th>
                             <th>Vencimiento de Póliza</th>
                             <th>@lang('translation.actions')</th>
@@ -95,26 +92,6 @@
                                     </a>
                                 </td>
                                 <td>
-                                    @if(isset($item['insurance_company']))
-                                        <span class="{{$year_arr[array_rand($year_arr)]}}">
-                                        {{ $item['insurance_company'] }}
-                                        </span>
-                                    @else
-                                        N/A
-                                    @endif
-                                </td>
-                                <td>
-                                    <span class="{{$colors_arr[array_rand($colors_arr)]}}">
-                                        {{ $item['identification_card'] }}
-                                    </span>
-                                </td>
-                                <td>
-                                    <a href="/cars?company={{ $item['companyId'] }}">
-                                        <span class="badge text-dark-emphasis  bg-dark-subtle">{{ $item['vehicleCount'] }}
-                                        </span>
-                                    </a>
-                                </td>
-                                <td>
                                     @if(isset($item['policy_issuance']))
                                         <span class="{{$rand_arr[array_rand($rand_arr)]}}">
                                            {{ date('F j, Y, g:i a', strtotime($item['policy_issuance'])) }}
@@ -130,6 +107,12 @@
                                             <i class="ri-more-fill align-middle"></i>
                                         </button>
                                         <ul class="dropdown-menu dropdown-menu-end">
+                                            <li onclick="get_policy_details({{$item['id']}})" data-id="">
+                                                <a  data-id="{{$item['id']}}" class="dropdown-item cursor-pointer">
+                                                    <i class="bi-eye align-bottom me-2 text-muted"></i>
+                                                    View Detail
+                                                </a>
+                                            </li>
                                             <li>
                                                 <a data-bs-toggle="modal" data-bs-target="#updatePoliciesModal{{ $item['id'] }}" class="dropdown-item edit-item-btn cursor-pointer">
                                                     <i class="ri-pencil-fill align-bottom me-2 text-muted"></i>
@@ -182,12 +165,26 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="viewCarDetailModel" tabindex="-1" aria-hidden="true" data-bs-config="backdrop:true">
+</div>
 @endsection
 @section('script')
 
 <script src="{{ URL::asset('build/js/app.js') }}"></script>
 
 <script>
+    function get_policy_details(id){
+        $.ajax({
+            url:'{{route('get_policy_details')}}',
+            type:'post',
+            data:{'_token':'{{csrf_token()}}','id':id},
+            dataType:'html',
+            success:function (res) {
+                $('#viewCarDetailModel').html(res);
+                $('#viewCarDetailModel').modal('show');
+            }
+        });
+    }
     $(document).ready(() => {
         $(document).on('change','.identification_card',function () {
         var id = $(this).find(':selected').data('id');
