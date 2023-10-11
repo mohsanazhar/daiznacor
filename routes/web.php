@@ -71,12 +71,27 @@ Route::prefix('media')->group(function () {
     Route::delete('/{id}', [App\Http\Controllers\PolicyController::class, 'delete'])->name('deletePolicy');
 });
 
+Route::prefix('settings')->group(function () {
+    Route::get('/list-province', [\App\Http\Controllers\settingsController::class, 'provinceViewList'])->name('list-province');
+    Route::get('/get-province/{id}', [\App\Http\Controllers\settingsController::class, 'getProvinceDetail'])->name('get-province');
+    Route::post('/', [App\Http\Controllers\settingsController::class, 'createProvince'])->name('createProvince');
+    Route::patch('editProvince/{id}', [App\Http\Controllers\settingsController::class, 'updateProvince'])->name('editProvince');
+    Route::get('/deleteProvince', [App\Http\Controllers\settingsController::class, 'deleteProvince'])->name('deleteProvince');
+
+    Route::get('/list-district', [\App\Http\Controllers\settingsController::class, 'districtViewList'])->name('list-district');
+    Route::post('/createDistrict', [App\Http\Controllers\settingsController::class, 'createDistrict'])->name('createDistrict');
+    Route::get('/deleteDistrict', [App\Http\Controllers\settingsController::class, 'deleteDistrict'])->name('deleteDistrict');
+    Route::get('/get-district/{id}', [\App\Http\Controllers\settingsController::class, 'getDistrictDetail'])->name('get-district');
+    Route::patch('editDistrict/{id}', [App\Http\Controllers\settingsController::class, 'updateDistrict'])->name('editDistrict');
+});
+//Route::get('/list-province', [\App\Http\Controllers\settingsController::class, 'provinceViewList'])->name('list-province');
 Route::get('/clear-cache', function() {
     $exitCode = \Illuminate\Support\Facades\Artisan::call('cache:clear');
     $exitCode = \Illuminate\Support\Facades\Artisan::call('config:cache');
     \Illuminate\Support\Facades\Artisan::call('optimize');
     return 'DONE'; //Return anything
 });
+
 Route::get('policyCronJob',[\App\Http\Controllers\ReminderController::class,'policyCronJob'])->name('policyCronJob');
 Route::get('eventCronJob',[\App\Http\Controllers\ReminderController::class,'eventCronJob'])->name('eventCronJob');
 Route::get('plateCronJob',[\App\Http\Controllers\ReminderController::class,'plateCronJob'])->name('plateCronJob');
