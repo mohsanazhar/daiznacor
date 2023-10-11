@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helper\RequestHelper;
+use App\Models\Company;
 use App\Services\CompanyService;
 use App\Services\CorregimientoService;
 use App\Services\DistrictService;
@@ -36,7 +37,22 @@ class CompanyController extends Controller
             'corregimento'=>$corregimento
         ]);
     }
+    function get_company_details(Request $request){
+        $user = Auth::user();
 
+        $company = Company::with([
+            'vehicles',
+            'user',
+            'createdByUserId',
+            'province',
+            'distric',
+            'corregimiento',
+            'phone',
+            'emails'
+
+        ])->find($request->input('id'))->toArray();
+        return view('pages.company.view_detail_modal',compact('company'));
+    }
     public function getOne(Request $request){
 
         try {

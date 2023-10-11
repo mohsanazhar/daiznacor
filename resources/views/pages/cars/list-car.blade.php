@@ -184,6 +184,7 @@
             </form>
         </div>
     </div>
+</div>
 <div class="modal fade" id="viewCarDetailModel" tabindex="-1" aria-hidden="true" data-bs-config="backdrop:true">
 </div>
 @php

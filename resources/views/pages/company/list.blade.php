@@ -49,12 +49,6 @@
                             <th>@lang('translation.phone')</th>
                             <th>@lang('translation.email')</th>
                             <th>Autos</th>
-                            <th>@lang('translation.province')</th>
-                            <th>@lang('translation.district')</th>
-                            <th>@lang('translation.corregimiento')</th>
-                            <th>@lang('translation.no-local')</th>
-                            <th>@lang('translation.street')</th>
-                            <th>@lang('translation.time')</th>
                             <th>@lang('translation.actions')</th>
                         </tr>
                     </thead>
@@ -124,55 +118,19 @@
                                         <span class="badge text-dark-emphasis  bg-dark-subtle">{{ $company['vehicleCount'] }}</span>
                                     </a>
                                 </td>
-                                <td class="opacity-75" name='province'>
-                                    @if(isset($company['province']))
-                                        <span class="{{$colors_arr[array_rand($colors_arr)]}}"> {{ $company['province']['name'] }}</span>
-                                    @else
-                                        N/A
-                                    @endif
-                                </td>
-                                <td class="opacity-75" name='district'>
-                                    @if(isset($company['district']))
-                                        {{ $company['distric']['name'] }}
-                                    @else
-                                        N/A
-                                    @endif
-                                </td>
-                                <td class="opacity-75" name='corregimiento'>
-                                    @if(isset($company['corregimiento']))
-                                        {{ $company['corregimiento']['name'] }}
-                                    @else
-                                        N/A
-                                    @endif
-                                </td>
-                                <td class="opacity-75" name='house_number'>
-                                    @if(isset($company['house_number']))
-                                        {{ $company['house_number'] }}
-                                    @else
-                                        N/A
-                                    @endif
-                                </td>
-                                <td class="opacity-75" name='street'>
-                                    @if(isset($company['street']))
-                                        {{ $company['street'] }}
-                                    @else
-                                        N/A
-                                    @endif
-                                </td>
-                                <td class="opacity-75" name='created_at'>
-                                    @if(isset($company['created_at']))
-                                        <span class="{{$year_arr[array_rand($year_arr)]}}">{{ date('F j, Y, g:i a', strtotime($company['created_at'])) }}
-                                        </span>
-                                    @else
-                                        N/A
-                                    @endif
-                                </td>
+
                                 <td>
                                     <div class="dropdown d-inline-block">
                                         <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             <i class="ri-more-fill align-middle"></i>
                                         </button>
                                         <ul class="dropdown-menu dropdown-menu-end action-company">
+                                            <li onclick="get_company_details({{$company['id']}})" data-id="">
+                                                <a  data-id="{{$company['id']}}" class="dropdown-item cursor-pointer">
+                                                    <i class="bi-eye align-bottom me-2 text-muted"></i>
+                                                    View Detail
+                                                </a>
+                                            </li>
                                             <li>
                                                 <a  href="{{ route('editViewCompany', $company['id']) }}" class="dropdown-item edit-item-btn">
                                                     <i class="ri-pencil-fill align-bottom me-2 text-muted"></i>
@@ -199,7 +157,8 @@
         </div>
     </div>
 </div>
-
+<div class="modal fade" id="viewCarDetailModel" tabindex="-1" aria-hidden="true" data-bs-config="backdrop:true">
+</div>
 @endsection
 @section('script')
 
@@ -207,7 +166,20 @@
 
 <script src="{{ URL::asset('build/js/app.js') }}"></script>
 <script>
+    function get_company_details(id){
+        $.ajax({
+            url:'{{route('get_company_details')}}',
+            type:'post',
+            data:{'_token':'{{csrf_token()}}','id':id},
+            dataType:'html',
+            success:function (res) {
+                $('#viewCarDetailModel').html(res);
+                $('#viewCarDetailModel').modal('show');
+            }
+        });
+    }
     $(document).ready(function(){
+
         var form = document.getElementById('form-new-company');
         form.addEventListener('submit', function (event) {
 
