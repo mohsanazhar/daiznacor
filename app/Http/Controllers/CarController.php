@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helper\RequestHelper;
+use App\Imports\VehicleImport;
 use App\Models\Vehicle;
 use App\Services\CompanyService;
 use App\Services\PolicyService;
@@ -413,12 +414,12 @@ class CarController extends Controller
 
     public function export()
     {
-        return Excel::download(new VehicleExport, 'Cars.csv', \Maatwebsite\Excel\Excel::CSV);
+        return Excel::download(new VehicleExport(\auth()->id()), 'cars.csv', \Maatwebsite\Excel\Excel::CSV);
     }
 
     public function import(Request $request)
     {
-        Excel::import(new VehicleExport, $request->file('file'));
+        Excel::import(new VehicleImport(), $request->file('file'));
         return redirect('/')->with('success', 'All good!');
     }
 }

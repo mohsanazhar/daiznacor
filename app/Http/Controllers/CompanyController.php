@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CompaniesExport;
 use App\Helper\RequestHelper;
 use App\Imports\CompaniesImport;
 use App\Models\Company;
@@ -234,5 +235,12 @@ class CompanyController extends Controller
     function import_companies(Request $request){
         \Maatwebsite\Excel\Facades\Excel::import(new CompaniesImport(),$request->file('file'));
         return redirect(route('lisCompany'))->with('status', 'All good!');
+    }
+    /*
+     * export companies
+     */
+
+    function export_companies(Request $request){
+        return \Maatwebsite\Excel\Facades\Excel::download(new CompaniesExport(),'companies.csv',Excel::CSV);
     }
 }

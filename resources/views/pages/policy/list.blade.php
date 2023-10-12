@@ -44,7 +44,7 @@
                             </button>
                             <ul class="dropdown-menu">
                                 <li><a href="{{ url('policies/create-policy') }}" class="dropdown-item" href="#">@lang('translation.new')</a></li>
-                                <li><a href="{{ url('policy/export') }}" class="dropdown-item" href="#">@lang('translation.export')</a></li>
+                                <li><a href="{{route('policies.export')}}" class="dropdown-item" href="#">@lang('translation.export')</a></li>
                                 <li><a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="dropdown-item" href="#">@lang('translation.import') </a></li>
                                 <li><a href="{{ asset('DemoCSVFiles/policy.csv') }}" class="dropdown-item" download> @lang('translation.demo_import') </a></li>
                             </ul>
