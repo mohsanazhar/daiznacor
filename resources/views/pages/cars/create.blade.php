@@ -36,7 +36,14 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div>
-                                    <input required type="text" id="user-name" class="user-name form-control" name="name" placeholder="Nombre del propietario" autocomplete="off">
+                                    <select required id="" class="user-name form-control" name="name" placeholder="Nombre del propietario" autocomplete="off">
+                                        <option value="">Please select company</option>
+                                        @if(count($companies)>0)
+                                            @foreach($companies as $k=>$v)
+                                                <option value="{{$v['id']}}" data-ident="{{$v['identification_card']}}">{{$v['name']}}</option>
+                                            @endforeach
+                                        @endif
+                                    </select>
                                     @error('name')
                                     <div class="d-block invalid-feedback text-danger">El nombre del propietario es obligatorio</div>
                                     @enderror
@@ -50,7 +57,7 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div>
-                                    <select type="text" id="company-identification_card" placeholder="RUC" autocomplete="off"></select>
+                                    <input type="text" class="form-control" required id="company-identification_card" placeholder="RUC" name="identification_card"/>
                                     @error('identification_card')
                                     <div class="d-block invalid-feedback text-danger">Identification es obligatorio</div>
                                     @enderror
@@ -237,7 +244,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-6 mb-3">
+                        <div class="col-lg-4 mb-3">
                             <div>
                                 <label for="weights" class="form-label">Numero de pesas y dimensiones</label>
                                 <div>
@@ -246,7 +253,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-6 mb-3">
+                        <div class="col-lg-4 mb-3">
 
                             <div>
                                 <label for="due_date" class="form-label">Fecha de vencimiento</label>
@@ -256,6 +263,22 @@
                             </div>
                         </div>
 
+                        <div class="col-lg-4 mb-3">
+                            @php
+                            $status = \App\Helper\RequestHelper::vehicle_status();
+                            @endphp
+                            <div>
+                                <label for="due_date" class="form-label">@lang('translation.status')</label>
+                                <div>
+                                    <select class="form-control"  name="status">
+                                        <option value="">Please select option</option>
+                                        @foreach($status as $k=>$v)
+                                            <option value="{{$k}}" style="background-color:{{$v}}">{{ucwords($k)}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-lg-12 mb-3">
                             {{--<div>
                                 <label for="dimensions" class="form-label">Numero Dimensiones</label>
@@ -316,6 +339,13 @@ if(session()->has('validError')){
 
 <script src="{{ URL::asset('build/js/app.js') }}"></script>
 <script>
+    $(document).ready(function(){
+        $(document).on('click','.user-name',function(){
+            var v = $(this).find(':selected').data('ident');
+            $('#company-identification_card').val(v);
+            $('#company-identification_card').attr('readonly');
+        });
+    });
     const compnaiesData = @json($companies);
     const policiesData = @json($policies);
     const form = document.getElementById("form-new-car");
@@ -468,7 +498,7 @@ if(session()->has('validError')){
             form.appendChild(inputUser);
         }
 
-        const inputIdentificationCard = document.getElementById("identification-card-compnay");
+        const inputIdentificationCard = document.getElementById("user-name");
         if(inputIdentificationCard) inputIdentificationCard.value = company.identification_card;
         else {
             const inputIdentification = document.createElement('input');
@@ -479,7 +509,7 @@ if(session()->has('validError')){
             form.appendChild(inputIdentification);
         }
         console.log(company.identification_card);
-        $('.user-name').val(company.user.name);
+        $('.company-identification_card').val(company.user.name);
     }
 
     const selectizeConfigCompanies = (id, data) => {
@@ -510,7 +540,7 @@ if(session()->has('validError')){
         selectizeConfigCompanies(`#${this.id}`, compnaiesData);
     });
 
-    selectizeConfigCompanies("#company-identification_card", compnaiesData);
+    selectizeConfigCompanies("#user-name", compnaiesData);
     $('.selectize-select').selectize({
         showAddOptionOnCreate: true,
         create: true,

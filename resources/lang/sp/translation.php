@@ -361,8 +361,6 @@ return [
     'action'=>'Acción',
     'upload_csv_file'=>'Subir CSV Archivo',
     'demo_import'=>'Manifestación',
-
-
-
+    'status'=>'Estado'
 ];
 ?>

@@ -149,7 +149,7 @@
                 <h5 class="modal-title" id="staticBackdropLabel">@lang('translation.policy-list') @lang('translation.import')</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="{{ route('policy/import') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('policies.import') }}" method="POST" enctype="multipart/form-data">
                 @csrf
             <div class="modal-body">
                 <div>

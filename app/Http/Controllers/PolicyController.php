@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\ImportPolicy;
 use App\Models\Company;
 use App\Models\Policy;
 use Illuminate\Http\Request;
@@ -213,13 +214,8 @@ class PolicyController extends Controller
 
     public function import(Request $request)
     {
-        //dd($request);
-        //dd(request->file('file')->getPathName());
-        Excel::import(new ExportPolicy, $request->file('file'));
-        //Excel::import(new ExportPolicy, request()->file('file'), 'policy.csv', \Maatwebsite\Excel\Excel::CSV);
-        //Excel->(new UsersImport)->import('policy.csv', null, \Maatwebsite\Excel\Excel::CSV);
-        return redirect('/')->with('success', 'All good!');
-        return back();
+        Excel::import(new ImportPolicy(), $request->file('file'));
+        return redirect(route('listPolicy'))->with('success', 'All good!');
     }
 
 }

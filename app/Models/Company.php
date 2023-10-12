@@ -60,6 +60,9 @@ class Company extends Base
     public function phoneNumbers(): HasMany {
         return $this->hasMany(CompanyPhoneNumber::class);
     }
+    public function phone(): HasMany {
+        return $this->hasMany(CompanyPhoneNumber::class);
+    }
 
     public function distric(): BelongsTo {
         return $this->belongsTo(District::class, "district_id", "id");
