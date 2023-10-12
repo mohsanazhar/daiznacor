@@ -32,9 +32,9 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li><a data-key="t-newCompany" data-bs-toggle="modal" data-bs-target="#addCompanyModal" style="cursor: pointer;" class="dropdown-item">@lang('translation.new')</a></li>
-                            <li><a href="{{ url('car/export') }}" class="dropdown-item" href="#">@lang('translation.export')</a></li>
+                            <li><a href="{{route('companies.export_demo')}}" class="dropdown-item" href="#">@lang('translation.export')</a></li>
                             <li><a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="dropdown-item" href="#">@lang('translation.import') </a></li>
-                            <li><a href="{{ asset('DemoCSVFiles/cars.csv') }}" class="dropdown-item" download> @lang('translation.demo_import') </a></li>
+                            <li><a href="{{ asset('DemoCSVFiles/companies.csv') }}" class="dropdown-item" download> @lang('translation.demo_import') </a></li>
                         </ul>
                     </div>
                 </div>
@@ -154,6 +154,29 @@
                     </tbody>
                 </table>
             </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">@lang('translation.import')</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ route('import_companies') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body">
+                    <div>
+                        <label for="formFileLg" class="form-label">@lang('translation.upload_csv_file')</label>
+                        <input class="form-control" name="file" id="formFileLg" type="file">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@lang('translation.close')</button>
+                    <button type="submit" class="btn btn-primary">@lang('translation.import')</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

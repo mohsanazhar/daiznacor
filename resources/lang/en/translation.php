@@ -366,7 +366,7 @@ return [
     'action'=>'Action',
     'upload_csv_file'=>'Upload CSV File ',
     'demo_import'=>'Demo Import',
-
+    'status'=>'Status'
 ];
 ?>
 

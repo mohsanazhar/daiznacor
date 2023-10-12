@@ -27,7 +27,7 @@ class MunicipalityService
     }   
 
     public function get(){
-        return Municipaly::orderByDesc("created_at")->get()->toArray();
+        return Municipaly::orderByDesc("id")->get()->toArray();
     }
 
     public function create($name){
