@@ -374,6 +374,7 @@ return [
     'are_you_sure_you_want_to_delete?'=>'Are you sure you want to delete?',
     'please_add_provices'=>'Please Add Province',
     'select'=>'Select',
+    'new_province'=>'New Province',
 
 ];
 ?>

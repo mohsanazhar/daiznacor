@@ -74,17 +74,22 @@ Route::prefix('media')->group(function () {
 });
 
 Route::prefix('settings')->group(function () {
-    Route::get('/list-province', [\App\Http\Controllers\settingsController::class, 'provinceViewList'])->name('list-province');
-    Route::get('/get-province/{id}', [\App\Http\Controllers\settingsController::class, 'getProvinceDetail'])->name('get-province');
-    Route::post('/', [App\Http\Controllers\settingsController::class, 'createProvince'])->name('createProvince');
-    Route::patch('editProvince/{id}', [App\Http\Controllers\settingsController::class, 'updateProvince'])->name('editProvince');
-    Route::get('/deleteProvince', [App\Http\Controllers\settingsController::class, 'deleteProvince'])->name('deleteProvince');
 
-    Route::get('/list-district', [\App\Http\Controllers\settingsController::class, 'districtViewList'])->name('list-district');
-    Route::post('/createDistrict', [App\Http\Controllers\settingsController::class, 'createDistrict'])->name('createDistrict');
-    Route::get('/deleteDistrict', [App\Http\Controllers\settingsController::class, 'deleteDistrict'])->name('deleteDistrict');
-    Route::get('/get-district/{id}', [\App\Http\Controllers\settingsController::class, 'getDistrictDetail'])->name('get-district');
-    Route::patch('editDistrict/{id}', [App\Http\Controllers\settingsController::class, 'updateDistrict'])->name('editDistrict');
+
+    Route::get('/get-province-form/{id?}', [\App\Http\Controllers\SettingsController::class, 'createProvinceAjax'])->name('get-province-form');
+    Route::get('/list-province', [\App\Http\Controllers\SettingsController::class, 'provinceViewList'])->name('list-province');
+    Route::get('/get-province/{id}', [\App\Http\Controllers\SettingsController::class, 'getProvinceDetail'])->name('get-province');
+    Route::post('/storeProvinceAjax', [App\Http\Controllers\SettingsController::class, 'storeProvinceAjax'])->name('storeProvinceAjax');
+    Route::patch('editProvince/{id}', [App\Http\Controllers\SettingsController::class, 'updateProvince'])->name('editProvince');
+    Route::get('/deleteProvince/{id}', [App\Http\Controllers\SettingsController::class, 'deleteProvince'])->name('deleteProvince');
+    Route::patch('updateProvinceAjax/{id?}', [App\Http\Controllers\SettingsController::class, 'updateProvinceAjax'])->name('updateProvinceAjax');
+
+
+    Route::get('/list-district', [\App\Http\Controllers\SettingsController::class, 'districtViewList'])->name('list-district');
+    Route::post('/createDistrict', [App\Http\Controllers\SettingsController::class, 'createDistrict'])->name('createDistrict');
+    Route::get('/deleteDistrict', [App\Http\Controllers\SettingsController::class, 'deleteDistrict'])->name('deleteDistrict');
+    Route::get('/get-district/{id}', [\App\Http\Controllers\SettingsController::class, 'getDistrictDetail'])->name('get-district');
+    Route::patch('editDistrict/{id}', [App\Http\Controllers\SettingsController::class, 'updateDistrict'])->name('editDistrict');
 });
 //Route::get('/list-province', [\App\Http\Controllers\settingsController::class, 'provinceViewList'])->name('list-province');
 Route::get('/clear-cache', function() {

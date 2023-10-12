@@ -53,8 +53,8 @@ class DistrictService
 
     public static function getDistricts(){
         return $data = District::join('provinces', 'provinces.id', '=', 'districts.province_id')
-            ->where('districts.deleted_at', null)
-            ->where('provinces.deleted_at', null)
+           // ->where('districts.deleted_at', null)
+            //->where('provinces.deleted_at', null)
             ->get(['districts.id', 'districts.name', 'provinces.name as provinceName', 'districts.province_id as provinceId']);
     }
 
