@@ -47,7 +47,7 @@ Route::prefix('cars')->group(function () {
     Route::patch('/{id}', [App\Http\Controllers\CarController::class, 'update'])->name('editCar');
     Route::delete('/{id}', [App\Http\Controllers\CarController::class, 'delete'])->name('deleteCar');
     Route::post('/get-card-detail', [App\Http\Controllers\CarController::class, 'get_car_details'])->name('get_car_details');
-    Route::get('/export', [App\Http\Controllers\CarController::class, 'export']);
+    Route::get('/export', [App\Http\Controllers\CarController::class, 'export'])->name('cars.export');
     Route::post('/import', [App\Http\Controllers\CarController::class, 'import'])->name('car/import');
 });
 
@@ -61,6 +61,7 @@ Route::prefix('companies')->group(function () {
     Route::post('/get-company-detail', [App\Http\Controllers\CompanyController::class, 'get_company_details'])->name('get_company_details');
     Route::get('/export-demo', [App\Http\Controllers\CompanyController::class, 'export_demo'])->name('companies.export_demo');
     Route::post('/import-companies', [App\Http\Controllers\CompanyController::class, 'import_companies'])->name('import_companies');
+    Route::get('/export-companies', [App\Http\Controllers\CompanyController::class, 'export_companies'])->name('export_companies');
 });
 
 Route::prefix('policies')->group(function () {
@@ -70,7 +71,7 @@ Route::prefix('policies')->group(function () {
     Route::patch('/{id}', [App\Http\Controllers\PolicyController::class, 'update'])->name('editPolicy');
     Route::delete('/{id}', [App\Http\Controllers\PolicyController::class, 'delete'])->name('deletePolicy');
     Route::post('/get-policy-detail', [App\Http\Controllers\PolicyController::class, 'get_policy_details'])->name('get_policy_details');
-    Route::get('/export/', [App\Http\Controllers\PolicyController::class, 'export']);
+    Route::get('/export/', [App\Http\Controllers\PolicyController::class, 'export'])->name('policies.export');
     Route::post('/import/', [App\Http\Controllers\PolicyController::class, 'import'])->name('policies.import');
 });
 Route::prefix('media')->group(function () {

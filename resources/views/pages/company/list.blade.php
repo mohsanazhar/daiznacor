@@ -32,7 +32,7 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li><a data-key="t-newCompany" data-bs-toggle="modal" data-bs-target="#addCompanyModal" style="cursor: pointer;" class="dropdown-item">@lang('translation.new')</a></li>
-                            <li><a href="{{route('companies.export_demo')}}" class="dropdown-item" href="#">@lang('translation.export')</a></li>
+                            <li><a href="{{route('export_companies')}}" class="dropdown-item" href="#">@lang('translation.export')</a></li>
                             <li><a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="dropdown-item" href="#">@lang('translation.import') </a></li>
                             <li><a href="{{ asset('DemoCSVFiles/companies.csv') }}" class="dropdown-item" download> @lang('translation.demo_import') </a></li>
                         </ul>
