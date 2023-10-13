@@ -15,9 +15,9 @@
             </div>
             <div class="modal-footer">
                 @if(@$success !='')
-                <div class="alert alert-success d-flex align-items-center mx-auto" role="alert">
-                    {{ @$success }}
-                </div>
+                    <div class="alert alert-success d-flex align-items-center mx-auto" role="alert">
+                        {{ @$success }}
+                    </div>
                 @endif
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@lang('translation.close')</button>
                 <button type="button" onclick="provinceAdd()" id="addProviceSubmit" class="btn btn-primary">@lang('translation.submit')</button>

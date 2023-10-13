@@ -35,7 +35,7 @@
                                     <span class="visually-hidden">Toggle Dropdown</span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a id="addProvince" class="dropdown-item" href="#">@lang('translation.new') </a></li>
+                                    <li><a id="addProvince" class="dropdown-item" href="javascript:;">@lang('translation.new') </a></li>
                                 </ul>
 
                             </div>
@@ -47,7 +47,7 @@
                            <thead>
                            <tr>
                                <th>Name</th>
-                               <th>Acciones</th>
+                               <th data-orderable="false">Acciones</th>
                            </tr>
                            </thead>
                            @php
@@ -138,11 +138,7 @@
                     }
                 });
 
-
-
                 $("#addProvince").on("click", function(){
-                    //alert("test");
-                    //table.draw();
                     var url_var = "<?= url('settings/get-province-form/'); ?>";
                     $.ajax({
                         url: url_var ,

@@ -375,6 +375,7 @@ return [
     'please_add_provices'=>'Please Add Province',
     'select'=>'Select',
     'new_province'=>'New Province',
+    'list_of_district'=>'List of Districts',
 
 ];
 ?>
