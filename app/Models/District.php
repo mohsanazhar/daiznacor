@@ -9,7 +9,8 @@ class District extends Base
 
     protected $fillable = [
         "id",
-        "name"
+        "name",
+        "province_id"
     ];
 
     protected $hidden = [

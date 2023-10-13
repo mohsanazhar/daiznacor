@@ -108,6 +108,20 @@ $seg2 = request()->segment(2);
                 <li class="nav-item {{($seg=="customEvents")?"active":""}}">
                     <a href="{{ route('customEvents')}}" class="nav-link menu-link"> <i class="bi bi-bell"></i> <span data-key="t-policies">@lang('translation.reminders')</span> </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link {{($seg=="settings")?"active":""}}" href="#settings" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarInsuranceCar">
+                        <i class="bi bi-folder"></i> <span data-key="t-insuranceCar">@lang('translation.settings')</span>
+                    </a>
+                    <div class="collapse menu-dropdown {{($seg=="settings")?"show":""}}" id="settings">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item {{($seg=="settings")?"active":""}}">
+                                <a href="{{route('list-province')}}" class="nav-link{{($seg2=="create-policy")?"active":""}}" data-key="t-newPolicy" >@lang('translation.province')</a>
+                                <a href="{{route('list-district')}}" class="nav-link{{($seg2=="create-policy")?"active":""}}" data-key="t-newPolicy" >@lang('translation.district')</a>
+                                <a href="{{route('policy.create')}}" class="nav-link{{($seg2=="create-policy")?"active":""}}" data-key="t-newPolicy" >@lang('translation.corregimiento')</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
 
                 <!-- <li class="nav-item">
                     <a class="nav-link menu-link" href="/cars/paperwork" >
