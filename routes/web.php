@@ -92,6 +92,12 @@ Route::prefix('settings')->group(function () {
     Route::post('/createDistrict', [App\Http\Controllers\SettingsController::class, 'createDistrict'])->name('createDistrict');
     Route::get('/deleteDistrict/{id}', [App\Http\Controllers\SettingsController::class, 'deleteDistrict'])->name('deleteDistrict');
 
+
+    Route::get('/list-corregimiento', [\App\Http\Controllers\SettingsController::class, 'corregimientoViewList'])->name('list-corregimiento');
+    Route::get('/get-corregimiento-form/{id?}', [\App\Http\Controllers\SettingsController::class, 'createCorregimientoAjax'])->name('get-corregimiento-form');
+    Route::post('/storeCorregimientoAjax', [App\Http\Controllers\SettingsController::class, 'storeCorregimientoAjax'])->name('storeCorregimientoAjax');
+    Route::patch('updateCorregimientoAjax/{id?}', [App\Http\Controllers\SettingsController::class, 'updateCorregimientoAjax'])->name('updateCorregimientoAjax');
+    Route::get('/deleteCorregimiento/{id}', [App\Http\Controllers\SettingsController::class, 'deleteCorregimiento'])->name('deleteCorregimiento');
 });
 //Route::get('/list-province', [\App\Http\Controllers\settingsController::class, 'provinceViewList'])->name('list-province');
 Route::get('/clear-cache', function() {

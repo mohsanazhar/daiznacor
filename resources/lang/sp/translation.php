@@ -369,6 +369,8 @@ return [
     'select'=>'Seleccionar',
     'new_province'=>'Nueva Provincia',
     'list_of_district'=>'Lista de Distritos',
+    'corregimiento'=>'Corregimiento',
+
 
 
 

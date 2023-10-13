@@ -117,7 +117,7 @@ $seg2 = request()->segment(2);
                             <li class="nav-item {{($seg=="settings")?"active":""}}">
                                 <a href="{{route('list-province')}}" class="nav-link{{($seg2=="create-policy")?"active":""}}" data-key="t-newPolicy" >@lang('translation.province')</a>
                                 <a href="{{route('list-district')}}" class="nav-link{{($seg2=="create-policy")?"active":""}}" data-key="t-newPolicy" >@lang('translation.district')</a>
-                                <a href="{{route('policy.create')}}" class="nav-link{{($seg2=="create-policy")?"active":""}}" data-key="t-newPolicy" >@lang('translation.corregimiento')</a>
+                                <a href="{{route('list-corregimiento')}}" class="nav-link{{($seg2=="create-policy")?"active":""}}" data-key="t-newPolicy" >@lang('translation.corregimiento')</a>
                             </li>
                         </ul>
                     </div>

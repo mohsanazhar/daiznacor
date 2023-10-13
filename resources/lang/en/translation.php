@@ -376,6 +376,7 @@ return [
     'select'=>'Select',
     'new_province'=>'New Province',
     'list_of_district'=>'List of Districts',
+    'corregimiento'=>'Corregimiento',
 
 ];
 ?>
