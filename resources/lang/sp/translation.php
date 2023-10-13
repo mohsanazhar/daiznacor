@@ -361,17 +361,12 @@ return [
     'action'=>'Acción',
     'upload_csv_file'=>'Subir CSV Archivo',
     'demo_import'=>'Manifestación',
+    'status'=>'Estado'
     'list_of_provinces'=>'Lista de provincias',
     'add_provice'=>'agregar provincia',
     'the_province_have_been_created'=>'La provincia ha sido creada.',
     'are_you_sure_you_want_to_delete?'=>'¿Estás segura de que quieres eliminar?',
     'please_add_provices'=>' por favoragregue provincias',
     'select'=>'Seleccionar',
-
-
-
-
-
-
 ];
 ?>

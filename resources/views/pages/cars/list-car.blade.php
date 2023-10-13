@@ -34,7 +34,7 @@
                             </button>
                             <ul class="dropdown-menu">
                                 <li><a href="{{ url('cars/create-car') }}" class="dropdown-item" href="#">@lang('translation.new')</a></li>
-                                <li><a href="{{ url('car/export') }}" class="dropdown-item" href="#">@lang('translation.export')</a></li>
+                                <li><a href="{{route('cars.export')}}" class="dropdown-item" href="#">@lang('translation.export')</a></li>
                                 <li><a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="dropdown-item" href="#">@lang('translation.import') </a></li>
                                 <li><a href="{{ asset('DemoCSVFiles/cars.csv') }}" class="dropdown-item" download> @lang('translation.demo_import') </a></li>
                             </ul>
@@ -184,6 +184,7 @@
             </form>
         </div>
     </div>
+</div>
 <div class="modal fade" id="viewCarDetailModel" tabindex="-1" aria-hidden="true" data-bs-config="backdrop:true">
 </div>
 @php

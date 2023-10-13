@@ -15,20 +15,26 @@ class DistrictController extends Controller
         return response()->json($districts);
     }
 
-    public function store(Request $request) {
+   public function store(Request $request) {
         $request->validate([
             'name' => ["required", 'string'],
         ]);
 
-        DistrictService::getInstance()->create($request->input("name"),);
+        DistrictService::getInstance()->create($request->input("name"));
 
         return response()->json([
             "info" => [ "Successfully" ]
         ], 201);
     }
 
+    public function getDistrictByProvice($id){
+        $districts = DistrictService::getDistrictByProvice($id);
+
+        return response()->json($districts);
+    }
+
     public function show(){
-        
+
     }
     public function update(){
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helper\RequestHelper;
+use App\Imports\VehicleImport;
 use App\Models\Vehicle;
 use App\Services\CompanyService;
 use App\Services\PolicyService;
@@ -221,7 +222,8 @@ class CarController extends Controller
                 'mortgagee' => isset($validatedData['mortgagee']) ? $validatedData['mortgagee'] : "",
                 'municipality_id' => $municipalityId,
                 'fuel_type_id' => $fuelTypeId,
-                'vehicle_type_id' => $typeVehicleId
+                'vehicle_type_id' => $typeVehicleId,
+                'status'=>$validatedData['status']
             ];
             try {
                 VehicleService::getInstance()->create($formated_data, $user->id);
@@ -264,6 +266,7 @@ class CarController extends Controller
                 "vehicle_type_id" => $request->input("vehicle_type_id"),
                 "policy_id" => $request->input("policy_id"),
                 "year" => $request->input("year"),
+                'status'=>$request->input('status')
             ];
             VehicleService::getInstance()->update($id, $formated_data);
             session()->flash("status", "El Vehículo ha sido actualizado");
@@ -411,17 +414,12 @@ class CarController extends Controller
 
     public function export()
     {
-        return Excel::download(new VehicleExport, 'Cars.csv', \Maatwebsite\Excel\Excel::CSV);
+        return Excel::download(new VehicleExport(\auth()->id()), 'cars.csv', \Maatwebsite\Excel\Excel::CSV);
     }
 
     public function import(Request $request)
     {
-        //dd($request);
-        //dd(request->file('file')->getPathName());
-        Excel::import(new VehicleExport, $request->file('file'));
-        //Excel::import(new ExportPolicy, request()->file('file'), 'policy.csv', \Maatwebsite\Excel\Excel::CSV);
-        //Excel->(new UsersImport)->import('policy.csv', null, \Maatwebsite\Excel\Excel::CSV);
+        Excel::import(new VehicleImport(), $request->file('file'));
         return redirect('/')->with('success', 'All good!');
-        return back();
     }
 }

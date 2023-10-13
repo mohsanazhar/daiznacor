@@ -10,6 +10,15 @@ use Illuminate\Support\Facades\DB;
 
 class RequestHelper
 {
+    public static function vehicle_status()
+    {
+        $status = [
+            'vigente'=>'green',
+            'por vencer'=>'yellow',
+            'vencido'=>'red'
+        ];
+        return $status;
+    }
     public static function months(){
         $months = [
             1 => "Enero",
