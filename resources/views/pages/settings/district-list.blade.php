@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title') @lang('translation.province') @endsection
+@section('title') @lang('translation.district') @endsection
 
 @section('css')
     <style>
@@ -10,7 +10,7 @@
 @section('content')
     @component('components.breadcrumb')
         @slot('li_1') Inicio @endslot
-        @slot('title') @lang('translation.province')  @endslot
+        @slot('title') @lang('translation.district') @endslot
     @endcomponent
 
     {{--@include('pages.cars.create_car_form') --}}
@@ -20,7 +20,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header d-flex">
-                    <h5 class="card-title mb-0">@lang('translation.list_of_provinces')</h5>
+                    <h5 class="card-title mb-0">@lang('translation.list_of_districts')</h5>
                     <div style="flex: 1 1 auto" class="d-flex justify-content-end">
                     @include('layouts.common.display_error')
                     <!-- Button trigger modal -->
@@ -123,7 +123,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel"></h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">@lang('translation.add_district')</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="{{ route('createDistrict') }}" class="needs-validation" method="POST">
@@ -162,7 +162,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editDistrictModelLabel"></h5>
+                    <h5 class="modal-title" id="editDistrictModelLabel">@lang('translation.district')</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="" class="needs-validation" method="POST" id="edit-district-form">
@@ -170,7 +170,7 @@
                     {{ method_field('PATCH') }}
                     <div class="modal-body">
                         <div>
-                            <label for="company-name" class="form-label">@lang('translation.district')</label>
+                            <label for="company-name" class="form-label"></label>
                             <input required type="text" id="edit-district-name" class="form-control" name="district" placeholder="@lang('translation.district')">
                             <input  type="hidden" id="edit-district-id" class="form-control" name="districtId">
                         </div>
