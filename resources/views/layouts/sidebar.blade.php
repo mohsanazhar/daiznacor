@@ -96,7 +96,7 @@ $seg2 = request()->segment(2);
                     <div class="collapse menu-dropdown {{($seg=="policies")?"show":""}}" id="policies">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item {{($seg=="policies")?"active":""}}">
-                                <a href="{{route('policy.create')}}" class="nav-link{{($seg2=="create-policy")?"active":""}}" data-key="t-newPolicy" >@lang('translation.new')</a>
+                                <a href="{{route('policy.create')}}" class="nav-link {{($seg2=="create-policy")?"active":""}}" data-key="t-newPolicy" >@lang('translation.new')</a>
                                 <a href="{{ route('listPolicy') }}" class="nav-link {{($seg2=="list-policies")?"active":""}}" data-key="t-listPolicy">@lang('translation.list')</a>
                             </li>
                         </ul>
@@ -115,9 +115,9 @@ $seg2 = request()->segment(2);
                     <div class="collapse menu-dropdown {{($seg=="settings")?"show":""}}" id="settings">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item {{($seg=="settings")?"active":""}}">
-                                <a href="{{route('list-province')}}" class="nav-link{{($seg2=="create-policy")?"active":""}}" data-key="t-newPolicy" >@lang('translation.province')</a>
-                                <a href="{{route('list-district')}}" class="nav-link{{($seg2=="create-policy")?"active":""}}" data-key="t-newPolicy" >@lang('translation.district')</a>
-                                <a href="{{route('list-corregimiento')}}" class="nav-link{{($seg2=="create-policy")?"active":""}}" data-key="t-newPolicy" >@lang('translation.corregimiento')</a>
+                                <a href="{{route('list-province')}}" class="nav-link {{($seg2=="list-province")?"active":""}}" data-key="t-newPolicy" >@lang('translation.province')</a>
+                                <a href="{{route('list-district')}}" class="nav-link {{($seg2=="list-district")?"active":""}}" data-key="t-newPolicy" >@lang('translation.district')</a>
+                                <a href="{{route('policy.create')}}" class="nav-link {{($seg2=="create-policy")?"active":""}}" data-key="t-newPolicy" >@lang('translation.corregimiento')</a>
                             </li>
                         </ul>
                     </div>
