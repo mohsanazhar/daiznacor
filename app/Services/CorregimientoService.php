@@ -30,9 +30,10 @@ class CorregimientoService
         return Corregimiento::orderByDesc("created_at")->get()->toArray();
     }
 
-    public function create($name){
+    public function create($data){
         return Corregimiento::create([
-            "name" => $name
+            "name" => $data['name'],
+            "district_id" => $data['district_id'],
         ]);
     }
 
@@ -44,5 +45,49 @@ class CorregimientoService
     public static function getCorregimientosByDistric($id){
         if(!isset($id)) return null;
         return Corregimiento::where("district_id", $id)->get();
+    }
+
+    public function findOneById($id){
+        if(!isset($id)) return null;
+        return Corregimiento::where("id", $id)->first();
+    }
+
+    public function update($id, $payload) {
+        try {
+
+            $corregimiento = $this->findOneById($id);
+            if(!$corregimiento) throw new Exception('Vehicle not found', 404);
+
+            if(!is_null($payload["name"])) $corregimiento->name = $payload["name"];
+            if(!is_null($payload["district_id"])) $corregimiento->district_id = $payload["district_id"];
+
+
+            $corregimiento->updated_at = now();
+
+            $corregimiento->save();
+            $corregimiento->refresh();
+
+            return $corregimiento;
+
+        } catch (Exception $e) {
+
+            $message = $e->getMessage();
+            $code = $e->getCode();
+
+            throw new Exception($message, $code);
+        }
+    }
+
+    public function deleteOneById($id){
+        try {
+            $data =  Corregimiento::where('id', $id)->delete();
+
+            if(!$data) return null;
+
+            return $data;
+
+        } catch (Exception $e) {
+            return null;
+        }
     }
 }

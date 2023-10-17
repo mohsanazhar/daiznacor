@@ -368,5 +368,15 @@ return [
     'are_you_sure_you_want_to_delete?'=>'¿Estás segura de que quieres eliminar?',
     'please_add_provices'=>' por favoragregue provincias',
     'select'=>'Seleccionar',
+    'new_province'=>'Nueva Provincia',
+    'list_of_district'=>'Lista de Distritos',
+    'corregimiento'=>'Corregimiento',
+
+
+
+
+
+
+
 ];
 ?>

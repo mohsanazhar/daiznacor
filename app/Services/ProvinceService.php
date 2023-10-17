@@ -30,6 +30,10 @@ class ProvinceService
         return Province::orderByDesc("created_at")->get()->toArray();
     }
 
+    public static function getAll(){
+        return Province::orderByDesc("created_at");
+    }
+
     public function create($name){
        if(is_array($name)){
            $name = $name['name'];
