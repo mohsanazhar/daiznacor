@@ -8,7 +8,6 @@ class Vehicle extends Base
     protected $table = "vehicles";
 
     protected $fillable = [
-        "id",
         "name",
         "identification_card",
         "car_plate",
@@ -27,11 +26,11 @@ class Vehicle extends Base
         "owner_id",
         "due_date",
         "vehicle_type_id",
-        "owner_id",
         "policy_id",
         "company_id",
         "fuel_type_id",
-        "municipality_id"
+        "municipality_id",
+        'status'
     ]; 
 
     protected $hidden = [

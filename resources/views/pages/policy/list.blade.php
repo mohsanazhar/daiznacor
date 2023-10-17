@@ -44,7 +44,7 @@
                             </button>
                             <ul class="dropdown-menu">
                                 <li><a href="{{ url('policies/create-policy') }}" class="dropdown-item" href="#">@lang('translation.new')</a></li>
-                                <li><a href="{{ url('policy/export') }}" class="dropdown-item" href="#">@lang('translation.export')</a></li>
+                                <li><a href="{{route('policies.export')}}" class="dropdown-item" href="#">@lang('translation.export')</a></li>
                                 <li><a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="dropdown-item" href="#">@lang('translation.import') </a></li>
                                 <li><a href="{{ asset('DemoCSVFiles/policy.csv') }}" class="dropdown-item" download> @lang('translation.demo_import') </a></li>
                             </ul>
@@ -149,7 +149,7 @@
                 <h5 class="modal-title" id="staticBackdropLabel">@lang('translation.policy-list') @lang('translation.import')</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="{{ route('policy/import') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('policies.import') }}" method="POST" enctype="multipart/form-data">
                 @csrf
             <div class="modal-body">
                 <div>

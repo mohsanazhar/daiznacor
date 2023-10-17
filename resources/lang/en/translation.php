@@ -366,7 +366,7 @@ return [
     'action'=>'Action',
     'upload_csv_file'=>'Upload CSV File ',
     'demo_import'=>'Demo Import',
-    'demo_import'=>'Demo Import',
+    'status'=>'Status',
     'settings'=>'Settings',
     'list_of_provinces'=>'List of provinces',
     'add_provice'=>'Add Province',

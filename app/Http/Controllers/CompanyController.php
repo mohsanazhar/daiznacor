@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CompaniesExport;
 use App\Helper\RequestHelper;
+use App\Imports\CompaniesImport;
 use App\Models\Company;
 use App\Services\CompanyService;
 use App\Services\CorregimientoService;
@@ -11,6 +13,7 @@ use App\Services\ProvinceService;
 use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Excel;
 
 class CompanyController extends Controller
 {
@@ -225,5 +228,19 @@ class CompanyController extends Controller
             "company" => $company,
             'user' => $user 
         ]);
+    }
+    /*
+     * import companies
+     */
+    function import_companies(Request $request){
+        \Maatwebsite\Excel\Facades\Excel::import(new CompaniesImport(),$request->file('file'));
+        return redirect(route('lisCompany'))->with('status', 'All good!');
+    }
+    /*
+     * export companies
+     */
+
+    function export_companies(Request $request){
+        return \Maatwebsite\Excel\Facades\Excel::download(new CompaniesExport(),'companies.csv',Excel::CSV);
     }
 }

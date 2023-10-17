@@ -216,7 +216,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-6 mb-3">
+                        <div class="col-lg-4 mb-3">
                             <div>
                                 <label for="weights" class="form-label">Numero de pesas y dimensiones</label>
                                 <div>
@@ -225,7 +225,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-6 mb-3">
+                        <div class="col-lg-4 mb-3">
 
                             <div>
                                 <label for="due_date" class="form-label">Fecha de vencimiento</label>
@@ -238,6 +238,22 @@
                                 </div>
                             </div>
                         </div>
+                    <div class="col-lg-4 mb-3">
+                        @php
+                            $status = \App\Helper\RequestHelper::vehicle_status();
+                        @endphp
+                        <div>
+                            <label for="due_date" class="form-label">@lang('translation.status')</label>
+                            <div>
+                                <select class="form-control"  name="status">
+                                    <option value="">Please select option</option>
+                                    @foreach($status as $k=>$v)
+                                        <option value="{{$k}}" style="background-color:{{$v}}">{{ucwords($k)}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
 
                         <div class="col-lg-12 mb-3">
                             <div>

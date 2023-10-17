@@ -119,6 +119,7 @@ class VehicleService
                 'vehicle_type_id' => $payload['vehicle_type_id'],
                 'fuel_type_id' => $payload['fuel_type_id'],
                 'policy_id' => $payload['policy_id'],
+                'status'=>$payload['status']
             ]);
 
             return $vehicle;
@@ -155,6 +156,7 @@ class VehicleService
             if(!is_null($payload["vehicle_type_id"])) $vehicle->vehicle_type_id = $payload["vehicle_type_id"];
             if(!is_null($payload["policy_id"])) $vehicle->policy_id = $payload["policy_id"];
             if(!is_null($payload["year"])) $vehicle->year = $payload["year"];
+            if(!is_null($payload["status"])) $vehicle->status = $payload["status"];
 
             $vehicle->updated_at = now();
 
