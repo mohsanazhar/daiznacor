@@ -11,7 +11,7 @@
                         <tr>
                             <th>#</th>
                             <td>{{$car['id']}}</td>
-                            <th>Identification Card</th>
+                            <th>RUC/ Cédula</th>
                             <td>{{$car['identification_card']}}</td>
                         </tr>
                         <tr>
