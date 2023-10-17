@@ -102,9 +102,9 @@ $seg2 = request()->segment(2);
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item {{($seg=="media")?"active":""}}">
+               {{-- <li class="nav-item {{($seg=="media")?"active":""}}">
                     <a href="{{ route('listMedia')}}" class="nav-link menu-link"> <i class="bi bi-image"></i> <span data-key="t-policies">@lang('translation.media')</span> </a>
-                </li>
+                </li>--}}
                 <li class="nav-item {{($seg=="customEvents")?"active":""}}">
                     <a href="{{ route('customEvents')}}" class="nav-link menu-link"> <i class="bi bi-bell"></i> <span data-key="t-policies">@lang('translation.reminders')</span> </a>
                 </li>
