@@ -15,16 +15,10 @@
                             <td>{{$car['identification_card']}}</td>
                         </tr>
                         <tr>
-                            <td>Placa</td>
-                            <td>{{$car['car_plate']}}</td>
-                            <th>Mes de renovacion</th>
-                            <td>{{$car['month_renewal']}}</td>
-                        </tr>
-                        <tr>
                             <th>Placa</th>
                             <td>{{$car['car_plate']}}</td>
                             <th>Mes de renovacion</th>
-                            <td>{{$car['month_renewal']}}</td>
+                            <td>{{($car['month_renewal']>0)?\App\Helper\RequestHelper::months()[$car['month_renewal']]:""}}</td>
                         </tr>
                         <tr>
                             <th>Marca</th>
