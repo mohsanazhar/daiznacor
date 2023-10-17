@@ -164,8 +164,11 @@
                         data: $('#provinceform').serialize(),
                         success: function(data){
                             $("#provinceAddModel").html(' ');
-                            $("#provinceAddModel").html(data);
-                            table.draw();
+                            $("#provinceAddModel").html(data.view);
+                            if(data.message == 'success'){
+                                table.draw();
+                            }
+
                         }
                     });
                 }

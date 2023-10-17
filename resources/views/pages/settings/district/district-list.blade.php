@@ -282,8 +282,10 @@
                 data: $('#districtform').serialize(),
                 success: function(data){
                     $("#districtAddModel").html(' ');
-                    $("#districtAddModel").html(data);
-                    table.draw();
+                    $("#districtAddModel").html(data.view);
+                    if(data.message == 'success'){
+                        table.draw();
+                    }
                 }
             });
         }
