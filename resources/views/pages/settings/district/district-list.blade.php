@@ -10,7 +10,7 @@
 @section('content')
     @component('components.breadcrumb')
         @slot('li_1') Inicio @endslot
-        @slot('title') @lang('translation.district')  @endslot
+        @slot('title') @lang('translation.district') @endslot
     @endcomponent
 
     {{--@include('pages.cars.create_car_form') --}}
@@ -20,7 +20,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header d-flex">
-                    <h5 class="card-title mb-0">@lang('translation.list_of_district')</h5>
+                    <h5 class="card-title mb-0">@lang('translation.list_of_districts')</h5>
                     <div style="flex: 1 1 auto" class="d-flex justify-content-end">
                     @include('layouts.common.display_error')
                     <!-- Button trigger modal -->
@@ -333,7 +333,25 @@
                 { data: 'Acciones' },
             ]
         });
+
     </script>
     <script>
+
+        $(document).ready(() => {
+            $("#card-list").DataTable({
+            buttons: [
+                "reload", "excel"
+            ],
+            order: [[0, 'desc']],
+            language: {
+                emptyTable: "No hay datos disponibles en la tabla",
+            }
+        });
+
+        $('#card-list tbody').on('click', 'form[id^="delete-car-item"]', function(event) {
+            event.preventDefault();
+            $(this).submit();
+        });
+        });
     </script>
 @endsection
