@@ -366,14 +366,18 @@ return [
     'action'=>'Action',
     'upload_csv_file'=>'Upload CSV File ',
     'demo_import'=>'Demo Import',
-    'status'=>'Status'
+    'status'=>'Status',
     'settings'=>'Settings',
     'list_of_provinces'=>'List of provinces',
     'add_provice'=>'Add Province',
     'the_province_have_been_created'=>'The province have been created.',
     'are_you_sure_you_want_to_delete?'=>'Are you sure you want to delete?',
     'please_add_provices'=>'Please Add Province',
-    'select'=>'Select'
+    'select'=>'Select',
+    'new_province'=>'New Province',
+    'list_of_district'=>'List of Districts',
+    'corregimiento'=>'Corregimiento',
+
 ];
 ?>
 
