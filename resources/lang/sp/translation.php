@@ -360,7 +360,7 @@ return [
     'export'=>'Exportar',
     'action'=>'Acción',
     'upload_csv_file'=>'Subir CSV Archivo',
-    'demo_import'=>'Manifestación',
+    'demo_import'=>'Plantilla',
     'status'=>'Estado',
     'list_of_provinces'=>'Lista de provincias',
     'list_of_districts'=>'Lista de Distrito',
@@ -373,12 +373,6 @@ return [
     'new_province'=>'Nueva Provincia',
     'list_of_district'=>'Lista de Distritos',
     'corregimiento'=>'Corregimiento',
-
-
-
-
-
-
 
 ];
 ?>

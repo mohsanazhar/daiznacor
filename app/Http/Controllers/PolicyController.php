@@ -209,7 +209,7 @@ class PolicyController extends Controller
 
     public function export()
     {
-        return Excel::download(new ExportPolicy, 'policy.csv', \Maatwebsite\Excel\Excel::CSV);
+        return Excel::download(new ExportPolicy, 'policy.xls', \Maatwebsite\Excel\Excel::XLS);
     }
 
     public function import(Request $request)

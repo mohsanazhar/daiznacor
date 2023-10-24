@@ -45,7 +45,7 @@
 @section('content')
 @component('components.breadcrumb')
 @slot('li_1') Inicio @endslot
-@slot('title') @lang('translation.companies') @endslot
+@slot('title') GUANTERA @endslot
 @endcomponent
 
 <div class="row">
@@ -61,7 +61,7 @@
                 >
                     @csrf
                 
-                    <input hidden name="owner_id" value="{{ $owner['id'] }}">
+                    <input hidden name="owner_id" value="{{(!is_null($owner['id']))?$owner['id']:0}}">
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
                             <table id="card-list" class="table table-bordered dt-responsive nowrap table-striped align-middle" style="width:100%">
@@ -100,7 +100,7 @@
                                       <td >
                                           <input type="hidden" name="{{$v}}" class="image_value" value="{{$vehiclePaper[$v]}}"/>
                                           <div id = "m-{{$v}}" class="image_display">
-                                              <img src='{{url('/').'/'.$vehiclePaper[$v]}}' alt="Image" />
+                                              <img src='{{url('/').'/'.$vehiclePaper[$v]}}' alt="Image"  style="width:100%; height:100%"/>
                                           </div>
                                       </td>
                                       <td>

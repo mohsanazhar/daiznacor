@@ -241,6 +241,6 @@ class CompanyController extends Controller
      */
 
     function export_companies(Request $request){
-        return \Maatwebsite\Excel\Facades\Excel::download(new CompaniesExport(),'companies.csv',Excel::CSV);
+        return \Maatwebsite\Excel\Facades\Excel::download(new CompaniesExport(),'companies.xls',Excel::XLS);
     }
 }

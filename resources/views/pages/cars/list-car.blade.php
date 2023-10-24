@@ -24,9 +24,9 @@
                 <div style="flex: 1 1 auto" class="d-flex justify-content-end">
                      @include('layouts.common.display_error')
                     <div class='p-1'>
-                        <a style="cursor: pointer;display:none">
+                        {{--<a style="cursor: pointer;display:none">
                             <a data-key="t-newCompany" data-bs-toggle="modal" data-bs-target="#addCompanyModal" style="cursor: pointer;display:none" class="btn btn-success">@lang('translation.new')</a>
-                        </a>
+                        </a>--}}
                         <div class="btn-group">
                             <button type="button" class="btn btn-success">@lang('translation.action')</button>
                             <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
@@ -48,11 +48,11 @@
                         <tr>
                             <th>ID</th>
                             <th>Nombre del propietario</th>
-                            <th>Identificatión</th>
+                            <th>Placa</th>
                             <th>Mes</th>
+                            <th>Marca</th>
+                            <th>Modelo</th>
                             <th>Municipio</th>
-                            <th>No. Póliza</th>
-                            <th>Fecha de Vencimiento</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -81,9 +81,9 @@
                                     <span class="{{$rand_arr[array_rand($rand_arr)]}}">{{ $car['name'] }}</span>
                                 </td>
                                 <td class="opacity-75">
-                                    @if(isset($car['identification_card']))
+                                    @if(isset($car['car_plate']))
                                        <a style="cursor: pointer" class="text-decoration-underline text-info" data-bs-toggle="modal" data-bs-target="#updateCarModal{{ $car['id'] }}">
-                                           {{ $car['identification_card'] }}
+                                           {{ $car['car_plate'] }}
                                        </a>
                                     @else
                                         N/A
@@ -91,28 +91,28 @@
                                 </td>
                                 <td class="opacity-75">
                                     @if(isset($car['month_renewal']))
-                                        <span class="badge text-dark-emphasis  bg-dark-subtle">{{ ($car['month_renewal'] > 0 && $car['month_renewal'] < 13 )? date("F", mktime(0, 0, 0, $car['month_renewal'], 10)):"" }}</span>
+                                        <span class="{{$rand_arr[array_rand($rand_arr)]}}">{{ ($car['month_renewal'] > 0 && $car['month_renewal'] < 13 )? date("F", mktime(0, 0, 0, $car['month_renewal'], 10)):"" }}</span>
                                     @else
-                                        <span class="badge text-light-emphasis bg-light-subtle">N/A</span>
+                                        <span class="{{$rand_arr[array_rand($rand_arr)]}}">N/A</span>
+                                    @endif
+                                </td>
+                                <td class="opacity-75">
+                                    @if(isset($car['brand']))
+                                        {{ $car['brand'] }}
+                                    @else
+                                        N/A
+                                    @endif
+                                </td>
+                                <td class="opacity-75">
+                                    @if(isset($car['model']))
+                                        {{ $car['model'] }}
+                                    @else
+                                        N/A
                                     @endif
                                 </td>
                                 <td class="opacity-75">
                                 @if(isset($car['municipaly']))
                                         {{ $car['municipaly'] }}
-                                    @else
-                                        N/A
-                                    @endif
-                                </td>
-                                <td class="opacity-75">
-                                    @if(isset($car['policy']))
-                                        {{ $car['policy']['number'] }}
-                                    @else
-                                        N/A
-                                    @endif
-                                </td>
-                                <td class="opacity-75">
-                                    @if(isset($car['due_date']))
-                                        {{ $car['due_date'] }}
                                     @else
                                         N/A
                                     @endif
