@@ -11,190 +11,241 @@
 
 <div class="row">
     <div class="col-12">
-        <div class="row">
-            <div class="col-xl-3">
-                <div class="card card-h-100">
-                    <div class="card-body">
-                        <button class="btn btn-primary w-100" id="btn-new-event"><i class="mdi mdi-plus"></i> Create New Event</button>
-
-                        <div id="external-events">
-                        </div>
-
-                    </div>
+        <div class="card">
+            <div class="card-header d-flex">
+                <h5 class="card-title mb-0">Events</h5>
+                <div style="flex: 1 1 auto" class="d-flex justify-content-end">
+                    <button class="btn btn-primary" id="btn-new-event"><i class="mdi mdi-plus"></i> Create New Event</button>
                 </div>
-                <div>
-                    <h5 class="mb-1">Upcoming Events</h5>
-                    <p class="text-muted">Don't miss scheduled events</p>
-                    <div class="pe-2 me-n1 mb-3" data-simplebar style="height: 400px">
-                        <div id="upcoming-event-list"></div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-body bg-info-subtle">
-                        <div class="d-flex">
-                            <div class="flex-shrink-0">
-                                <i data-feather="calendar" class="text-info icon-dual-info"></i>
-                            </div>
-                            <div class="flex-grow-1 ms-3">
-                                <h6 class="fs-15">Welcome to your Calendar!</h6>
-                                <p class="text-muted mb-0">Event that applications book will appear here. Click on an event to see the details and manage applicants event.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--end card-->
-            </div> <!-- end col-->
-
-            <div class="col-xl-9">
-                <div class="card card-h-100">
-                    <div class="card-body">
-                        <div id="calendar"></div>
-                    </div>
-                </div>
-            </div><!-- end col -->
+            </div>
         </div>
-        <!--end row-->
-
-        <div style='clear:both'></div>
-
-        <!-- Add New Event MODAL -->
-        <div class="modal fade" id="event-modal" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content border-0">
-                    <div class="modal-header p-3 bg-info-subtle">
-                        <h5 class="modal-title" id="modal-title">Event</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
-                    </div>
-                    <div class="modal-body p-4">
-                        <form class="needs-validation"  name="event-form" id="form-event" validate>
-                            <div class="text-end">
-                                <a href="#" class="btn btn-sm btn-soft-primary" id="edit-event-btn" data-id="edit-event" onclick="editEvent(this)" role="button">Edit</a>
-                            </div>
-                            <div class="event-details">
-                                <div class="d-flex mb-2">
-                                    <div class="flex-grow-1 d-flex align-items-center">
-                                        <div class="flex-shrink-0 me-3">
-                                            <i class="ri-calendar-event-line text-muted fs-16"></i>
-                                        </div>
-                                        <div class="flex-grow-1">
-                                            <h6 class="d-block fw-semibold mb-0" id="event-start-date-tag"></h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center mb-2">
-                                    <div class="flex-shrink-0 me-3">
-                                        <i class="ri-time-line text-muted fs-16"></i>
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <h6 class="d-block fw-semibold mb-0"><span id="event-timepicker1-tag"></span> - <span id="event-timepicker2-tag"></span></h6>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center mb-2">
-                                    <div class="flex-shrink-0 me-3">
-                                        <i class="ri-map-pin-line text-muted fs-16"></i>
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <h6 class="d-block fw-semibold mb-0"> <span id="event-location-tag"></span></h6>
-                                    </div>
-                                </div>
-                                <div class="d-flex mb-3">
-                                    <div class="flex-shrink-0 me-3">
-                                        <i class="ri-discuss-line text-muted fs-16"></i>
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <p class="d-block text-muted mb-0" id="event-description-tag"></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row event-form">
-                                <div class="col-12">
-                                    <div class="mb-3">
-                                        <label class="form-label">Type</label>
-                                        <select class="form-select d-none" name="category" id="event-category" required>
-                                            <option value="bg-danger-subtle">Danger</option>
-                                            <option value="bg-success-subtle">Success</option>
-                                            <option value="bg-primary-subtle">Primary</option>
-                                            <option value="bg-info-subtle">Info</option>
-                                            <option value="bg-dark-subtle">Dark</option>
-                                            <option value="bg-warning-subtle">Warning</option>
-                                        </select>
-                                        <div class="invalid-feedback">Please select a valid event category</div>
-                                    </div>
-                                </div>
-                                <!--end col-->
-                                <div class="col-12">
-                                    <div class="mb-3">
-                                        <label class="form-label">Event Name</label>
-                                        <input class="form-control d-none" placeholder="Enter event name" type="text" name="title" id="event-title" required value="" />
-                                        <div class="invalid-feedback">Please provide a valid event name</div>
-                                    </div>
-                                </div>
-                                <!--end col-->
-                                <div class="col-12">
-                                    <div class="mb-3">
-                                        <label class="form-label">Event Date</label>
-                                        <div class="input-group d-none">
-                                            <input type="text" id="event-start-date" class="form-control flatpickr flatpickr-input" placeholder="Select date" readonly required>
-                                            <span class="input-group-text"><i class="ri-calendar-event-line"></i></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end col-->
-                                <div class="col-12" id="event-time">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="mb-3">
-                                                <label class="form-label">Start Time</label>
-                                                <div class="input-group d-none">
-                                                    <input id="timepicker1" type="text" class="form-control flatpickr flatpickr-input" placeholder="Select start time" readonly>
-                                                    <span class="input-group-text"><i class="ri-time-line"></i></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="mb-3">
-                                                <label class="form-label">End Time</label>
-                                                <div class="input-group d-none">
-                                                    <input id="timepicker2" type="text" class="form-control flatpickr flatpickr-input" placeholder="Select end time" readonly>
-                                                    <span class="input-group-text"><i class="ri-time-line"></i></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end col-->
-                                <div class="col-12">
-                                    <div class="mb-3">
-                                        <label for="event-location" class="form-label">Location</label>
-                                        <div>
-                                            <input type="text" class="form-control d-none" name="event-location" id="event-location" placeholder="Event location">
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end col-->
-                                <input type="hidden" id="eventid" name="eventid" value="" />
-                                <div class="col-12">
-                                    <div class="mb-3">
-                                        <label class="form-label">Description</label>
-                                        <textarea class="form-control d-none" id="event-description" placeholder="Enter a description" rows="3" spellcheck="false"></textarea>
-                                    </div>
-                                </div>
-                                <!--end col-->
-                            </div>
-                            <!--end row-->
-                            <div class="hstack gap-2 justify-content-end">
-                                <button type="button" class="btn btn-soft-danger" id="btn-delete-event"><i class="ri-close-line align-bottom"></i> Delete</button>
-                                <button type="submit" class="btn btn-success" id="btn-save-event">Add Event</button>
-                            </div>
-                        </form>
-                    </div>
-                </div> <!-- end modal-content-->
-            </div> <!-- end modal dialog-->
-        </div> <!-- end modal-->
-        <!-- end modal-->
+        <table class="table table-hover dataTable">
+            <thead>
+                <th>#</th>
+                <th>Motivo</th>
+                <th>Fecha de vencimiento</th>
+                <th>Status</th>
+                <th>Nombre del propietario</th>
+                <th>Action</th>
+            </thead>
+            <tbody>
+            @php $i = 1;
+            $rand_arr = ['badge badge-outline-primary','badge badge-outline-secondary','badge badge-outline-success','badge badge-outline-info','badge badge-outline-dark'];
+                        $year_arr = ["badge rounded-pill text-primary  bg-primary-subtle","badge rounded-pill text-secondary  bg-secondary-subtle",
+                                    "badge rounded-pill text-success  bg-success-subtle",
+                                    "badge rounded-pill text-info  bg-info-subtle",
+                                    "badge rounded-pill text-dark  bg-dark-subtle"];
+                        $colors_arr = ["badge text-primary bg-primary-subtle badge-border",
+                                        "badge text-info bg-info-subtle badge-border",
+                                        "badge text-warning bg-warning-subtle badge-border",
+                                        "badge text-success bg-success-subtle badge-border",
+                                        "badge text-secondary bg-secondary-subtle badge-border",
+                                        "badge text-dark bg-dark-subtle badge-border"];
+            @endphp
+            @if(count($policies)>0)
+                @foreach($policies as $pk=>$pv)
+                    <tr>
+                        <td>{{$i}}</td>
+                        <td>
+                            <span class="{{$colors_arr[array_rand($colors_arr)]}}">{{$pv->number}}</span>
+                        </td>
+                        <td>
+                            <span class="{{$rand_arr[array_rand($rand_arr)]}}">{{ date('F j, Y', strtotime($pv->policy_expiration)) }}</span>
+                        </td>
+                        <td>N/A</td>
+                        <td>
+                            <a style="cursor:pointer;" class="text-decoration-underline">
+                            {{(!is_null($pv->insuranceCompany))?$pv->insuranceCompany['name']:'N/A'}}
+                            </a>
+                        </td>
+                        <td>    </td>
+                    </tr>
+                    @php
+                    $i++;
+                    @endphp
+                @endforeach
+            @endif
+            @if(count($vehicles)>0)
+                @foreach($vehicles as $vk=>$vv)
+                    <tr>
+                        <td>{{$i}}</td>
+                        <td>
+                            <span class="{{$colors_arr[array_rand($colors_arr)]}}">{{$vv->car_plate}}</span>
+                        </td>
+                        <td>
+                            <span class="{{$rand_arr[array_rand($rand_arr)]}}">{{ date('F j, Y', strtotime($vv->due_date)) }}</span>
+                        </td>
+                        <td>N/A</td>
+                        <td>
+                            <a style="cursor:pointer;" class="text-decoration-underline">
+                                {{(!is_null($vv->company))?$vv->company['name']:'N/A'}}
+                            </a>
+                        </td>
+                        <td>    </td>
+                    </tr>
+                    @php $i++; @endphp
+                @endforeach
+            @endif
+            @if(count($events)>0)
+                @foreach($events as $ek=>$ev)
+                    <tr>
+                        <td>{{$i}}</td>
+                        <td>
+                            <span class="{{$colors_arr[array_rand($colors_arr)]}}">{{$ev->title}}</span>
+                        </td>
+                        <td>
+                            <span class="{{$rand_arr[array_rand($rand_arr)]}}">{{ date('F j, Y', strtotime($ev->end)) }}</span>
+                        </td>
+                        <td>N/A</td>
+                        <td>
+                            <a style="cursor:pointer;" class="text-decoration-underline">
+                                N/A
+                            </a>
+                        </td>
+                        <td>
+                            <a href="#" class="btn btn-sm btn-soft-primary" id="edit-event-btn" data-id="edit-event" onclick="editEvent(this)" role="button">Edit</a>
+                        </td>
+                    </tr>
+                    @php $i++; @endphp
+                @endforeach
+            @endif
+            </tbody>
+        </table>
     </div>
-</div> <!-- end row-->
+</div>
+<div class="modal fade" id="event-modal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0">
+            <div class="modal-header p-3 bg-info-subtle">
+                <h5 class="modal-title" id="modal-title">Event</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form class="needs-validation"  name="event-form" id="form-event" validate>
+                    <div class="text-end">
+                        <a href="#" class="btn btn-sm btn-soft-primary" id="edit-event-btn" data-id="edit-event" onclick="editEvent(this)" role="button">Edit</a>
+                    </div>
+                    <div class="event-details">
+                        <div class="d-flex mb-2">
+                            <div class="flex-grow-1 d-flex align-items-center">
+                                <div class="flex-shrink-0 me-3">
+                                    <i class="ri-calendar-event-line text-muted fs-16"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="d-block fw-semibold mb-0" id="event-start-date-tag"></h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="flex-shrink-0 me-3">
+                                <i class="ri-time-line text-muted fs-16"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h6 class="d-block fw-semibold mb-0"><span id="event-timepicker1-tag"></span> - <span id="event-timepicker2-tag"></span></h6>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="flex-shrink-0 me-3">
+                                <i class="ri-map-pin-line text-muted fs-16"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h6 class="d-block fw-semibold mb-0"> <span id="event-location-tag"></span></h6>
+                            </div>
+                        </div>
+                        <div class="d-flex mb-3">
+                            <div class="flex-shrink-0 me-3">
+                                <i class="ri-discuss-line text-muted fs-16"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <p class="d-block text-muted mb-0" id="event-description-tag"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row event-form">
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <label class="form-label">Type</label>
+                                <select class="form-select d-none" name="category" id="event-category" required>
+                                    <option value="bg-danger-subtle">Danger</option>
+                                    <option value="bg-success-subtle">Success</option>
+                                    <option value="bg-primary-subtle">Primary</option>
+                                    <option value="bg-info-subtle">Info</option>
+                                    <option value="bg-dark-subtle">Dark</option>
+                                    <option value="bg-warning-subtle">Warning</option>
+                                </select>
+                                <div class="invalid-feedback">Please select a valid event category</div>
+                            </div>
+                        </div>
+                        <!--end col-->
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <label class="form-label">Event Name</label>
+                                <input class="form-control d-none" placeholder="Enter event name" type="text" name="title" id="event-title" required value="" />
+                                <div class="invalid-feedback">Please provide a valid event name</div>
+                            </div>
+                        </div>
+                        <!--end col-->
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <label class="form-label">Event Date</label>
+                                <div class="input-group d-none">
+                                    <input type="text" id="event-start-date" class="form-control flatpickr flatpickr-input" placeholder="Select date" readonly required>
+                                    <span class="input-group-text"><i class="ri-calendar-event-line"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end col-->
+                        <div class="col-12" id="event-time">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Start Time</label>
+                                        <div class="input-group d-none">
+                                            <input id="timepicker1" type="text" class="form-control flatpickr flatpickr-input" placeholder="Select start time" readonly>
+                                            <span class="input-group-text"><i class="ri-time-line"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">End Time</label>
+                                        <div class="input-group d-none">
+                                            <input id="timepicker2" type="text" class="form-control flatpickr flatpickr-input" placeholder="Select end time" readonly>
+                                            <span class="input-group-text"><i class="ri-time-line"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end col-->
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <label for="event-location" class="form-label">Location</label>
+                                <div>
+                                    <input type="text" class="form-control d-none" name="event-location" id="event-location" placeholder="Event location">
+                                </div>
+                            </div>
+                        </div>
+                        <!--end col-->
+                        <input type="hidden" id="eventid" name="eventid" value="" />
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <label class="form-label">Description</label>
+                                <textarea class="form-control d-none" id="event-description" placeholder="Enter a description" rows="3" spellcheck="false"></textarea>
+                            </div>
+                        </div>
+                        <!--end col-->
+                    </div>
+                    <!--end row-->
+                    <div class="hstack gap-2 justify-content-end">
+                        <button type="button" class="btn btn-soft-danger" id="btn-delete-event"><i class="ri-close-line align-bottom"></i> Delete</button>
+                        <button type="submit" class="btn btn-success" id="btn-save-event">Add Event</button>
+                    </div>
+                </form>
+            </div>
+        </div> <!-- end modal-content-->
+    </div> <!-- end modal dialog-->
+</div>
  @php
     $ht= "";
     if(count($events)>0){
@@ -266,6 +317,9 @@
 
 @section('script')
     <script>
+            /*$(document).on('click','#btn-new-event',function(){
+                $('#event-modal').toggle();
+            });*/
         var eventLists = [<?=$ht;?>]
             /*{
                 id: 1,
@@ -297,7 +351,7 @@
                 type:"post",
                 dataType:"json",
                 success:function(res){
-                    console.log(res);
+                    window.location.url = '{{route('customEvents')}}';
                 }
             });
         }

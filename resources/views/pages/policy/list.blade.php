@@ -94,13 +94,13 @@
                                 <td>
                                     @if(isset($item['policy_issuance']))
                                         <span class="{{$rand_arr[array_rand($rand_arr)]}}">
-                                           {{ date('F j, Y, g:i a', strtotime($item['policy_issuance'])) }}
+                                           {{ date('F j, Y', strtotime($item['policy_issuance'])) }}
                                         </span>
                                     @else
                                         N/A
                                     @endif
                                 </td>
-                                <td>{{ date('F j, Y, g:i a', strtotime($item['policy_expiration'])) }}</td>
+                                <td>{{ date('F j, Y', strtotime($item['policy_expiration'])) }}</td>
                                 <td>
                                     <div class="dropdown d-inline-block">
                                         <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">

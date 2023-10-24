@@ -29,11 +29,11 @@ document.addEventListener("DOMContentLoaded", function () {
     var m = date.getMonth();
     var y = date.getFullYear();
     var Draggable = FullCalendar.Draggable;
-    var externalEventContainerEl = document.getElementById('external-events');
+    //var externalEventContainerEl = document.getElementById('external-events');
     var defaultEvents = eventLists;
 
     // init draggable
-    new Draggable(externalEventContainerEl, {
+    /*new Draggable(externalEventContainerEl, {
         itemSelector: '.external-event',
         eventData: function (eventEl) {
             return {
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 className: eventEl.getAttribute('data-class')
             };
         }
-    });
+    });*/
 
     var calendarEl = document.getElementById('calendar');
 
@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 defaultEvents[indexOfSelectedEvent].description = (info.event._def.extendedProps.description) ? info.event._def.extendedProps.description : '';
                 defaultEvents[indexOfSelectedEvent].location = (info.event._def.extendedProps.location) ? info.event._def.extendedProps.location : '';
             }
-            upcomingEvent(defaultEvents);
+            //upcomingEvent(defaultEvents);
         },
         eventClick: function (info) {
             document.getElementById("edit-event-btn").removeAttribute("hidden");
@@ -230,7 +230,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 className: info.event.classNames[0]
             };
             defaultEvents.push(newEvent);
-            upcomingEvent(defaultEvents);
+            //upcomingEvent(defaultEvents);
         },
         eventDrop: function (info) {
             var indexOfSelectedEvent = defaultEvents.findIndex(function (x) {
@@ -245,13 +245,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 defaultEvents[indexOfSelectedEvent].description = (info.event._def.extendedProps.description) ? info.event._def.extendedProps.description : '';
                 defaultEvents[indexOfSelectedEvent].location = (info.event._def.extendedProps.location) ? info.event._def.extendedProps.location : '';
             }
-            upcomingEvent(defaultEvents);
+            //upcomingEvent(defaultEvents);
         }
     });
 
-    calendar.render();
+    // calendar.render();
 
-    upcomingEvent(defaultEvents);
+    //upcomingEvent(defaultEvents);
     /*Add new event*/
     // Form to add new event
     formEvent.addEventListener('submit', function (ev) {
@@ -329,7 +329,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 defaultEvents.push(newEvent);
             }
             addEvent.hide();
-            upcomingEvent(defaultEvents);
+            //upcomingEvent(defaultEvents);
         }
     });
 
@@ -341,7 +341,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     i--;
                 }
             }
-            upcomingEvent(defaultEvents);
+            //upcomingEvent(defaultEvents);
             deleteData(selectedEvent.id);
             selectedEvent.remove();
             selectedEvent = null;
