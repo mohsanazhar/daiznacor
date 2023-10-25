@@ -19,14 +19,13 @@
                 </div>
             </div>
         </div>
-        <table class="table table-hover dataTable">
+        <table id="policy-list" class="table table-bordered dt-responsive nowrap table-striped align-middle" style="width:100%">
             <thead>
                 <th>#</th>
                 <th>Motivo</th>
                 <th>Fecha de vencimiento</th>
                 <th>Status</th>
                 <th>Nombre del propietario</th>
-                <th>Action</th>
             </thead>
             <tbody>
             @php $i = 1;
@@ -47,7 +46,7 @@
                     <tr>
                         <td>{{$i}}</td>
                         <td>
-                            <span class="{{$colors_arr[array_rand($colors_arr)]}}">{{$pv->number}}</span>
+                            <span class="{{$year_arr[array_rand($year_arr)]}}">{{$pv->number}}</span>
                         </td>
                         <td>
                             <span class="{{$rand_arr[array_rand($rand_arr)]}}">{{ date('F j, Y', strtotime($pv->policy_expiration)) }}</span>
@@ -58,7 +57,6 @@
                             {{(!is_null($pv->insuranceCompany))?$pv->insuranceCompany['name']:'N/A'}}
                             </a>
                         </td>
-                        <td>    </td>
                     </tr>
                     @php
                     $i++;
@@ -70,18 +68,27 @@
                     <tr>
                         <td>{{$i}}</td>
                         <td>
-                            <span class="{{$colors_arr[array_rand($colors_arr)]}}">{{$vv->car_plate}}</span>
+                            <span class="{{$year_arr[array_rand($year_arr)]}}">{{$vv->car_plate}}</span>
                         </td>
                         <td>
                             <span class="{{$rand_arr[array_rand($rand_arr)]}}">{{ date('F j, Y', strtotime($vv->due_date)) }}</span>
                         </td>
-                        <td>N/A</td>
+                        <td>
+                           @if($vv->status=='vigente')
+                            <span class="badge rounded-pill text-black  bg-primary-subtle">{{ucwords($vv->status)}}</span>
+                           @endif
+                               @if($vv->status=='por vencer')
+                                   <span class="badge rounded-pill text-black  bg-warning-subtle">{{ucwords($vv->status)}}</span>
+                               @endif
+                               @if($vv->status=='vencido')
+                                   <span class="badge rounded-pill text-black  bg-danger-subtle">{{ucwords($vv->status)}}</span>
+                               @endif
+                        </td>
                         <td>
                             <a style="cursor:pointer;" class="text-decoration-underline">
                                 {{(!is_null($vv->company))?$vv->company['name']:'N/A'}}
                             </a>
                         </td>
-                        <td>    </td>
                     </tr>
                     @php $i++; @endphp
                 @endforeach
@@ -101,9 +108,6 @@
                             <a style="cursor:pointer;" class="text-decoration-underline">
                                 N/A
                             </a>
-                        </td>
-                        <td>
-                            <a href="#" class="btn btn-sm btn-soft-primary" id="edit-event-btn" data-id="edit-event" onclick="editEvent(this)" role="button">Edit</a>
                         </td>
                     </tr>
                     @php $i++; @endphp
@@ -317,9 +321,12 @@
 
 @section('script')
     <script>
-            /*$(document).on('click','#btn-new-event',function(){
-                $('#event-modal').toggle();
-            });*/
+        $('#policy-list').DataTable({
+            order: [[0, 'desc']],
+            language: {
+                emptyTable: "No hay datos disponibles en la tabla",
+            }
+        });
         var eventLists = [<?=$ht;?>]
             /*{
                 id: 1,

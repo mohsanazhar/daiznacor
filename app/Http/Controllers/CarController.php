@@ -223,8 +223,17 @@ class CarController extends Controller
                 'municipality_id' => $municipalityId,
                 'fuel_type_id' => $fuelTypeId,
                 'vehicle_type_id' => $typeVehicleId,
-                'status'=>$validatedData['status']
             ];
+            $currrent_month  = (int)date('m');
+            $current_status = "vigente";
+            if($validatedData["month_renewal"]==$currrent_month){
+                $currrent_status = "por vencer";
+            }
+            if($validatedData["month_renewal"]>$currrent_month){
+                $current_status = "vencido";
+            }
+            $formated_data['status'] = $current_status;
+
             try {
                 VehicleService::getInstance()->create($formated_data, $user->id);
 
@@ -246,6 +255,7 @@ class CarController extends Controller
         if(!is_string($id) || $id == ":id") return redirect()->route("listCar");
 
         try {
+            $currrent_month  = (int)date('m');
             $formated_data = [
                 "name" => $request->input("name"),
                 "identification_card" => $request->input("identification_card"),
@@ -265,9 +275,16 @@ class CarController extends Controller
                 "municipality_id" => $request->input("municipality_id"),
                 "vehicle_type_id" => $request->input("vehicle_type_id"),
                 "policy_id" => $request->input("policy_id"),
-                "year" => $request->input("year"),
-                'status'=>$request->input('status')
+                "year" => $request->input("year")
             ];
+            $current_status = "vigente";
+            if($request->input("month_renewal")==$currrent_month){
+                $currrent_status = "por vencer";
+            }
+            if($request->input("month_renewal")>$currrent_month){
+                $current_status = "vencido";
+            }
+            $formated_data['status'] = $current_status;
             VehicleService::getInstance()->update($id, $formated_data);
             session()->flash("status", "El Vehículo ha sido actualizado");
 
