@@ -134,6 +134,36 @@ class ReminderController extends Controller
         }
     }
     /*
+     * plates status cron job
+     */
+    function plateStatusCronJob(){
+        $currrent_month  = (int)date('m');
+        $query  =Company::with(['createdByUserId','emails'])->get();
+
+        if(count($query)>0){
+            foreach ($query as $l=>$v){
+                $createBy = $v->createdByUserId;
+                $emails = $v->emails->first();
+                $vehicles = Vehicle::where(['company_id'=>$v['id']])->get()->toArray();
+                // check if user enabled reminders
+                if(count($vehicles)>0){
+                   $current_status = "vigente";
+                   if($vehicles['month_renewal']==$currrent_month){
+                       $currrent_status = "por vencer";
+                   }
+                   if($vehicles['month_renewal']>$currrent_month){
+                       $current_status = "vencido";
+                   }
+                   Vehicle::updateOrCreate([
+                       'id'=>$vehicles['id']
+                   ],[
+                       'status'=>$current_status
+                   ]);
+                }
+            }
+        }
+    }
+    /*
      * plates cron job
      */
     function plateCronJob(){

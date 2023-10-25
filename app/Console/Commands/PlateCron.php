@@ -28,5 +28,6 @@ class PlateCron extends Command
     {
         $obj  = new ReminderController();
         $obj->plateCronJob();
+        $obj->plateStatusCronJob();
     }
 }
