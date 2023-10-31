@@ -42,7 +42,7 @@ class PolicyController extends Controller
         $list['identification_card'] = (!is_null($company))?$company['identification_card']:"N/A";
         $list['insurance_company'] = $list['insurance_company'] ? $list['insurance_company']['name'] : "";
         $list['vehicleCount'] = $list['vehicles'] ? count($list['vehicles']) : 0;
-        $company = $list['vehicles'] ? $list['vehicles'][0]['company'] : null;
+        $company = $list['vehicleCount']>0 ? $list['vehicles'][0]['company'] : null;
         $list['companyId'] = $company ? $company['id'] : null;
 
         $companies = CompanyService::getInstance()->get(100, 0, [

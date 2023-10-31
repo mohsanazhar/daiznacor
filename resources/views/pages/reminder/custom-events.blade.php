@@ -1,6 +1,12 @@
 @extends('layouts.master')
 @section('title') @lang('translation.calendar') @endsection
 @section('css')
+    <style>
+        .bg-lawngreen{background-color:lawngreen;}
+        .bg-red{background-color:#ff0000b8;}
+        .bg-yellow{background-color:yellow;}
+
+    </style>
 <link href="{{ URL::asset('build/libs/fullcalendar/main.min.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 @section('content')
@@ -11,21 +17,25 @@
 
 <div class="row">
     <div class="col-12">
+        @include('layouts.common.display_error')
         <div class="card">
             <div class="card-header d-flex">
                 <h5 class="card-title mb-0">Events</h5>
                 <div style="flex: 1 1 auto" class="d-flex justify-content-end">
-                    <button class="btn btn-primary" id="btn-new-event"><i class="mdi mdi-plus"></i> Create New Event</button>
+                    <a type="button" class="btn btn-primary" href="{{route('createReminder')}}">Create New Event</a>
+
                 </div>
             </div>
         </div>
         <table id="policy-list" class="table table-bordered dt-responsive nowrap table-striped align-middle" style="width:100%">
             <thead>
                 <th>#</th>
+                <th>Type</th>
                 <th>Motivo</th>
                 <th>Fecha de vencimiento</th>
                 <th>Status</th>
                 <th>Nombre del propietario</th>
+                <th>Action</th>
             </thead>
             <tbody>
             @php $i = 1;
@@ -45,17 +55,41 @@
                 @foreach($policies as $pk=>$pv)
                     <tr>
                         <td>{{$i}}</td>
+                        <td>Policies</td>
                         <td>
                             <span class="{{$year_arr[array_rand($year_arr)]}}">{{$pv->number}}</span>
                         </td>
                         <td>
                             <span class="{{$rand_arr[array_rand($rand_arr)]}}">{{ date('F j, Y', strtotime($pv->policy_expiration)) }}</span>
                         </td>
-                        <td>N/A</td>
+                        @php $status = ""; $today = strtotime(date('d-m-y')); @endphp
+                        @if($today == strtotime($pv->policy_expiration))
+                            @php $status = '<span class="badge rounded-pill text-black  bg-yellow">'.ucwords("por vencer").'</span>'; @endphp
+                        @elseif($today < strtotime($pv->policy_expiration))
+                            @php $status = '<span class="badge rounded-pill text-black  bg-lawngreen">'.ucwords("vigente").'</span>'; @endphp
+                        @elseif($today > strtotime($pv->policy_expiration))
+                            @php $status = '<span class="badge rounded-pill text-black  bg-red">'.ucwords("vencido").'</span>'; @endphp
+                        @endif
+                        <td>{!! $status !!}</td>
                         <td>
                             <a style="cursor:pointer;" class="text-decoration-underline">
                             {{(!is_null($pv->insuranceCompany))?$pv->insuranceCompany['name']:'N/A'}}
                             </a>
+                        </td>
+                        <td>
+                            <div class="dropdown d-inline-block">
+                                <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="ri-more-fill align-middle"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li onclick="get_policy_details({{$pv->id}})" data-id="">
+                                        <a  data-id="{{$pv->id}}" class="dropdown-item cursor-pointer">
+                                            <i class="bi-eye align-bottom me-2 text-muted"></i>
+                                            View Detail
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </td>
                     </tr>
                     @php
@@ -67,6 +101,7 @@
                 @foreach($vehicles as $vk=>$vv)
                     <tr>
                         <td>{{$i}}</td>
+                        <td>Vehicle</td>
                         <td>
                             <span class="{{$year_arr[array_rand($year_arr)]}}">{{$vv->car_plate}}</span>
                         </td>
@@ -75,19 +110,40 @@
                         </td>
                         <td>
                            @if($vv->status=='vigente')
-                            <span class="badge rounded-pill text-black  bg-primary-subtle">{{ucwords($vv->status)}}</span>
+                            <span class="badge rounded-pill text-black  bg-lawngreen">{{ucwords($vv->status)}}</span>
                            @endif
                                @if($vv->status=='por vencer')
-                                   <span class="badge rounded-pill text-black  bg-warning-subtle">{{ucwords($vv->status)}}</span>
+                                   <span class="badge rounded-pill text-black  bg-yellow">{{ucwords($vv->status)}}</span>
                                @endif
                                @if($vv->status=='vencido')
-                                   <span class="badge rounded-pill text-black  bg-danger-subtle">{{ucwords($vv->status)}}</span>
+                                   <span class="badge rounded-pill text-black  bg-red">{{ucwords($vv->status)}}</span>
                                @endif
                         </td>
                         <td>
                             <a style="cursor:pointer;" class="text-decoration-underline">
                                 {{(!is_null($vv->company))?$vv->company['name']:'N/A'}}
                             </a>
+                        </td>
+                        <td>
+                            <div class="dropdown d-inline-block">
+                                <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="ri-more-fill align-middle"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li onclick="get_car_details({{$vv->id}})" data-id="">
+                                        <a  data-id="{{$vv->id}}" class="dropdown-item cursor-pointer">
+                                            <i class="bi-eye align-bottom me-2 text-muted"></i>
+                                            View Detail
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('listGloveBox', $vv->id) }}" class="dropdown-item edit-item-btn cursor-pointer">
+                                            <i class="bi-folder-fill align-bottom me-2 text-muted"></i>
+                                            Guantera
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </td>
                     </tr>
                     @php $i++; @endphp
@@ -97,17 +153,41 @@
                 @foreach($events as $ek=>$ev)
                     <tr>
                         <td>{{$i}}</td>
+                        <td>Events</td>
                         <td>
                             <span class="{{$colors_arr[array_rand($colors_arr)]}}">{{$ev->title}}</span>
                         </td>
                         <td>
                             <span class="{{$rand_arr[array_rand($rand_arr)]}}">{{ date('F j, Y', strtotime($ev->end)) }}</span>
                         </td>
-                        <td>N/A</td>
+                        @php $status = ""; $today = strtotime(date('d-m-y')); @endphp
+                        @if(strtotime($ev->end)==$today)
+                            @php $status = '<span class="badge rounded-pill text-black  bg-yellow">'.ucwords("por vencer").'</span>'; @endphp
+                        @elseif(strtotime($ev->end)<$today)
+                            @php $status = '<span class="badge rounded-pill text-black  bg-lawngreen">'.ucwords("vigente").'</span>'; @endphp
+                        @elseif(strtotime($ev->end)>$today)
+                            @php $status = '<span class="badge rounded-pill text-black  bg-red">'.ucwords("vencido").'</span>'; @endphp
+                        @endif
+                        <td>{!! $status !!}</td>
                         <td>
                             <a style="cursor:pointer;" class="text-decoration-underline">
-                                N/A
+                                {{(!is_null($ev->company)?$ev->company['name']:"N/A")}}
                             </a>
+                        </td>
+                        <td>
+                            <div class="dropdown d-inline-block">
+                                <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="ri-more-fill align-middle"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li>
+                                        <a href="{{route('editCustomEvents',$ev->id)}}"  data-id="{{$ev->id}}"  class="dropdown-item edit-reminder-btn cursor-pointer">
+                                            <i class="ri-pencil-fill align-bottom me-2 text-muted"></i>
+                                            @lang('translation.edit')
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </td>
                     </tr>
                     @php $i++; @endphp
@@ -117,7 +197,7 @@
         </table>
     </div>
 </div>
-<div class="modal fade" id="event-modal" tabindex="-1">
+<div class="modal fade show" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0">
             <div class="modal-header p-3 bg-info-subtle">
@@ -248,106 +328,45 @@
                 </form>
             </div>
         </div> <!-- end modal-content-->
-    </div> <!-- end modal dialog-->
+    </div>
 </div>
- @php
-    $ht= "";
-    if(count($events)>0){
-        $i = 1;
-        foreach ($events as $k=>$v){
-            $ht .="{";
-            $ht .="id: '".$v->id."',";
-            $ht .="title: '".$v->title."',";
-            $ht .="start: '".$v->start."',";
-            $ht .="end: '".$v->end."',";
-            $ht .="className: '".$v->className."',";
-            $ht .="location: '".$v->location."',";
-            $ht .="allDay:".$v->allDay.",";
-            $ht .="description: '".htmlspecialchars($v->description)."'";
-            $ht .="}";
-            if($i<count($events)){
-            $ht .=",";
-        }
-            $i++;
-        }
-    }
-    if(trim($ht)!=""){
-        $ht .=",";
-    }
-    if(count($policies)>0){
-        $i = 1;
-        foreach ($policies as $k=>$v){
-            $ht .="{";
-            $ht .="id: '0',";
-            $ht .="title: '".$v->number."',";
-            $ht .="start: '".$v->policy_issuance."',";
-            $ht .="end: '".$v->policy_expiration."',";
-            $ht .="className: 'bg-success-subtle',";
-            $ht .="location: 'N/A',";
-            $ht .="allDay: false,";
-            $ht .="description: '".htmlspecialchars($v->insured_name)."'";
-            $ht .="}";
-            if($i<count($policies)){
-            $ht .=",";
-        }
-            $i++;
-        }
-    }
-    if(trim($ht)!=""){
-        $ht .=",";
-    }
- if(count($vehicles)>0){
-        $i = 1;
-        foreach ($vehicles as $k=>$v){
-        $month = ($v->month_renewal<10)?"0".$v->month_renewal:$v->month_renewal;
-            $ht .="{";
-            $ht .="id: '0',";
-            $ht .="title: '".$v->name."',";
-            $ht .="start: '".date('Y')."-".$month."-01 00:00:00',";
-            $ht .="end: '".date('Y')."-".$month."-01 00:00:00',";
-            $ht .="className: 'bg-dark-subtle',";
-            $ht .="location: 'N/A',";
-            $ht .="allDay: false,";
-            $ht .="description: '".htmlspecialchars($v->car_plate)."'";
-            $ht .="}";
-            if($i<count($vehicles)){
-            $ht .=",";
-        }
-            $i++;
-        }
-    }
- @endphp
+<div class="modal fade" id="viewCarDetailModel" tabindex="-1" aria-hidden="true" data-bs-config="backdrop:true">
+</div>
 @endsection
 
 @section('script')
     <script>
+
+        function get_car_details(id){
+            $.ajax({
+                url:'{{route('get_car_details')}}',
+                type:'post',
+                data:{'_token':'{{csrf_token()}}','id':id},
+                dataType:'html',
+                success:function (res) {
+                    $('#viewCarDetailModel').html(res);
+                    $('#viewCarDetailModel').modal('show');
+                }
+            });
+        }
+        function get_policy_details(id){
+            $.ajax({
+                url:'{{route('get_policy_details')}}',
+                type:'post',
+                data:{'_token':'{{csrf_token()}}','id':id},
+                dataType:'html',
+                success:function (res) {
+                    $('#viewCarDetailModel').html(res);
+                    $('#viewCarDetailModel').modal('show');
+                }
+            });
+        }
         $('#policy-list').DataTable({
             order: [[0, 'desc']],
             language: {
                 emptyTable: "No hay datos disponibles en la tabla",
             }
         });
-        var eventLists = [<?=$ht;?>]
-            /*{
-                id: 1,
-                title: "World Braille Day",
-                start: "2022-01-04",
-                className: "bg-info-subtle",
-                allDay: true
-
-            },
-            {
-                id: 153,
-                title: 'All Day Event',
-                start: "2023-08-15",
-                className: 'bg-primary-subtle',
-                location: 'San Francisco, US',
-                allDay: true,
-                extendedProps: {
-                    department: 'All Day Event'
-                },
-                description: 'An all-day event is an event that lasts an entire day or longer'
-            },*/
 
         var postCustomEvent = "{{route('postCustomEvents')}}";
         var deleteCustomEvent = "{{route('deleteCustomEvent')}}";
@@ -374,7 +393,5 @@
             });
         }
     </script>
-<script src="{{ URL::asset('build/libs/fullcalendar/main.min.js') }}"></script>
-<script src="{{ URL::asset('build/js/pages/calendar.init.js?'.rand(1000,9999)) }}"></script>
 <script src="{{ URL::asset('build/js/app.js') }}"></script>
 @endsection
