@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var y = date.getFullYear();
     var Draggable = FullCalendar.Draggable;
     //var externalEventContainerEl = document.getElementById('external-events');
-    var defaultEvents = eventLists;
+    var defaultEvents = [];
 
     // init draggable
     /*new Draggable(externalEventContainerEl, {
@@ -417,6 +417,7 @@ function eventClicked() {
 }
 
 function editEvent(data) {
+
     var data_id = data.getAttribute("data-id");
     if (data_id == 'new-event') {
         document.getElementById('modal-title').innerHTML = "";

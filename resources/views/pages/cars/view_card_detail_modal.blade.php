@@ -40,19 +40,19 @@
                         </tr>
                         <tr>
                             <th>Municipio</th>
-                            <td>{{$car['municipaly']['name']}}</td>
+                            <td>{{(!is_null($car['municipaly']))?$car['municipaly']['name']:"N/A"}}</td>
                             <th>Tipo de vehículo</th>
                             <td>{{$car['color']}}</td>
                         </tr>
                         <tr>
                             <th>Tipo de combustible</th>
-                            <td>{{$car['type']['name']}}</td>
+                            <td>{{(!is_null($car['type']))?$car['type']['name']:"N/A"}}</td>
                             <th>Numero de poliza</th>
                             <td>{{$car['policy']['number']}}</td>
                         </tr>
                         <tr>
                             <th>Compañia Aseguradora</th>
-                            <td>{{$car['company']['name']}}</td>
+                            <td>{{(!is_null($car['company']))?$car['company']['name']:"N/A"}}</td>
                             <th>Numero de pesas y dimensiones</th>
                             <td>{{$car['dimensions']}}</td>
                         </tr>
