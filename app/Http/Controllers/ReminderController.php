@@ -199,7 +199,7 @@ class ReminderController extends Controller
      * post events
      */
     function postCustomEvents(Request $request){
-        $valid = validator()->make($request->input('data'),[
+        $valid = validator()->make($request->input(),[
             'title'=>'required',
             'start'=>'required',
             'end'=>'required',
@@ -218,10 +218,15 @@ class ReminderController extends Controller
                     $ht .= '<br>';
                 }
             }
-            return response()->json(['status'=>false,'msg'=>$ht]);
+            \session()->flash('error',$ht);
+            return redirect()->back();
         }else{
             $user = \auth()->user();
-            $d = $request->input('data');
+            $d = $request->except(['_token']);
+            $d['start']  = $d['start'].' '.$d['start_time'];
+            $d['end']  = $d['end'].' '.$d['end_time'];
+            unset($d['start_time']);
+            unset($d['end_time']);
             $d['start'] = date('Y-m-d H:i',strtotime($d['start']));
             $d['end'] = date('Y-m-d H:i',strtotime($d['end']));
             $d['user_id'] = $user['id'];
@@ -234,10 +239,12 @@ class ReminderController extends Controller
                     }
                     $model->save();
                 }
-                return response()->json(['status'=>true,'msg'=>'Reminder event is update']);
+                \session()->flash('status','Reminder event is update');
+                return redirect()->to(route('customEvents'));
             }else {
                 ReminderModel::create($d);
-                return response()->json(['status'=>true,'msg'=>'Reminder event is created']);
+                \session()->flash('status','Reminder event is created');
+               return redirect()->to(route('customEvents'));
             }
         }
     }
@@ -252,5 +259,22 @@ class ReminderController extends Controller
             ])->delete();
             return response()->json(['status'=>true,'msg'=>'Reminder event is deleted']);
         }
+    }
+    /*
+     * get edit view of events
+     */
+    function editEvents(Request $request,$id){
+        $event = ReminderModel::find($id);
+        $user = Auth::user();
+        $companies = Company::get();
+        return view('pages.reminder.edit_event',compact('user','companies','event'));
+    }
+    /*
+     * create reminder
+     */
+    function create(Request $request){
+        $user = Auth::user();
+        $companies = Company::get();
+        return view('pages.reminder.create',compact('user','companies'));
     }
 }

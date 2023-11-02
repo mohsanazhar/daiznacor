@@ -33,6 +33,8 @@ Route::prefix('users')->group(function () {
 
 Route::prefix('reminder')->group(function () {
     Route::get('/events', [App\Http\Controllers\ReminderController::class, 'viewCustomEvents'])->name('customEvents');
+    Route::get('/create', [App\Http\Controllers\ReminderController::class, 'create'])->name('createReminder');
+    Route::get('/events/edit/{id}', [App\Http\Controllers\ReminderController::class, 'editEvents'])->name('editCustomEvents');
     Route::post('/events', [App\Http\Controllers\ReminderController::class, 'postCustomEvents'])->name('postCustomEvents');
     Route::post('/delete-events', [App\Http\Controllers\ReminderController::class, 'deleteCustomEvent'])->name('deleteCustomEvent');
     Route::get('/setting', [App\Http\Controllers\ReminderController::class, 'viewSetting'])->name('settingReminder');
